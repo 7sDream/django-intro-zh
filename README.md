@@ -1,0 +1,56 @@
+# Django-doc Django 官方教程翻译项目
+
+这个项目的目的是将 [Django 官方教程的 intro 部分][django-intro] 翻译成中文版。
+
+起因是在看完 Django Book 之后觉得有点过时，随后看了官方文档，还是觉得官方文档写的比较通俗易懂。为了方便更多想要学习 Django 的人（顺便翻译一遍也能更深入的理解文档），就有了这个项目。
+
+## 官方文档目录
+
+官方文档[在此][django-intro]。
+
+以下是官方文档的目录：
+
+- [Django at a glance][django-intro-glance]
+- [Quick install guide][django-intro-install]
+- [Writing your first Django app, part 1][django-intro-wyfda-1]
+- [Writing your first Django app, part 2][django-intro-wyfda-2]
+- [Writing your first Django app, part 3][django-intro-wyfda-3]
+- [Writing your first Django app, part 4][django-intro-wyfda-4]
+- [Writing your first Django app, part 5][django-intro-wyfda-5]
+- [Writing your first Django app, part 6][django-intro-wyfda-6]
+- [Advanced tutorial: How to write reusable apps][django-intro-reusableapp]
+- [What to read next][django-intro-whatsnext]
+- [Writing your first patch for Django][django-intro-pathch]
+
+## 中文文档目录
+
+中文文档目录请到 ReadTheDocs 查看。
+
+## 翻译进度
+
+```markdown
+Django at a glance                            [----------]   0/100
+Quick install guide                           [----------]   0/100
+Writing your first Django app, part 1         [==========] 100/100
+Writing your first Django app, part 2         [----------]   0/100
+Writing your first Django app, part 3         [----------]   0/100
+Writing your first Django app, part 4         [----------]   0/100
+Writing your first Django app, part 5         [----------]   0/100
+Writing your first Django app, part 6         [----------]   0/100
+Advanced tutorial: How to write reusable apps [----------]   0/100
+What to read next                             [----------]   0/100
+Writing your first patch for Django           [----------]   0/100
+```
+
+[django-intro]: https://docs-djangoproject-com/en/1-8/intro/
+[django-intro-glance]: https://docs-djangoproject-com/en/1-8/intro/overview/
+[django-intro-install]: https://docs-djangoproject-com/en/1-8/intro/install/
+[django-intro-wyfda-1]: https://docs-djangoproject-com/en/1-8/intro/tutorial01/
+[django-intro-wyfda-2]: https://docs-djangoproject-com/en/1-8/intro/tutorial02/
+[django-intro-wyfda-3]: https://docs-djangoproject-com/en/1-8/intro/tutorial03/
+[django-intro-wyfda-4]: https://docs-djangoproject-com/en/1-8/intro/tutorial04/
+[django-intro-wyfda-5]: https://docs-djangoproject-com/en/1-8/intro/tutorial05/
+[django-intro-wyfda-6]: https://docs-djangoproject-com/en/1-8/intro/tutorial06/
+[django-intro-reusableapp]: https://docs-djangoproject-com/en/1-8/intro/reusable-apps/
+[django-intro-whatsnext]: https://docs-djangoproject-com/en/1-8/intro/whatsnext/
+[django-intro-pathch]: https://docs-djangoproject-com/en/1-8/intro/contributing/
