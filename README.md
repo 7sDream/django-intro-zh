@@ -1,4 +1,4 @@
-# Django-doc Django 官方教程翻译项目
+# Django-intro-zh Django 官方教程翻译项目
 
 这个项目的目的是将 [Django 官方教程的 intro 部分][django-intro] 翻译成中文版。
 
