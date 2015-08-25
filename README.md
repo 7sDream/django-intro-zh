@@ -22,9 +22,9 @@
 - [What to read next][django-intro-whatsnext]
 - [Writing your first patch for Django][django-intro-pathch]
 
-## 中文文档目录
+## 中文版文档
 
-中文文档目录请到 ReadTheDocs 查看。
+中文版文档请到 [ReadTheDocs][rtd-url] 查看。
 
 ## 翻译进度
 
@@ -54,3 +54,5 @@ Writing your first patch for Django           [----------]   0/100
 [django-intro-reusableapp]: https://docs-djangoproject-com/en/1-8/intro/reusable-apps/
 [django-intro-whatsnext]: https://docs-djangoproject-com/en/1-8/intro/whatsnext/
 [django-intro-pathch]: https://docs-djangoproject-com/en/1-8/intro/contributing/
+
+[rtd-url]: http://django-intro-zh.readthedocs.org/zh_CN/latest/
