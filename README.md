@@ -42,6 +42,18 @@ What to read next                             [          ]   0/100
 Writing your first patch for Django           [          ]   0/100
 ```
 
+## 我也想一起翻译
+
+欢迎一切有时间有能力的小伙伴一起来翻译。
+
+流程：
+
+1. 到[任务大厅](https://github.com/7sDream/django-intro-zh/issues/1)认领任务。
+2. 任务申请被接受后，Fork 本项目。
+3. 看看正在讨论中的[画风设定集](https://github.com/7sDream/django-intro-zh/issues/2)。
+4. 如果对上述草稿有话想说，请参与讨论。
+5. 可以开始翻译咯。
+
  [django-intro]: https://docs.djangoproject.com/en/1.8/intro/
  [django-intro-glance]: https://docs.djangoproject.com/en/1.8/intro/overview/
  [django-intro-install]: https://docs.djangoproject.com/en/1.8/intro/install/
