@@ -53,6 +53,7 @@ Writing your first patch for Django           [          ]   0/100
 3. 看看正在讨论中的[画风设定集](https://github.com/7sDream/django-intro-zh/issues/2)。
 4. 如果对上述草稿有话想说，请参与讨论。
 5. 可以开始翻译咯。
+6. PR。
 
  [django-intro]: https://docs.djangoproject.com/en/1.8/intro/
  [django-intro-glance]: https://docs.djangoproject.com/en/1.8/intro/overview/
