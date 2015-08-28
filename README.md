@@ -30,7 +30,7 @@
 
 ```markdown
 Django at a glance                            [          ]   0/100
-Quick install guide                           [          ]   0/100
+Quick install guide                           [==========] 100/100
 Writing your first Django app, part 1         [==========] 100/100
 Writing your first Django app, part 2         [          ]   0/100
 Writing your first Django app, part 3         [          ]   0/100
