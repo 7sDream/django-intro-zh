@@ -24,12 +24,12 @@
 
 ## 中文版文档
 
-中文版文档请到 [ReadTheDocs][rtd-url] 查看。
+中文版文档请到 [ReadTheDocs][rtd-url] 查看，目录在左边的 文档 一节中。
 
 ## 翻译进度
 
 ```markdown
-Django at a glance                            [          ]   0/100
+Django at a glance                            [==========]   0/100
 Quick install guide                           [==========] 100/100
 Writing your first Django app, part 1         [==========] 100/100
 Writing your first Django app, part 2         [          ]   0/100
