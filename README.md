@@ -29,7 +29,7 @@
 ## 翻译进度
 
 ```markdown
-Django at a glance                            [==========]   0/100
+Django at a glance                            [==========] 100/100
 Quick install guide                           [==========] 100/100
 Writing your first Django app, part 1         [==========] 100/100
 Writing your first Django app, part 2         [          ]   0/100
