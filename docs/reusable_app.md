@@ -217,7 +217,7 @@ pip uninstall django-polls
 
 - 将这个包通过电子邮件发给朋友。
 - 将包上传到你自己的网站上。
-- 在公共库，如[包索引（PyPI](https://pypi.python.org/pypi)，上发布你的包。[packaging.python.org](https://packaging.python.org/en/latest/)上有[很棒的教程](https://packaging.python.org/en/latest/distributing.html#uploading-your-project-to-pypi)。
+- 在公共库，如[Python 包索引（PyPI）](https://pypi.python.org/pypi)，上发布你的包。[packaging.python.org](https://packaging.python.org/en/latest/)上有[很棒的教程](https://packaging.python.org/en/latest/distributing.html#uploading-your-project-to-pypi)。
 
 ## 用 virtualenv 安装 Python 包
 
