@@ -71,7 +71,7 @@ Python 打包的解决方案目前有点混乱，因为有各种不同的工具�
 
 Python 的 *打包* 是指将你的应用制作成特定的格式，以便能被很方便地安装和使用。Django 本身就是按照这个规定打包的。对于一个小应用，比如我们的投票应用，这个过程不会太困难。
 
-1. 首先，在你的 Django 项目外为 **polls** 目录创建一个父目录， 命名为 **django-polls**。
+1.首先，在你的 Django 项目外为 **polls** 目录创建一个父目录， 命名为 **django-polls**。
 
 > **选择你应用的名字**
 >
@@ -79,9 +79,9 @@ Python 的 *打包* 是指将你的应用制作成特定的格式，以便能被
 >
 > 应用标签（即，以点分隔的模块路径的最后一部分）*必须* 在 **INSTALLED_APPS** 里是独一无二的。避免和 Django [contrib package](https://docs.djangoproject.com/en/1.8/ref/contrib/)使用相同的标签，例如 **auth**，**admin**，或 **message**。
 
-2. 移动 **polls** 目录到 **django-polls**目录下
+2.移动 **polls** 目录到 **django-polls**目录下
 
-3. 创建文件 **django-polls/README.rst**，写入下面的内容。
+3.创建文件 **django-polls/README.rst**，写入下面的内容。
 
 ```rst
 # django-polls/README.rst
@@ -118,9 +118,9 @@ Quick start
 5. Visit http://127.0.0.1:8000/polls/ to participate in the poll.
 ```
 
-4. 创建 **django-polls/LICENSE** 文件。选择许可证超出了本指南的范围，但可以说，没有许可证的公开发布的代码是 *没有用的*。Django 和许多 Django 兼容的应用程序是在 BSD 许可下发布的；然而，你可以自由选择你自己的许可证。只是要注意你的许可选择会影响到谁能使用你的代码。
+4.创建 **django-polls/LICENSE** 文件。选择许可证超出了本指南的范围，但可以说，没有许可证的公开发布的代码是 *没有用的*。Django 和许多 Django 兼容的应用程序是在 BSD 许可下发布的；然而，你可以自由选择你自己的许可证。只是要注意你的许可选择会影响到谁能使用你的代码。
 
-5. 接下来我们将创建一个 **setup.py** 文件，这个文件提供了有关如何创建和安装应用的细节。对此文件的完整的解释已经超出了本文的范围，但 [setuptools docs](http://pythonhosted.org/setuptools/setuptools.html) 文档对它有很棒的解释。创建包含以下内容的 **django-polls/setup.py** 文件：
+5.接下来我们将创建一个 **setup.py** 文件，这个文件提供了有关如何创建和安装应用的细节。对此文件的完整的解释已经超出了本文的范围，但 [setuptools docs](http://pythonhosted.org/setuptools/setuptools.html) 文档对它有很棒的解释。创建包含以下内容的 **django-polls/setup.py** 文件：
 
 ```python
 # django-polls/setup.py
@@ -163,7 +163,7 @@ setup(
 
 ```
 
-6. 生成的打包文件中默认只包含 Python 模块和包。如果想包括额外的文件，我们需要创建一个 **MANIFEST.in** 文件。上一步骤中提到的 setuptools 文档里有更多的细节介绍。为了包含**模板**、我们的 **README.rst** 和 **LICENSE** 文件，请创建包含以下内容的 **django-polls/MANIFEST.in** 文件：
+6.生成的打包文件中默认只包含 Python 模块和包。如果想包括额外的文件，我们需要创建一个 **MANIFEST.in** 文件。上一步骤中提到的 setuptools 文档里有更多的细节介绍。为了包含**模板**、我们的 **README.rst** 和 **LICENSE** 文件，请创建包含以下内容的 **django-polls/MANIFEST.in** 文件：
 
 ```
 # django-polls/MANIFEST.in
@@ -175,7 +175,7 @@ recursive-include polls/templates *
 ```
 
 
-7. 这是可选步骤，但是我们建议完成这个步骤。将应用的详细的文档一起打包进去。为以后的文档创建一个空目录 **django-polls/docs**，在 **django-polls/MANIFEST.in** 里添加一行：
+7.这是可选步骤，但是我们建议完成这个步骤。将应用的详细的文档一起打包进去。为以后的文档创建一个空目录 **django-polls/docs**，在 **django-polls/MANIFEST.in** 里添加一行：
 
 ```
 recursive-include docs *
@@ -183,8 +183,7 @@ recursive-include docs *
 
 注意，如果 **docs** 目录里没有文件，那么它是不会被打包的。很多 Django 应用还通过托管网站，如[readthedocs.org](https://readthedocs.org/)，提供在线文档。
 
-
-8. 尝试通过 **python setup.py sdist** 命令进行打包（在 **django/polls** 目录里运行）。这将创建一个名为 **dist** 的目录，并在其中创建打包文件 **django-polls-0.1.tar.gz**。
+8.尝试通过 **python setup.py sdist** 命令进行打包（在 **django/polls** 目录里运行）。这将创建一个名为 **dist** 的目录，并在其中创建打包文件 **django-polls-0.1.tar.gz**。
 
 关于打包的更多信息，参见 Python 教程：[Tutorial on Packaging and Distributing Projects](https://packaging.python.org/en/latest/distributing.html)。
 
@@ -198,15 +197,15 @@ recursive-include docs *
 >
 > 请注意，单用户安装仍然可能影响到其他用户的系统的工具，所以**virtualenv** 是一个更强大的解决方案（见后文）。
 
-1. 要安装这个包，得用到pip（你已经安装的了吧，对吗？）
+1.要安装这个包，得用到pip（你已经安装的了吧，对吗？）
 
 ```bash
 pip install --user django-polls/dist/django-polls-0.1.tar.gz
 ```
 
-2. 如果幸运的话，你的 Django 项目现在应该可以正常工作了。再次运行服务器以确认。
+2.如果幸运的话，你的 Django 项目现在应该可以正常工作了。再次运行服务器以确认。
 
-3.想卸载这个包，用pip
+3.想卸载这个包，用pip。
 
 ```python
 pip uninstall django-polls
