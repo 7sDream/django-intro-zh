@@ -37,7 +37,7 @@ Writing your first Django app, part 3         [          ]   0/100
 Writing your first Django app, part 4         [          ]   0/100
 Writing your first Django app, part 5         [          ]   0/100
 Writing your first Django app, part 6         [          ]   0/100
-Advanced tutorial: How to write reusable apps [          ]   0/100
+Advanced tutorial: How to write reusable apps [==========]   0/100
 What to read next                             [          ]   0/100
 Writing your first patch for Django           [          ]   0/100
 ```
@@ -50,7 +50,7 @@ Writing your first patch for Django           [          ]   0/100
 
 1. 到[任务大厅](https://github.com/7sDream/django-intro-zh/issues/1)认领任务。
 2. 任务申请被接受后，Fork 本项目。
-3. 看看正在讨论中的[画风设定集](https://github.com/7sDream/django-intro-zh/issues/2)。
+3. **仔细阅读**正在讨论中的[画风设定集](https://github.com/7sDream/django-intro-zh/issues/2)（我改改改改的累死了啊啊啊啊）。
 4. 如果对上述草稿有话想说，请参与讨论。
 5. 可以开始翻译咯。
 6. PR。
