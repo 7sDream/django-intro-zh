@@ -1,11 +1,12 @@
 site_name: Django intro 中文版
-site_url: null
-repo_url: null
+site_author: 7sDream
+site_url: http://django-intro-zh.readthedocs.org
+repo_url: https://github.com/7sDream/django-intro-zh
 repo_name: django-intro-zh
 site_description: Django 官方教程中文版
-site_author: 7sDream
 
 site_dir: html/
+use_directory_urls: false
 
 pages:
 - '介绍': index.md
