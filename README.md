@@ -37,7 +37,7 @@ Writing your first Django app, part 3         [          ]   0/100
 Writing your first Django app, part 4         [          ]   0/100
 Writing your first Django app, part 5         [          ]   0/100
 Writing your first Django app, part 6         [          ]   0/100
-Advanced tutorial: How to write reusable apps [==========]   0/100
+Advanced tutorial: How to write reusable apps [==========] 100/100
 What to read next                             [          ]   0/100
 Writing your first patch for Django           [          ]   0/100
 ```
