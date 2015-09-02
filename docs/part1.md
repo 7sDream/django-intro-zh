@@ -9,7 +9,7 @@
 - 一个让公众查看投票内容并进行投票的公共站点。
 - 一个能让你增加、修改和删除投票的管理界面。
 
-我们假设你已经成功的 [安装 Django](https://docs.djangoproject.com/en/1.8/intro/install/)。如果你不清楚是否已经安装 Django 或不清楚安装的版本，请尝试以下命令：
+我们假设你已经成功的 [安装 Django（zh）](install.md)。如果你不清楚是否已经安装 Django 或不清楚安装的版本，请尝试以下命令：
 
 ```bash
 $ python -c "import django; print(django.get_version())"
@@ -19,7 +19,7 @@ $ python -c "import django; print(django.get_version())"
 
 本教程的目标版本是 Django 1.8 和 Python 3.2 或更高版本。如果 Django 版本不匹配，你可以通过点击页面右下角的切换版本按钮来转到适合你版本的教程，或者你可以选择将 Django 升级到最新的版本。如果你使用的是 Python 2.7，那么需要对教程中的代码作一些微调，如何调整将会写在代码的注释里。
 
-你可以查看文档 [How to install Django](https://docs.djangoproject.com/en/1.8/intro/install/) 来获得关于移除旧版本，安装新版本的流程和建议。
+你可以查看文档 [快速安装指南（zh）](install.md) 来获得关于移除旧版本，安装新版本的流程和建议。
 
 > **哪里可以获得帮助：**
 >
@@ -31,7 +31,7 @@ $ python -c "import django; print(django.get_version())"
 
 打开命令行，**cd** 到一个你想放置你代码的目录，然后运行以下命令：
 
-```
+```bash
 $ django-admin startproject mysite
 ```
 
@@ -49,7 +49,7 @@ $ django-admin startproject mysite
 
 让我们看看 **startproject** 创建了些啥：
 
-```
+```text
 mysite/
     manage.py
     mysite/
@@ -94,7 +94,7 @@ mysite/
 
 通常，**INSTALLED_APPS** 默认包括了以下 Django 的自带应用：
 
-- **django.contrib.admin** - 管理员界面。你将会在 [教程的第二部分][part-2] 使用它。
+- **django.contrib.admin** - 管理员界面。你将会在 [教程的第二部分（zh）][part2.md] 使用它。
 - **django.contrib.auth** - 验证系统。
 - **django.contrib.contenttypes** - 内容类型框架。
 - **django.contrib.sessions** - 会话框架。
@@ -125,7 +125,7 @@ $ python manage.py runserver
 
 你应该会看到如下输出：
 
-```
+```text
 Performing system checks...
 
 0 errors found
@@ -183,7 +183,7 @@ $ python manage.py startapp polls
 
 这将会创建一个 **polls** 目录，它的目录结构大致如下：
 
-```
+```text
 polls/
     __init__.py
     admin.py
@@ -208,7 +208,7 @@ polls/
 
 这些概念可以通过一个简单的 Python 类来描述。按照下面的例子来编辑 **polls/models.py** 文件：
 
-```python
+```python3
 # polls/models.py
 
 from django.db import models
@@ -254,7 +254,7 @@ class Choice(models.Model):
 
 再次编辑 **mysite/settings.py**，改变 **INSTALLED_APPS** 设置，使其包含字符串 **polls**。它现在看起来应该像这样：
 
-```python
+```python3
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -274,7 +274,7 @@ $ python manage.py makemigrations polls
 
 你将会看到类似于下面这样的输出：
 
-```
+```text
 Migrations for 'polls':
   0001_initial.py:
     - Create model Question
@@ -294,7 +294,7 @@ $ python manage.py sqlmigrate 0001
 
 你将会看到类似下面这样的输出（我把输出重组成了人类可读的格式）：
 
-```
+```text
 BEGIN;
 CREATE TABLE "polls_choice" (
     "id" serial NOT NULL PRIMARY KEY,
@@ -332,7 +332,7 @@ COMMIT;
 
 现在，再次运行 **migrate** 命令，在数据库里创建新定义的模型的数据表：
 
-```bash
+```text
 $ python manage.py migrate
 Operations to perform:
   Synchronize unmigrated apps: staticfiles, messages
@@ -372,7 +372,7 @@ $ python manage.py shell
 >
 > 如果你不想使用 **manage.py** ，没问题，你只要手动将 **DJANGO_SETTINGS_MODULE** 环境变量设置为 **mysite.settings** 就行。打开一个普通的 Python 命令行，然后输入以下命令来配置 Django：
 >
-```
+```pycon
 >>> import django
 >>> django.setup()
 ```
@@ -385,7 +385,7 @@ $ python manage.py shell
 
 当你成功进入命令行后，来试试 [数据库 API](https://docs.djangoproject.com/en/1.8/topics/db/queries/) 吧：
 
-```
+```pycon
 >>> from polls.models import Question, Choice   # 导入刚刚创建的模型类
 
 # 现在没有 Question 对象
@@ -427,7 +427,7 @@ datetime.datetime(2012, 2, 26, 13, 0, 0, 775217, tzinfo=<UTC>)
 
 等等。用 \<Question: Question object\> 表示这个对象没什么意思，它无法告诉我们这个对象的详细信息。让我们通过编辑 **Question** 模型的代码（**polls/models.py** 文件），给 **Question** 和 **Choice** 增加 **\_\_str\_\_()** 方法来改善这个问题：
 
-```python
+```python3
 # polls/models.py
 
 from django.db import models
@@ -455,7 +455,7 @@ class Choice(models.Model):
 
 我们还可以向模型里添加普通的 Python 方法，让我们加一个试试看：
 
-```python
+```python3
 # polls/models.py
 
 import datetime
@@ -474,7 +474,7 @@ class Question(models.Model):
 
 保存文件然后通过 `python manage.py shell` 命令再次打开 Python 交互式命令行：
 
-```
+```pycon
 >>> from polls.models import Question, Choice
 
 # 确认 __str__() 正常工作了。
@@ -554,8 +554,6 @@ True
 >>> c.delete()
 ```
 
-阅读 [Accessing related objects](https) 文档可以获取关于数据库关系的更多内容。想知道关于双下划线的更多用法，参见 [Field Lookup](https://docs.djangoproject.com/en/1.8/topics/db/queries/#field-lookups-intro) 文档。数据库 API 的所有细节可以在 [Database API reference](https://docs.djangoproject.com/en/1.8/topics/db/queries/) 文档中找到。
+阅读 [Accessing related objects](https://docs.djangoproject.com/en/1.8/ref/models/relations/) 文档可以获取关于数据库关系的更多内容。想知道关于双下划线的更多用法，参见 [Field Lookup](https://docs.djangoproject.com/en/1.8/topics/db/queries/#field-lookups-intro) 文档。数据库 API 的所有细节可以在 [Database API reference](https://docs.djangoproject.com/en/1.8/topics/db/queries/) 文档中找到。
 
-当你熟悉了数据库 API 之后，你就可以开始阅读 [第二部分][part-2] 了，下一部分我们将会学习 Django 自动生成的 admin 管理界面。
-
-[part-2]: https://docs.djangoproject.com/en/1.8/intro/tutorial02/
+当你熟悉了数据库 API 之后，你就可以开始阅读 [第二部分（zh）][part2.md] 了，下一部分我们将会学习 Django 自动生成的 admin 管理界面。

@@ -18,27 +18,39 @@
 - [Writing your first Django app, part 4][django-intro-wyfda-4]
 - [Writing your first Django app, part 5][django-intro-wyfda-5]
 - [Writing your first Django app, part 6][django-intro-wyfda-6]
-- [Advanced tutorial: How to write reusable apps][django-intro-reusableapp]
 - [What to read next][django-intro-whatsnext]
+- [Advanced tutorial: How to write reusable apps][django-intro-reusableapp]
 - [Writing your first patch for Django][django-intro-pathch]
 
 ## 中文版文档
 
-中文版文档请到 [ReadTheDocs][rtd-url] 查看，目录在左边的 文档 一节中。
+中文版文档请到 [ReadTheDocs][rtd-url] 查看，下方目录在 RTD 点击才有效。
+
+- [初识 Django](glance.md)
+- [快速安装指南](install.md)
+- [创建你的第一个 Django 项目， 第一部分](part1.md)
+- [创建你的第一个 Django 项目， 第二部分](part2.md)
+- [创建你的第一个 Django 项目， 第三部分](part3.md)
+- [创建你的第一个 Django 项目， 第四部分](part4.md)
+- [创建你的第一个 Django 项目， 第五部分](part5.md)
+- [创建你的第一个 Django 项目， 第六部分](part6.md)
+- [接下来如何学习？](whats_next.md)
+- [高级内容：编写可重用的应用](reusable_app.md)
+- [编写你的第一个 Django 补丁](pathch.md)
 
 ## 翻译进度
 
-```markdown
+```text
 Django at a glance                            [==========] 100/100
 Quick install guide                           [==========] 100/100
 Writing your first Django app, part 1         [==========] 100/100
-Writing your first Django app, part 2         [          ]   0/100
+Writing your first Django app, part 2         [==========] 100/100
 Writing your first Django app, part 3         [          ]   0/100
 Writing your first Django app, part 4         [          ]   0/100
 Writing your first Django app, part 5         [          ]   0/100
 Writing your first Django app, part 6         [          ]   0/100
-Advanced tutorial: How to write reusable apps [==========] 100/100
 What to read next                             [          ]   0/100
+Advanced tutorial: How to write reusable apps [==========] 100/100
 Writing your first patch for Django           [          ]   0/100
 ```
 
@@ -50,7 +62,7 @@ Writing your first patch for Django           [          ]   0/100
 
 1. 到[任务大厅](https://github.com/7sDream/django-intro-zh/issues/1)认领任务。
 2. 任务申请被接受后，Fork 本项目。
-3. **仔细阅读**正在讨论中的[画风设定集](https://github.com/7sDream/django-intro-zh/issues/2)（我改改改改的累死了啊啊啊啊）。
+3. **仔细阅读** 正在讨论中的[画风设定集](https://github.com/7sDream/django-intro-zh/issues/2)（我改改改改的累死了啊啊啊啊）。
 4. 如果对上述草稿有话想说，请参与讨论。
 5. 可以开始翻译咯。
 6. PR。
@@ -64,8 +76,8 @@ Writing your first patch for Django           [          ]   0/100
  [django-intro-wyfda-4]: https://docs.djangoproject.com/en/1.8/intro/tutorial04/
  [django-intro-wyfda-5]: https://docs.djangoproject.com/en/1.8/intro/tutorial05/
  [django-intro-wyfda-6]: https://docs.djangoproject.com/en/1.8/intro/tutorial06/
- [django-intro-reusableapp]: https://docs.djangoproject.com/en/1.8/intro/reusable-apps/
  [django-intro-whatsnext]: https://docs.djangoproject.com/en/1.8/intro/whatsnext/
+ [django-intro-reusableapp]: https://docs.djangoproject.com/en/1.8/intro/reusable-apps/
  [django-intro-pathch]: https://docs.djangoproject.com/en/1.8/intro/contributing/
 
 [rtd-url]: http://django-intro-zh.readthedocs.org/zh_CN/latest/

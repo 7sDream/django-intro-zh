@@ -6,7 +6,7 @@ repo_name: django-intro-zh
 site_description: Django 官方教程中文版
 
 site_dir: html/
-use_directory_urls: false
+use_directory_urls: true
 
 pages:
 - '介绍': index.md

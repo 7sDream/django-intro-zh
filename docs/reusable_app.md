@@ -1,6 +1,6 @@
 # 高级内容：编写可重用的应用
 
-这篇高级内容的介绍从[实例教程第六部分][part-6]结束的地方开始讲起。我们将把之前写网络调查应用转化为一个可在新项目中重复使用，并与其他人分享的独立 Python 包。
+这篇高级内容的介绍从[实例教程第六部分（en）](part6.md)结束的地方开始讲起。我们将把之前写网络调查应用转化为一个可在新项目中重复使用，并与其他人分享的独立 Python 包。
 
 如果您还没有完成教程1-6，我们鼓励你把它们完成一遍，以便使你的项目和下面的教程相匹配。
 
@@ -10,7 +10,7 @@
 
 可重用性深入 Python 的设计理念中。[Python 包索引（PyPI）](https://pypi.python.org/pypi)里有大量可以在你自己的程序中使用的包。查看[用于 Django 的包](https://www.djangopackages.com/)这个分类，里面包含着现有的可重用应用程序，你可以在自己的项目里使用它们。Django 本身也只是一个 Python 包。这意味着，你可以充分利用现有的 Python 包或者 Django 应用程序来帮助完成自己的 Web 项目。你只需要编写一些特殊的部分即可。
 
-假设，你的新项目需要一个类似我们之前写过的那样的投票应用。如何使这个应用可重用呢？幸运的是，你已经在正确的路上了。在[实例教程第三部分][part-3]中，我们了解了如何从通过在项目级别的 URL 配置文件中使用 **include** 来使投票应用和主项目分离。在本教程中，我们将采取进一步的措施，使应用能很容易在新项目中使用，并发布给别人安装和使用。
+假设，你的新项目需要一个类似我们之前写过的那样的投票应用。如何使这个应用可重用呢？幸运的是，你已经在正确的路上了。在[实例教程第三部分（en）](part3.md)中，我们了解了如何从通过在项目级别的 URL 配置文件中使用 **include** 来使投票应用和主项目分离。在本教程中，我们将采取进一步的措施，使应用能很容易在新项目中使用，并发布给别人安装和使用。
 
 > **包？应用？**
 >
@@ -18,15 +18,15 @@
 >
 > 包可以通过 **import foo.bar** 或 **from foo import bar** 的方式被导入。对于由一个目录（如 **polls**）组织起来的包，目录里必须有一个特殊的文件 **__init__.py**，即使这个文件是空的。
 >
-> Django 应用也只是一个 Python 包，不过是专门用于 Django 项目的。应用一般遵循常见的 Django 的公约，例如会包含 **models（模型）**，**tests（测试）**，*urls（网址）* 和 **views（视图）** 等子模块。
+> Django 应用也只是一个 Python 包，不过是专门用于 Django 项目的。应用一般遵循常见的 Django 的公约，例如会包含 **models（模型）**，**tests（测试）**，**urls（网址）** 和 **views（视图）** 等子模块。
 >
-> 之后我们使用术语 **打包** 来描述”制作一个能被其他人使用的 Python 包“的过程。这可能会有点令人迷糊。（译注：原文中这句的意思是后文将会把 package 同时作为动词和名词，可能造成阅读困难，但翻译成中文后并不会，因为我们有**打包**这个词 ^_^。）
+> 之后我们使用术语 **打包** 来描述”制作一个能被其他人使用的 Python 包“的过程。这可能会有点令人迷糊。（译注：原文中这句的意思是后文将会把 package 同时作为动词和名词，可能造成阅读困难，但翻译成中文后并不会，因为我们有**打包**这个词 ^\_^。）
 
 ## 你的项目和你可重用的应用
 
 在跟着做完前面的教程后，我们的项目应该是这样的：
 
-```
+```text
 mysite/
     manage.py
     mysite/
@@ -59,7 +59,7 @@ mysite/
             base_site.html
 ```
 
-你在[实例教程第二部分][part-2]中创建了 **mysite/template**，在[实例教程第三部分][part-3]中创建了 **polls/templates**。现在你也许能更清楚的了解为什么我们选择了将项目和应用的模板目录分开：所有投票应用所用到的东西都在应用里。这使应用完全包含自身，更容易被新的项目所使用。
+你在[实例教程第二部分（zh）](part2.md)中创建了 **mysite/template**，在[实例教程第三部分（en）](part3.md)中创建了 **polls/templates**。现在你也许能更清楚的了解为什么我们选择了将项目和应用的模板目录分开：所有投票应用所用到的东西都在应用里。这使应用完全包含自身，更容易被新的项目所使用。
 
 **polls** 目录现在可以被复制到一个新的 Django 项目，并可以立即被重用。但是对发布来说，还有一些地方需要准备。我们需要打包的应用程序，以方便他人进行安装。
 
@@ -122,7 +122,7 @@ Quick start
 
 5.接下来我们将创建一个 **setup.py** 文件，这个文件提供了有关如何创建和安装应用的细节。对此文件的完整的解释已经超出了本文的范围，但 [setuptools docs](http://pythonhosted.org/setuptools/setuptools.html) 文档对它有很棒的解释。创建包含以下内容的 **django-polls/setup.py** 文件：
 
-```python
+```python3
 # django-polls/setup.py
 
 import os
@@ -131,7 +131,7 @@ from setuptools import setup
 with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
     README = readme.read()
 
-# allow setup.py to be run from any path
+# 使 setup.py 能在任何地方运行
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
@@ -139,7 +139,7 @@ setup(
     version='0.1',
     packages=['polls'],
     include_package_data=True,
-    license='BSD License',  # example license
+    license='BSD License',  # 示例许可证
     description='A simple Django app to conduct Web-based polls.',
     long_description=README,
     url='http://www.example.com/',
@@ -149,10 +149,10 @@ setup(
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License', # example license
+        'License :: OSI Approved :: BSD License', # 示例许可证
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        # Replace these appropriately if you are stuck on Python 2.
+        # 如果你在用 Python 2 的话，请用合适的内容替换
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.2',
         'Programming Language :: Python :: 3.3',
@@ -165,7 +165,7 @@ setup(
 
 6.生成的打包文件中默认只包含 Python 模块和包。如果想包括额外的文件，我们需要创建一个 **MANIFEST.in** 文件。上一步骤中提到的 setuptools 文档里有更多的细节介绍。为了包含**模板**、我们的 **README.rst** 和 **LICENSE** 文件，请创建包含以下内容的 **django-polls/MANIFEST.in** 文件：
 
-```
+```text
 # django-polls/MANIFEST.in
 
 include LICENSE
@@ -177,7 +177,7 @@ recursive-include polls/templates *
 
 7.这是可选步骤，但是我们建议完成这个步骤。将应用的详细的文档一起打包进去。为以后的文档创建一个空目录 **django-polls/docs**，在 **django-polls/MANIFEST.in** 里添加一行：
 
-```
+```text
 recursive-include docs *
 ```
 
@@ -187,7 +187,7 @@ recursive-include docs *
 
 关于打包的更多信息，参见 Python 教程：[Tutorial on Packaging and Distributing Projects](https://packaging.python.org/en/latest/distributing.html)。
 
-## 使用你自己的包
+## 使用你的包
 
 自从我们把 **polls** 目录从项目中移走了，它就不再工作了。我们现在通过安装新的 **django/polls** 包解决这个问题。
 
@@ -207,7 +207,7 @@ pip install --user django-polls/dist/django-polls-0.1.tar.gz
 
 3.想卸载这个包，用pip。
 
-```python
+```bash
 pip uninstall django-polls
 ```
 
@@ -226,7 +226,3 @@ pip uninstall django-polls
 - 你将无法同时使用这个包的多个版本（或相同名字的其他包）。
 
 通常，这些情况仅出现在你同时管理 多个 Django 项目时。当出现这种情况时，最好的办法是使用 [virtualenv](http://www.virtualenv.org/)。这个工具允许你维护多个分离的 Python 环境，每一个复制了一份自己专用的库和包命名空间（package namespace）。
-
-[part-2]: https://docs.djangoproject.com/en/1.8/intro/tutorial02/
-[part-3]: https://docs.djangoproject.com/en/1.8/intro/tutorial03/
-[part-6]: https://docs.djangoproject.com/en/1.8/intro/tutorial06/

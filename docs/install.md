@@ -14,7 +14,7 @@
 
 你可以在终端下输入命令 **python** 来验证是否已经安装 Python；你应该看到下面的信息：
 
-```bash
+```pycon
 Python 3.3.3 (default, Nov 26 2013, 13:33:18)
 [GCC 4.8.2] on linux
 Type "help", "copyright", "credits" or "license" for more information.
@@ -45,7 +45,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 如果想验证是否成功安装了 Django，可以在终端输入 **python**。然后在 Python 提示符下，尝试导入 Django：
 
-```python
+```pycon
 >>> import django
 >>> print(django.get_version())
 1.8
@@ -55,4 +55,4 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 ## 安装完成
 
-安装完成！ - 现在你可以[开始通过实例学习](http://django-intro-zh.readthedocs.org/zh_CN/latest/part1/)了。
+安装完成！ - 现在你可以[开始通过实例学习（zh）](part1.md)了。

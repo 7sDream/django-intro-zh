@@ -2,7 +2,7 @@
 
 Django 最初被设计用于具有快速开发需求的新闻类站点，目的是要实现简单快捷的网站开发。以下内容简要介绍了如何使用 Django 实现一个数据库驱动的 Web 应用。
 
-为了让您充分理解 Django 的工作原理，这份文档为您详细描述了相关的技术细节，不过这并不是一份入门教程或者是参考文档（我们当然也为您准备了这些）。如果您想要马上开始一个项目，可以从[实例教程][part-1]开始入手，或者直接开始阅读详细的[参考文档](https://docs.djangoproject.com/en/1.8/topics/)。
+为了让您充分理解 Django 的工作原理，这份文档为您详细描述了相关的技术细节，不过这并不是一份入门教程或者是参考文档（我们当然也为您准备了这些）。如果您想要马上开始一个项目，可以从[实例教程（zh）](part1.md)开始入手，或者直接开始阅读详细的[参考文档](https://docs.djangoproject.com/en/1.8/topics/)。
 
 ## 设计模型
 
@@ -10,7 +10,7 @@ Django 无需数据库就可以使用，它提供了[对象关系映射器](http
 
 你可以使用强大的[数据-模型语句](https://docs.djangoproject.com/en/1.8/topics/db/models/)来描述你的数据模型，这解决了数年以来在数据库模式中的难题。以下是一个简明的例子：
 
-```python
+```python3
 # mysite/news/models.py
 
 from django.db import models
@@ -45,7 +45,7 @@ $ python manage.py migrate
 
 接下来，你就可以使用一套便捷而丰富的 [Python API](https://docs.djangoproject.com/en/1.8/topics/db/queries/) 用于访问你的数据。这些 API 是即时创建的，而不用显式的生成代码。
 
-```python
+```pycon
 # 从我们的 news 应用里导入模型（译注：记者和文章模型）。
 >>> from news.models import Reporter, Article
 
@@ -119,7 +119,7 @@ DoesNotExist: Reporter matching query does not exist.
 
 当你的模型完成定义，Django 就会自动生成一个专业的生产级[管理接口](https://docs.djangoproject.com/en/1.8/ref/contrib/admin/) - 一个可以认证用户添加、更改和删除对象的 Web 站点。你只需简单的在 admin 站点上注册你的模型即可。
 
-```	python
+```	python3
 # mysite/news/models.py
 
 from django.db import models
@@ -131,7 +131,7 @@ class Article(models.Model):
     reporter = models.ForeignKey(Reporter)
 ```
 
-```python
+```python3
 # mysite/news/admin.py
 
 from django.contrib import admin
@@ -145,7 +145,7 @@ admin.site.register(models.Article)
 
 创建 Django 应用的典型流程是，先建立数据模型，然后搭建管理站点，之后你的员工（或者客户）就可以向网站里填充数据了。后面我们会谈到如何展示这些数据。
 
-## 规划URL
+## 规划 URL
 
 简洁优雅的 URL 规划对于一个高质量 Web 应用来说至关重要。Django 推崇优美的 URL 设计，所以不要把诸如 **.php** 和 **.asp** 之类的冗余的后缀放到 URL 里。
 
@@ -153,7 +153,7 @@ admin.site.register(models.Article)
 
 下面这个 URLconf 适用于前面 **Reporter/Article** 的例子：
 
-```python
+```python3
 # mysite/news/urls.py
 
 from django.conf.urls import url
@@ -177,9 +177,9 @@ urlpatterns = [
 
 视图函数的执行结果只可能有两种：返回一个包含请求页面元素的 [**HttpResponse**](https://docs.djangoproject.com/en/1.8/ref/request-response/#django.http.HttpResponse) 对象，或者是抛出 [**Http404**](https://docs.djangoproject.com/en/1.8/topics/http/views/#django.http.Http404) 这类异常。至于执行过程中的其他的动作则由你决定。
 
-通常来说，一个视图的工作就是：从参数获取数据，装载一个模板，然后将根据获取的数据对模板进行渲染。下面是一个 **year_archive** 的视图样例： 
+通常来说，一个视图的工作就是：从参数获取数据，装载一个模板，然后将根据获取的数据对模板进行渲染。下面是一个 **year_archive** 的视图样例：
 
-```python
+```python3
 # mysite/news/views.py
 
 from django.shortcuts import render
@@ -202,7 +202,7 @@ Django 允许设置搜索模板路径，这样可以最小化模板之间的冗�
 
 **news/year_archive.html** 模板可能是这样的：
 
-```
+```html+django
 {% extends "base.html" %}
 
 {% block title %}Articles for {{ year }}{% endblock %}
@@ -228,7 +228,7 @@ Django 使用了“模板继承”的概念。这就是 **{% extends "base.html"
 
 下面是 **base.html** 可能的样子，它使用了[静态文件](https://docs.djangoproject.com/en/1.8/howto/static-files/)：
 
-```python
+```html+django
 # mysite/templates/base.html
 
 {% load staticfiles %}
@@ -253,10 +253,8 @@ Django 使用了“模板继承”的概念。这就是 **{% extends "base.html"
 
 以上只是 Django 的功能性概述。Django 还有更多实用的特性：
 
- - [缓存框架](https://docs.djangoproject.com/en/1.8/topics/cache/)可以与 memcached 或其他后端集成。 
+ - [缓存框架](https://docs.djangoproject.com/en/1.8/topics/cache/)可以与 memcached 或其他后端集成。
  - [聚合器框架](https://docs.djangoproject.com/en/1.8/ref/contrib/syndication/)可以通过简单编写一个 Python 类来推送 RRS 和 Atom。
- - 更多令人心动的自动化管理功能：概述里面仅仅浅尝辄止。 
+ - 更多令人心动的自动化管理功能：概述里面仅仅浅尝辄止。
 
-接下来您可以[下载 Django](https://www.djangoproject.com/download/)，阅读[实例教程][part-1]，然后加入[我们的社区](https://www.djangoproject.com/community/)！感谢您的关注！
-
-[part-1]: http://django-intro-zh.readthedocs.org/zh_CN/latest/part1/
+接下来您可以[下载 Django](https://www.djangoproject.com/download/)，阅读[实例教程（zh）][part1.md]，然后加入[我们的社区](https://www.djangoproject.com/community/)！感谢您的关注！
