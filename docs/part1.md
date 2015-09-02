@@ -94,7 +94,7 @@ mysite/
 
 通常，**INSTALLED_APPS** 默认包括了以下 Django 的自带应用：
 
-- **django.contrib.admin** - 管理员界面。你将会在 [教程的第二部分（zh）][part2.md] 使用它。
+- **django.contrib.admin** - 管理员界面。你将会在 [教程的第二部分（zh）](part2.md) 使用它。
 - **django.contrib.auth** - 验证系统。
 - **django.contrib.contenttypes** - 内容类型框架。
 - **django.contrib.sessions** - 会话框架。
@@ -556,4 +556,4 @@ True
 
 阅读 [Accessing related objects](https://docs.djangoproject.com/en/1.8/ref/models/relations/) 文档可以获取关于数据库关系的更多内容。想知道关于双下划线的更多用法，参见 [Field Lookup](https://docs.djangoproject.com/en/1.8/topics/db/queries/#field-lookups-intro) 文档。数据库 API 的所有细节可以在 [Database API reference](https://docs.djangoproject.com/en/1.8/topics/db/queries/) 文档中找到。
 
-当你熟悉了数据库 API 之后，你就可以开始阅读 [第二部分（zh）][part2.md] 了，下一部分我们将会学习 Django 自动生成的 admin 管理界面。
+当你熟悉了数据库 API 之后，你就可以开始阅读 [第二部分（zh）](part2.md) 了，下一部分我们将会学习 Django 自动生成的 admin 管理界面。
