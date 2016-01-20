@@ -36,7 +36,7 @@
 - [创建你的第一个 Django 项目， 第六部分](part6.md)
 - [接下来如何学习？](whats_next.md)
 - [高级内容：编写可重用的应用](reusable_app.md)
-- [编写你的第一个 Django 补丁](pathch.md)
+- [编写你的第一个 Django 补丁](patch.md)
 
 ## 翻译进度
 
@@ -45,7 +45,7 @@ Django at a glance                            [==========] 100/100
 Quick install guide                           [==========] 100/100
 Writing your first Django app, part 1         [==========] 100/100
 Writing your first Django app, part 2         [==========] 100/100
-Writing your first Django app, part 3         [====>     ]  50/100
+Writing your first Django app, part 3         [==========] 100/100
 Writing your first Django app, part 4         [          ]   0/100
 Writing your first Django app, part 5         [          ]   0/100
 Writing your first Django app, part 6         [          ]   0/100
