@@ -187,3 +187,85 @@ url(r'^polls/latest\.html$', views.index),
 ```
 
 但是，别这样做，这太傻了。
+
+## 写一个真正有用的视图
+
+每个视图必须要做的只有两件事：返回一个包含被请求页面内容的 **[HttpResponse](https://docs.djangoproject.com/en/1.8/ref/request-response/#django.http.HttpResponse)** 对象，或者抛出一个异常，比如 [Http404](https://docs.djangoproject.com/en/1.8/topics/http/views/#django.http.Http404)。至于你还想干些什么，都随你。
+
+你的视图可以从数据库里读取记录，可以使用一个模板引擎（比如 Django 自带的，或者其他第三方的），可以生成一个 PDF 文件，可以输出一个 XML，创建一个 ZIP 文件，你可以做任何你想做的事，使用任何你想用的 Python 库。
+
+Django 只是需要一个 **[HttpResponse](https://docs.djangoproject.com/en/1.8/ref/request-response/#django.http.HttpResponse)**，或者一个异常。
+
+因为 Django 自带的数据库 API 很方便（我们在[在第一部分(zh)](part1.md)里介绍过），所以我们试试在视图里使用它。我们在 **index()** 函数里插入了一些新内容，让它能展示数据库里以发布日期排序的最近五个投票问题，以空格分割：
+
+```python
+# polls/views.py
+
+from django.http import HttpResponse
+
+from .models import Question
+
+
+def index(request):
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    output = ', '.join([p.question_text for p in latest_question_list])
+    return HttpResponse(output)
+
+# Leave the rest of the views (detail, results, vote) unchanged
+```
+
+这里有个问题：页面的设计是硬编码在视图函数的代码里的。如果你想改变页面的样子，你需要编辑 Python 代码。所以让我们使用 Django 的模板系统，只要创建一个视图，就可以将页面的设计从代码中分离出来。
+
+首先，在你的 **polls** 目录里创建一个 **template** 目录。Django 将会在这个目录里查找模板文件。
+
+你项目的 **[TEMPLATES](https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-TEMPLATES)** 配置项描述了 Django 如何载入和渲染模板。默认的设置文件设置了 **DjangoTemplates** 后端，并将 **[APP_DIRS](https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-TEMPLATES-APP_DIRS)** 设置成了 True。这一选项将会让 **DjangoTemplates** 在每个 **[INSTALLED_APPS](https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-INSTALLED_APPS)** 文件夹中寻找“templates”子目录。这就是为什么尽管我们没有像在[第二部分(zh)](part2.md)中那样修改 **[DIRS](https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-TEMPLATES-DIRS)** 设置，Django 也能正确找到 polls 的模板位置的原因。
+
+> 组织模板
+>
+> 我们*可以*把所有的模板都放在一个大的模板目录里，并且它也将完美运行。然而，有些模板是专属于 polls 应用的，所以，不像我们在之前的教程中创建的管理界面模板。我们将这些模板放在应用的模板文件夹（**polls/templates**）中，而不放在项目的模板文件夹（**templates**)中。我们将在教程的[可重用的应用(zh)](reusable_app.md)这一节中详细讨论为什么要这样做。
+
+在你刚刚创建的 **template** 目录里，再创建一个目录 **polls**，然后在其中新建一个文件 **index.html**。换句话说，你的模板文件的路径应该是 **polls/templates/polls/index.html**。因为 Django 会寻找到对应的 **app_directiories**，所以你只需要使用 **polls/index.html** 就可以引用到这一模板了。
+
+> 模板命名空间
+>
+> 虽然我们现在可以将模板文件直接放在 **polls/templates** 文件夹中（而不是再建立一个 **polls** 子文件夹），但是这样做不太好。Django 将会选择第一个匹配的模板文件，如果你有一个模板文件正好和另一个应用中的某个模板文件重名，Django 没有办法区分它们。我们需要帮助 Django 选择正确的模板，最简单的方法就是把他们放入各自的命名空间中，也就是把这些模板放入一个和自身应用重名的子文件夹里。
+
+将下面的代码输入到刚刚创建的模板文件中：
+
+```html
+<!-- polls/templates/polls/index.html -->
+
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+        <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+```
+
+然后，让我们更新一下 **polls/views.py** 里的 **index** 视图：
+
+```python
+# polls/views.py
+
+from django.http import HttpResponse
+from django.template import loader
+
+from .models import Question
+
+
+def index(request):
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    template = loader.get_template('polls/index.html')
+    context = {
+        'latest_question_list': latest_question_list,
+    }
+    return HttpResponse(template.render(context, request))
+```
+
+上述代码的作用是，载入 **polls/index.html** 模板文件，并且向它传递一个上下文环境（context）。这个上下文是一个字典，它将模板内的变量映射为 Python 对象。
+
+用你的浏览器访问“/polls/”，你将会看见一个无序列表，列出了我们在教程以中添加的 “What's up” 投票问题，它链接到这个投票的详情页。

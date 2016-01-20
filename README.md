@@ -45,7 +45,7 @@ Django at a glance                            [==========] 100/100
 Quick install guide                           [==========] 100/100
 Writing your first Django app, part 1         [==========] 100/100
 Writing your first Django app, part 2         [==========] 100/100
-Writing your first Django app, part 3         [          ]   0/100
+Writing your first Django app, part 3         [====>     ]  50/100
 Writing your first Django app, part 4         [          ]   0/100
 Writing your first Django app, part 5         [          ]   0/100
 Writing your first Django app, part 6         [          ]   0/100
