@@ -24,7 +24,7 @@
 
 ## 中文版文档
 
-中文版文档请到 [ReadTheDocs][rtd-url] 查看，下方目录在 RTD 点击才有效。
+中文版文档请到 [ReadTheDocs][rtd-url] 或者 [github page][gh-url] 查看，下方目录在上述两个地方点击才有效。
 
 - [初识 Django](glance.md)
 - [快速安装指南](install.md)
@@ -81,3 +81,4 @@ Writing your first patch for Django           [          ]   0/100
  [django-intro-pathch]: https://docs.djangoproject.com/en/1.8/intro/contributing/
 
 [rtd-url]: http://django-intro-zh.readthedocs.org/zh_CN/latest/
+[gh-url]: http://7sdream.github.io/django-intro-zh/
