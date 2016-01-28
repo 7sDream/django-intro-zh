@@ -14,7 +14,7 @@
 
 测试，是用来检查代码正确性的一些简单的程序。
 
-测试在不同的层次中都存在。有些测试只关注某个很小的细节（某个模型的某个方法的返回值是否满足预期？），而另一些测试可能检查对莫个软件的一系列操作（某一用户输入序列是否造成了预期的结果？）。其实这和我们在教程的[第一部分(zh)](part1.md)里做的并没有什么不同，我们使用 [shell](https://docs.djangoproject.com/en/1.8/ref/django-admin/#django-admin-shell) 来测试某一方法的功能，或者运行某个应用并输入数据来检查它的行为。
+测试在不同的层次中都存在。有些测试只关注某个很小的细节（某个模型的某个方法的返回值是否满足预期？），而另一些测试可能检查对莫个软件的一系列操作（某一用户输入序列是否造成了预期的结果？）。其实这和我们在教程的[第一部分(zh)](part1.md)里做的并没有什么不同，我们使用 **[shell][shell]** 来测试某一方法的功能，或者运行某个应用并输入数据来检查它的行为。
 
 真正不同的地方在于，自动化测试是由某个系统帮你自动完成的。当你创建好了一系列测试，每次修改应用代码后，就可以自动检查出修改后的代码是否还像你曾经预期的那样正常工作。你不需要话费大量时间来进行手动测试。
 
@@ -65,3 +65,158 @@
 有时候很难决定从测试该哪里开始下手。如果你已经写了几千行 Python 代码了，选择从哪里开始写测试确实不怎么简单。如果是这种情况，那么在你下次修改代码（比如加新功能，或者修复 Bug）之前写个测试是比较合理且有效的。
 
 所以，我们现在就开始写吧。
+
+## 第一个测试
+
+### 首先得有个 Bug
+
+幸运的是，我们的投票应用现在就有一个小 Bug 需要被修复：我们的要求是如果 **Question** 是在一天之内发布的，**Question.was_published_recently()** 方法将会返回 **True**，然而现在这个方法在 **Question** 的 **pub_date** 字段比当前时间还晚时也会返回 **True**（这是个 Bug）。
+
+你能从管理页面确认这个 Bug。创建一个发布日期是将来的投票，在投票列表里你会看到它被标明为最近发布（published recently）。
+
+也可以从 **[shell][shell]** 里确认 Bug：
+
+```pycon
+>>> import datetime
+>>> from django.utils import timezone
+>>> from polls.models import Question
+>>> # 创建一个 30 天后发布的投票
+>>> future_question = Question(pub_date=timezone.now() + datetime.timedelta(days=30))
+>>> # 检查它是否是最近发布的
+>>> future_question.was_published_recently()
+True
+```
+
+因为将来发生的是肯定不是最近发生的，所以代码明显是错误的。
+
+### 写个测试来发现 Bug
+
+我们刚刚在 **[shell][shell]** 里做的测试也就是自动化测试应该做的工作。所以我们来把它改写成自动化的吧。
+
+按照惯例，Django 应用的测试因该卸载应用的 **test.py** 文件里。测试系统会自动的在所有以 **test** 开头的文件里寻找并执行测试代码。
+
+在 **poll** 应用的 **test.py** 文件里输入以下代码：
+
+```python
+# polls/test.py
+
+import datetime
+
+from django.utils import timezone
+from django.test import TestCase
+
+from .models import Question
+
+
+class QuestionMethodTests(TestCase):
+
+    def test_was_published_recently_with_future_question(self):
+        """
+        was_published_recently() 应该对 pub_date 字段值是将来的那些问题返回 False。
+        """
+        time = timezone.now() + datetime.timedelta(days=30)
+        future_question = Question(pub_date=time)
+        self.assertEqual(future_question.was_published_recently(), False)
+```
+
+我们创建了一个 **[django.test.TestCase][TestCase]** 的子类，并添加了一个方法。在此方法中我们创建了一个 **pub_date** 字段值在将来的 **Question** 实例，然后检查它的 **was_published_recently()** 方法的返回值——它应该是 False。
+
+### 运行测试
+
+在终端中，我们通过输入以下代码运行测试：
+
+```sh
+$ python manage.py test polls
+```
+
+你将会看到运行结果：
+
+```
+Creating test database for alias 'default'...
+F
+======================================================================
+FAIL: test_was_published_recently_with_future_question (polls.tests.QuestionMethodTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/path/to/mysite/polls/tests.py", line 16, in test_was_published_recently_with_future_question
+    self.assertEqual(future_question.was_published_recently(), False)
+AssertionError: True != False
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)
+Destroying test database for alias 'default'...
+```
+
+发生了什么呢？以下是自动化测试的运行过程：
+
+- **`python manage.py test polls`** 将会寻找 **poll** 应用里的测试代码
+- 它找到了一个 **[django.test.TestCase][TestCase]** 的子类
+- 它创建一个特殊的数据库供测试使用
+- 它在类中寻找测试方法——以 **test** 开头的方法。
+- 在 **test_was_published_recently_with_future_question** 方法中，它创建了一个 **pub_date** 值为未来第 30 天的 **Question** 实例。
+- 然后使用 **assertEqual()** 方法，发现 **was_published_recently()** 返回了 **True**，而我们希望它返回 **False**
+
+测试系统通知我们哪些测试样例失败了，和造成测试失败的代码所在的行号。
+
+### 修复 Bug
+
+我们现在知道了，问题出在当 **pub_date** 为将来时， **Question.was_published_recently()** 应该返回 **False**。我们去修改 models.py 里的方法，让它只在日期是过去的时候才返回 **True**：
+
+```python
+# polls/model.py
+
+def was_published_recently(self):
+    now = timezone.now()
+    return now - datetime.timedelta(days=1) <= self.pub_date <= now
+```
+
+然后我们重新运行测试：
+
+```
+Creating test database for alias 'default'...
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+Destroying test database for alias 'default'...
+```
+
+在出现 Bug 之后，我们编写了能够发现这个 Bug 的自动化测试。在修复 Bug 之后，我们的代码顺利的通过了测试。
+
+将来，我们的应用可能会出现其他的问题，但是我们可以肯定的是，一定不会再次出现这个 Bug，因为只要简单的运行一遍测试，就会立刻收到警告。我们可以认为应用的这一小部分代码永远是安全的。
+
+### 更全面的测试
+
+我们已经搞定一小部分了，现在可以考虑全面的测试 **was_published_recently()** 这个方法以确定它的安全性，然后就可以把这个方法稳定下来了。事实上，在修复一个 Bug 时不小心引入另一个 Bug 会是非常令人尴尬的。
+
+我们在上次写的类里再增加两个测试，来更全面的测试这个方法：
+
+```python
+# polls/test.py
+
+def test_was_published_recently_with_old_question(self):
+    """
+    对于 pub_date 在一天以前的 Question，was_published_recently() 应该返回 False。
+    """
+    time = timezone.now() - datetime.timedelta(days=30)
+    old_question = Question(pub_date=time)
+    self.assertEqual(old_question.was_published_recently(), False)
+
+def test_was_published_recently_with_recent_question(self):
+    """
+    对于 pub_date 在一天之内的 Question，was_published_recently() 应该返回 True。
+    """
+    time = timezone.now() - datetime.timedelta(hours=1)
+    recent_question = Question(pub_date=time)
+    self.assertEqual(recent_question.was_published_recently(), True)
+```
+
+现在，我们有三个测试来确保 **Question.was_published_recently()** 方法对于过去，最近，和将来的三种情况都返回正确的值。
+
+再次申明，尽管 **polls** 现在是个非常简单的应用，但是无论它以后成长到多么复杂，要和其他代码进行怎样的交互，我们都能保证进行过测试的那些方法的行为永远是符合预期的。
+
+[shell]: https://docs.djangoproject.com/en/1.8/ref/django-admin/#django-admin-shell
+[TestCase]: https://docs.djangoproject.com/en/1.8/topics/testing/tools/#django.test.TestCase
