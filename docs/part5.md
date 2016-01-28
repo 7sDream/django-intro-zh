@@ -218,5 +218,93 @@ def test_was_published_recently_with_recent_question(self):
 
 再次申明，尽管 **polls** 现在是个非常简单的应用，但是无论它以后成长到多么复杂，要和其他代码进行怎样的交互，我们都能保证进行过测试的那些方法的行为永远是符合预期的。
 
+## 测试视图
+
+我们的投票应用对所有问题都一视同仁：它将会发布所有的问题，也包括那些 **pub_date** 字段值是未来的问题。我们应该改善这一点。将 **pub_date** 设置为将来应该被解释为这个问题将在所填写的时间点才被发布，而在之前是不可见的。
+
+### 针对视图的测试
+
+为了修复上述 Bug ，我们这次先编写测试，然后再去改代码。事实上，这是一个「测试驱动」开发模式的实例，但其实这两者的顺序不太重要。
+
+在我们的第一个测试中，我们关注代码的内部行为。我们通过假装有用户使用浏览器访问被测试的应用来检查代码行为是否符合预期。
+
+在我们动手之前，先看看需要用到的工具们。
+
+### Django 测试工具之 Client
+
+Django 提供了一个供测试使用的 **[Client][Client]** 来模拟用户和视图层代码的交互。我们能在 **test.py** 甚至是 **[shell][shell]** 中使用它。
+
+我们依照惯例从 **[shell][shell]** 开始，首先我们要做一些在 **test.py** 里并不需要的准备工作。第一步是在 **[shell][shell]** 中配置测试环境：
+
+```pycon
+>>> from django.test.utils import setup_test_environment
+>>> setup_test_environment()
+```
+
+[setup_test_environment()](https://docs.djangoproject.com/en/1.8/topics/testing/advanced/#django.test.utils.setup_test_environment) 安装了一个特殊的模板渲染器，它能让我们使用 response 的一些在正常情况下不可用的附加属性，比如 **response.context**。注意，这个方法并不会配置测试数据库，所以接下来的代码将会当前存在的数据库上运行，输出的内容可能由于数据库内容的不同而不同。
+
+然后我们需要导入 client 类（在后续 **test.py** 的实例中我们将会使用 **[django.test.TestCase][TestCase]** 类，这个类里包含了自己的 client 实例，所以不需要这一步）
+
+```pycon
+>>> from django.test import Client
+>>> # 创建一个 Client 实例
+>>> client = Client()
+```
+
+搞定了之后，我们可以要求 client 来为我们工作了：
+
+```pycon
+>>> # 获取 '/' 的响应
+>>> response = client.get('/')
+>>> # 访问这个地址应该会得到一个 404 状态码
+>>> response.status_code
+404
+>>> # 访问 '/polls/' 的话，我们应该会得到一些有意义的响应
+>>> # 我们使用 'reverse()' 方法而不是硬编码的 URL
+>>> from django.core.urlresolvers import reverse
+>>> response = client.get(reverse('polls:index'))
+>>> response.status_code
+200
+>>> response.content
+b'\n\n\n    <p>No polls are available.</p>\n\n'
+>>> # 注意 - 如果你的 'settings.py' 里的 'TIME_ZONE' 设置的
+>>> # 不正确的话，有可能得到不同的结果。如果你修改了它，则需要
+>>> # 重新启动你的 shell 会话才会生效。
+>>> from polls.models import Question
+>>> from django.utils import timezone
+>>> # 创建一个 Question 并保存
+>>> q = Question(question_text="Who is your favorite Beatle?", pub_date=timezone.now())
+>>> q.save()
+>>> # 再次查看响应
+>>> response = client.get('/polls/')
+>>> response.content
+b'\n\n\n    <ul>\n    \n        <li><a href="/polls/1/">Who is your favorite Beatle?</a></li>\n    \n    </ul>\n\n'
+>>> # 如果下面的代码无法使用，那么你可能是没有执行我们之前说的
+>>> # setup_test_environment() 方法
+>>> response.context['latest_question_list']
+[<Question: Who is your favorite Beatle?>]
+```
+
+### 改善视图代码
+
+现在的投票列表会显示将来的投票（就是那些 **pub_date** 值是将来的问题）。我们来修复这个问题。
+
+在教程的[第四部分(en)](part4.md)里，我们介绍了继承于 **[ListView](https://docs.djangoproject.com/en/1.8/ref/class-based-views/generic-display/#django.views.generic.list.ListView)** 的视图类：
+
+```python
+# polls/views.py
+
+class IndexView(generic.ListView):
+    template_name = 'polls/index.html'
+    context_object_name = 'latest_question_list'
+
+    def get_queryset(self):
+        """返回最近发布的五个投票"""
+        return Question.objects.order_by('-pub_date')[:5]
+```
+
+
+
 [shell]: https://docs.djangoproject.com/en/1.8/ref/django-admin/#django-admin-shell
 [TestCase]: https://docs.djangoproject.com/en/1.8/topics/testing/tools/#django.test.TestCase
+[Client]: https://docs.djangoproject.com/en/1.8/topics/testing/tools/#django.test.Client
