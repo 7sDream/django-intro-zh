@@ -24,7 +24,7 @@
 
 你可能觉得学 Python/Django 对你来说已经很充实了，再学一些新东西的话看起来有点负担过重并且没什么必要。毕竟，我们的投票应用看起来已经完美工作了。写一些自动测试并不能让它工作的更好。如果写一个投票应用是你想用 Django 完成的唯一工作，那你确实没必要学写测试。但是如果你还想写更复杂的项目，现在就是学习测试写法的最好时机了。
 
-### 测试将节约你的时间
+#### 测试将节约你的时间
 
 在某种程度上，能够「判断出代码是否正常工作」的测试，就称得上是个令人满意的了。
 
@@ -36,7 +36,7 @@
 
 然而，编写测试还是要比花费几个小时手动测试你的应用，或者为了找到某个小错误而胡乱翻看代码要有意义的多。
 
-### 测试不仅能发现错误，而且能预防错误
+#### 测试不仅能发现错误，而且能预防错误
 
 「测试是开发的对立面」，这种思想是不对的。
 
@@ -44,13 +44,13 @@
 
 而测试的出现改变了这种情况。测试就好像是从内部仔细检查你的代码，当有些地方出错时，这些地方将会变得很显眼——就算你自己没有意识到那里写错了。
 
-### 测试使你的代码更加诱人
+#### 测试使你的代码更有吸引力
 
 你也许遇到过这种情况：你编写了一个绝赞的软件，但是其他开发者看都不看它一眼，因为它缺少测试。没有测试的代码不值得信任。 Django 最初开发者之一的 Jacob Kaplan-Moss 说过：“项目规划时没有包含测试是不科学的。”
 
 其他的开发者希望在正式使用你的代码前看到它通过了测试，这是你需要写测试的另一个重要原因。
 
-### 测试有利于团队协作
+#### 测试有利于团队协作
 
 前面的几点都是从单人开发的角度来说的。复杂的应用可能由团队维护。测试的存在保证了协作者不会不小心破坏了了你的代码（也保证你不会不小心弄坏他们的）。如果你想作为一个 Django 程序员谋生的话，你必须擅长编写测试！
 
@@ -287,9 +287,9 @@ b'\n\n\n    <ul>\n    \n        <li><a href="/polls/1/">Who is your favorite Bea
 
 ### 改善视图代码
 
-现在的投票列表会显示将来的投票（就是那些 **pub_date** 值是将来的问题）。我们来修复这个问题。
+现在的投票列表会显示将来的投票（**pub_date** 值是将来的那些）。我们来修复这个问题。
 
-在教程的[第四部分(en)](part4.md)里，我们介绍了继承于 **[ListView](https://docs.djangoproject.com/en/1.8/ref/class-based-views/generic-display/#django.views.generic.list.ListView)** 的视图类：
+在教程的[第四部分(en)](part4.md)里，我们介绍了基于 **[ListView](https://docs.djangoproject.com/en/1.8/ref/class-based-views/generic-display/#django.views.generic.list.ListView)** 的视图类：
 
 ```python
 # polls/views.py
@@ -303,7 +303,176 @@ class IndexView(generic.ListView):
         return Question.objects.order_by('-pub_date')[:5]
 ```
 
+我们需要改进 **get_queryset()** 方法，让他它能通过将 Question 的 pub_data 属性与 **timezone.now()** 相比较来判断是否应该显示此 Question。首先我们需要一行 import 语句：
 
+```python
+# polls/views.py
+
+from django.utils import timezone
+```
+
+然后我们把 **get_queryset** 方法改写成下面这样：
+
+```python
+# polls/views.py
+
+def get_queryset(self):
+    """返回最近发布的五个投票（不包括那些被设置为在将来发布的）"""
+    return Question.objects.filter(
+        pub_date__lte=timezone.now()
+    ).order_by('-pub_date')[:5]
+```
+
+**Question.objects.filter(pub_date__lte=timezone.now())** 返回一个由 **pub_date** 小于或等于（也就是早于或等于） **timezone.now** 的 **Question** 组成的集合。
+
+### 测试新视图
+
+现在你可以通过创建一个将来发布的投票问题，然后执行 runserver，再在浏览器中检查主页里的列表来判断代码是否符合预期。你绝对不会愿意每次修改代码后都这么来一次的，所以让我们创建一些自动化测试吧。
+
+在 **polls/tests.py** 里加入一句 import
+
+```python
+# polls/tests.py
+
+from django.core.urlresolvers import reverse
+```
+
+然后我们写一个公用的快捷函数用于创建投票问题，再为视图创建一个测试类：
+
+```python
+# polls/test.py
+
+def create_question(question_text, days):
+    """
+    创建一个以 question_text 为标题，pub_date 为 days 天之后的问题。
+    days 为正表示将来，为负表示过去。
+    """
+    time = timezone.now() + datetime.timedelta(days=days)
+    return Question.objects.create(question_text=question_text,
+                                   pub_date=time)
+
+
+class QuestionViewTests(TestCase):
+    def test_index_view_with_no_questions(self):
+        """
+        如果数据库里木有投票，应该显示一个合适的提示信息。
+        """
+        response = self.client.get(reverse('polls:index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "No polls are available.")
+        self.assertQuerysetEqual(response.context['latest_question_list'], [])
+
+    def test_index_view_with_a_past_question(self):
+        """
+        pub_date 值是过去的问题应该被显示在主页上。
+        """
+        create_question(question_text="Past question.", days=-30)
+        response = self.client.get(reverse('polls:index'))
+        self.assertQuerysetEqual(
+            response.context['latest_question_list'],
+            ['<Question: Past question.>']
+        )
+
+    def test_index_view_with_a_future_question(self):
+        """
+        pub_date 值是将来的问题不应该被显示在主页上。
+        """
+        create_question(question_text="Future question.", days=30)
+        response = self.client.get(reverse('polls:index'))
+        self.assertContains(response, "No polls are available.",
+                            status_code=200)
+        self.assertQuerysetEqual(response.context['latest_question_list'], [])
+
+    def test_index_view_with_future_question_and_past_question(self):
+        """
+        如果数据库里同时存在过去和将来的投票，那么只应该显示过去的那些。
+        """
+        create_question(question_text="Past question.", days=-30)
+        create_question(question_text="Future question.", days=30)
+        response = self.client.get(reverse('polls:index'))
+        self.assertQuerysetEqual(
+            response.context['latest_question_list'],
+            ['<Question: Past question.>']
+        )
+
+    def test_index_view_with_two_past_questions(self):
+        """
+        目录页应该可以显示多个投票。
+        """
+        create_question(question_text="Past question 1.", days=-30)
+        create_question(question_text="Past question 2.", days=-5)
+        response = self.client.get(reverse('polls:index'))
+        self.assertQuerysetEqual(
+            response.context['latest_question_list'],
+            ['<Question: Past question 2.>', '<Question: Past question 1.>']
+        )
+```
+
+我们仔细分析一下上面的代码。
+
+首先是一个快捷函数 **create_question**，它封装了创建投票的流程，减少了重复代码。
+
+**test_index_view_with_no_questions** 方法里没有创建任何投票，它检查返回的网页上有没有“No polls are available.”这段消息和 **latest_question_list** 是否为空。注意到 **[django.test.TestCase](https://docs.djangoproject.com/en/1.8/topics/testing/tools/#django.test.TestCase)** 类提供了一些额外的 assert 方法，在这个例子中，我们使用了 **[assertContains()](https://docs.djangoproject.com/en/1.8/topics/testing/tools/#django.test.SimpleTestCase.assertContains)** 和 **[assertQuerysetEqual()](https://docs.djangoproject.com/en/1.8/topics/testing/tools/#django.test.TransactionTestCase.assertQuerysetEqual)**。
+
+在 **test_index_view_with_a_past_question** 方法中，我们创建了一个投票并检查它是否出现在列表中。
+
+在 **test_index_view_with_a_future_question** 方法中，我们创建了一个 **pub_date** 在将来的投票。数据库会在每次调用测试方法之前被重置，所以第一个方法里创建的投票已经没了，所以此时我们希望看到的是一个没有任何投票的目录页。
+
+剩下的那些也都差不多。实际上，测试就是假装一些管理员的输入，然后通过用户端的表现是否符合预期来判断新加入的改变是否破坏了原有的系统状态。
+
+### 测试 DetailView
+
+我们的工作似乎已经很完美了？不，还有一个问题：就算在将来发布的那些投票不会在目录页里出现，但是用户还是能够通过猜测 URL 的方式访问到他们。所以我们得在 DetailView 里增加一些约束：
+
+```python
+# polls/views.py
+
+class DetailView(generic.DetailView):
+    ...
+    def get_queryset(self):
+        """
+        过滤掉现在不应该被发布的投票。
+        """
+        return Question.objects.filter(pub_date__lte=timezone.now())
+```
+
+当然，我们也要为这一功能写测试，用于确认过去的投票能被用户访问，而将来的则不能：
+
+```python
+class QuestionIndexDetailTests(TestCase):
+    def test_detail_view_with_a_future_question(self):
+        """
+        访问将来发布的投票的详情页应该会收到一个 404 错误。
+        """
+        future_question = create_question(question_text='Future question.',
+                                          days=5)
+        response = self.client.get(reverse('polls:detail',
+                                   args=(future_question.id,)))
+        self.assertEqual(response.status_code, 404)
+
+    def test_detail_view_with_a_past_question(self):
+        """
+        访问过去发布的投票详情页，页面上应该显示投票标题。
+        """
+        past_question = create_question(question_text='Past Question.',
+                                        days=-5)
+        response = self.client.get(reverse('polls:detail',
+                                   args=(past_question.id,)))
+        self.assertContains(response, past_question.question_text,
+                            status_code=200)
+```
+
+### 更多的测试
+
+我们应该给 **ResultsView** 也增加一个类似的 **get_queryset** 方法，并且为它创建测试。这和我们之前干的差不多，事实上，基本就是重复一遍。
+
+我们还可以从各个方面改进投票应用，但是测试会一直伴随我们。比方说，在目录页上显示一个没有选项（**Choices**）的投票问题就没什么意义。我们可以检查并排除这样的投票题。测试里则可以创建一个没有选项的投票，然后检查它是否被显示在目录上。当然也要创建一个有选项的投票，然后确认它确实被显示了。
+
+恩，也许你想让登录的管理员能在目录上够看见未被发布的那些投票，但是其他的用户看不到。不管怎么说，如果你想要增加一个新功能，那么同时一定要为它编写测试。不过你是先写代码还是先写测试那就随你了。
+
+在未来的某个时刻，你一定会去查看测试代码，然后开始怀疑：「这么多的测试不会使代码越来越复杂吗？」。别着急，我们马上就会谈到这一点。
+
+## 测试越多越好
 
 [shell]: https://docs.djangoproject.com/en/1.8/ref/django-admin/#django-admin-shell
 [TestCase]: https://docs.djangoproject.com/en/1.8/topics/testing/tools/#django.test.TestCase
