@@ -1,9 +1,3 @@
-暂未翻译
-
-官方文档[点此](https://docs.djangoproject.com/en/1.8/intro/tutorial05/)
-
----
-
 # 创建你的第一个 Django 项目， 第五部分
 
 这一篇从[第四部分（en）](part4.md)结尾的地方继续讲起。我们在前几章成功的构建了一个在线投票应用，在这一部分里我们将其创建一些自动化测试。
@@ -487,6 +481,24 @@ class QuestionIndexDetailTests(TestCase):
 - 对于每个模型和视图都建立单独的测试类
 - 每个测试方法之测试一个功能
 - 给每个测试方法起个能描述其功能的名字
+
+## 深入代码测试
+
+在本教程中，我们仅仅是了解了测试的基础知识。你能做的还有很多，而且世界上有很多有用的工具来帮你完成这些有意义的事。
+
+举个例子，在我们上述的测试中，已经从代码逻辑和视图响应的角度检查了应用的输出，现在你可以从一个更加用户的角度来检查最终渲染出的 HTML 是否符合预期，使用 **[Selenium](http://seleniumhq.org/)** 可以很轻松的完成这件事。这个工具不仅可以测试 Django 框架里的代码，还可以检查其他部分，比如说你的 JavaScript。它假装成是一个正在和你站点进行交互的浏览器，就好像有个真人在访问网站一样！Django 它提供了 **[LiveServerTestCase](https://docs.djangoproject.com/en/1.8/topics/testing/tools/#django.test.LiveServerTestCase)** 来和 Selenium 这样的工具进行交互。
+
+如果你在开发一个很复杂的应用的话，你也许想在每次提交代码时自动运行测试，也就是我们所说的[持续整合](https://zh.wikipedia.org/wiki/%E6%8C%81%E7%BA%8C%E6%95%B4%E5%90%88)，这样的话就实现质量控制的自动化，起码是部分自动化。
+
+一个找出代码中未被测试部分的方法是检查代码覆盖率。它有助于找出代码中的薄弱部分和无用部分。如果你无法测试一段代码，通常说明这段代码需要被重构或者删除。想知道代码覆盖率和无用代码的详细信息，请看文档 [和 coverage.py 结合使用](https://docs.djangoproject.com/en/1.8/topics/testing/advanced/#topics-testing-code-coverage)。
+
+文档 [Testing in Django](https://docs.djangoproject.com/en/1.8/topics/testing/) 里有关于测试的更多信息。
+
+## 然后呢？
+
+如果你想深入了解测试，就去看 [Testing in Django](https://docs.djangoproject.com/en/1.8/topics/testing/)。
+
+当你已经比较熟悉该如何测试 Django 的视图之后，就可以继续于读[教程的第六部分(en)](part6.md)，来学习关于静态文件管理的相关知识。
 
 [shell]: https://docs.djangoproject.com/en/1.8/ref/django-admin/#django-admin-shell
 [TestCase]: https://docs.djangoproject.com/en/1.8/topics/testing/tools/#django.test.TestCase
