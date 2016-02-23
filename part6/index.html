@@ -112,6 +112,11 @@
 
             <!-- Search, Navigation and Repo links -->
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
                 <li >
                     <a rel="next" href="../part5/">
                         <i class="fa fa-arrow-left"></i> Previous
@@ -139,12 +144,69 @@
             <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
+        <li class="main active"><a href="#django">创建你的第一个 Django 项目， 第六部分</a></li>
+        
+            <li><a href="#_1">自定义应用的界面和风格</a></li>
+        
+            <li><a href="#_2">添加背景图片</a></li>
+        
+            <li><a href="#_3">然后呢？</a></li>
+        
+    
     </ul>
 </div></div>
             <div class="col-md-9" role="main">
 
-<p>暂未翻译</p>
-<p>官方文档<a href="https://docs.djangoproject.com/en/1.8/intro/tutorial06/">点此</a></p></div>
+<h1 id="django">创建你的第一个 Django 项目， 第六部分</h1>
+<p>这一篇从<a href="../part5/">第五部分（zh）</a>结尾的地方继续讲起。再上一节中我们为网络投票程序编写了测试，而现在我们要为它加上样式和图片。</p>
+<p>除了服务端生成的 HTML 以外，网络应用通常需要一些其他的文件——比如图片，脚本和样式表——来帮助渲染网络页面。在 Django 中，我们把这些文件统称为“静态文件”。</p>
+<p>对于小项目来说，这个问题没什么大不了的，因为你可以把这些静态文件随便放在哪，只要服务程序能够找到它们就行。然而在大项目——特别是由好几个应用组成的大项目——中，处理不同应用所需要的静态文件的工作就显得有点麻烦了。</p>
+<p>这就是 <strong>django.contrib.staticfiles</strong> 存在的意义：它将各个应用的静态文件（和一些你指明的目录里的文件）统一收集起来，这样一来，在生产环境中，这些文件就会集中在一个便于分发的地方。</p>
+<h2 id="_1">自定义应用的界面和风格</h2>
+<p>首先，在 <strong>polls</strong> 目录下创建一个 <strong>static</strong> 目录。 Django 将会从这里收集静态文件，就像 Django 在 <strong>polls/templates</strong> 里寻找模板一样。</p>
+<p>Django 的 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-STATICFILES_FINDERS">STATICFILES_FINDERS</a></strong> 设置项是一个列表，它包含了若干个知道如何从不同地点寻找静态文件的搜寻器。其中之一是 <strong>AppDirectoriesFinder</strong>，它会从 <strong>INSTALLED_APPS</strong> 中各个应用的 “static” 子目录中寻找文件，比如刚刚创建的 <strong>polls/static</strong>。 之前的管理页面也使用了相同的目录结构来管理静态文件。</p>
+<p>在刚创建的 <strong>static</strong> 目录下创建一个 <strong>polls</strong> 目录，再在其中新建文件 <strong>style.css</strong>。也就是说，你的样式文件的位置是 <strong>polls/static/polls/style.css</strong>。由于 <strong>AppDirectoriesFinder</strong> 的存在，你可以在 Django 中使用 <strong>polls/style.css</strong> 来引用这个文件，就像我们引用模板文件那样。</p>
+<blockquote>
+<p>静态文件命名空间</p>
+<p>和模板一个样，虽然我们可以直接把样式表放在 <strong>polls/static</strong> 目录下（而不是再创建一个 <strong>polls</strong> 子目录），但是这并不是个好主意。Django 将会使用它找到的第一个和名称项匹配文件，当你在另一个应用里也有一个同名的文件的话，Django 将无法区分它们。我们想让 Django 能够找到正确的文件，最简单的方法就是使用命名空间。也就是把静态文件放到一个和应用同名的子目录中。</p>
+</blockquote>
+<p>将以下代码写入样式表（<strong>polls/static/polls/style.css</strong>）中：</p>
+<pre><code class="css">/* polls/static/polls/style.css */
+
+li a {
+    color: green;
+}
+</code></pre>
+
+<p>下一步，在 <strong>polls/templates/polls/index.html</strong> 的顶部加入以下内容：</p>
+<pre><code class="html">&lt;!-- polls/templates/polls/index.html --&gt;
+
+{% load staticfiles %}
+
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;{% static 'polls/style.css' %}&quot; /&gt;
+</code></pre>
+
+<p><strong>{% load staticfiles %}</strong> 语句会从 <strong>staticfiles</strong> 模板库里导入 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/contrib/staticfiles/#std:templatetag-staticfiles-static">{% static %}</a></strong> 模板标签。这个标签会把对静态文件的引用转化为绝对地址。</p>
+<p>这就是你需要做的所有工作了。现在重新载入 <strong>http://localhost:8000/polls/</strong>，你会看到问题链接变成了绿色（Django 使用的样式），这说明样式表已经正常工作了。</p>
+<h2 id="_2">添加背景图片</h2>
+<p>接下来，我们要为图片新建一个子目录。在 <strong>polls/static/polls</strong> 目录下创建 <strong>images</strong> 目录。然后在其中放入背景图片 background.gif。也就是说，背景图片路径为 <strong>polls/static/polls/images/background.gif</strong>。</p>
+<p>然后，在样式表文件（polls/static/polls/style.css）中加入：</p>
+<pre><code class="css">/* polls/static/polls/style.css */
+
+body {
+    background: white url(&quot;images/background.gif&quot;) no-repeat right bottom;
+}
+</code></pre>
+
+<p>重新加载 http://localhost:8000/polls/ 你将会看到背景图片被放置在了页面的右下角。</p>
+<blockquote>
+<p>注意！</p>
+<p>显然 {% static %} 模板标签是无法在静态文件中使用的，比如样式表文件，因为它们不是 Django 生成的。在静态文件中，你应该使用相对路径来互相引用。因为这样的话，你可以通过改变 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-STATIC_URL">STATIC_URL</a></strong>（<strong>static</strong> 模块用它来生成 URL）达到改变静态文件地址的目的，而不需要在大量的文件中逐一修改引用文件的地址。</p>
+</blockquote>
+<p>这些都只是<strong>基础</strong>。关于静态文件的各种设置，和框架中其余和静态文件有关的部分，请参考 <strong><a href="https://docs.djangoproject.com/en/1.8/howto/static-files/">the static files howto</a></strong> 和 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/contrib/staticfiles/">the staticfiles reference</a></strong>。另外，<strong><a href="https://docs.djangoproject.com/en/1.8/howto/static-files/deployment/">Deploying static files</a></strong> 讨论了在真实的服务器上组织静态文件的方法。</p>
+<h2 id="_3">然后呢？</h2>
+<p>初学者教程就到此结束辣！你可以访问文章 <strong><a href="../whats_next/">接下来如何学习</a></strong> 来决定下一步的学习方向。</p>
+<p>如果你很熟系 Python 的打包机制，并且感兴趣如何将投票应用转化为一个“可重用的应用”，请看文章 <strong><a href="../reusable_app/">高级内容：编写可重用的应用</a></strong>。</p></div>
         </div>
 
         <footer class="col-md-12">
@@ -156,6 +218,33 @@
         <script src="../js/jquery-1.10.2.min.js"></script>
         <script src="../js/bootstrap-3.0.3.min.js"></script>
         <script src="../js/highlight.pack.js"></script>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
         <script src="../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
