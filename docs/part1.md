@@ -389,7 +389,7 @@ $ python manage.py shell
 >>> from polls.models import Question, Choice   # 导入刚刚创建的模型类
 
 # 现在没有 Question 对象
->>> Question.object.all()
+>>> Question.objects.all()
 []
 
 # 创建新 Question
