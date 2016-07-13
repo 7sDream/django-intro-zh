@@ -6,9 +6,9 @@ Django 最初被设计用于具有快速开发需求的新闻类站点，目的�
 
 ## 设计模型
 
-Django 无需数据库就可以使用，它提供了[对象关系映射器](https://en.wikipedia.org/wiki/Object-relational_mapping)。通过此技术，你可以使用 Python 代码来描述数据库结构。
+Django 无需数据库就可以使用，它提供了[对象关系映射器（ORM）](https://en.wikipedia.org/wiki/Object-relational_mapping)。通过此技术，你可以使用 Python 代码来描述数据库结构。
 
-你可以使用强大的[数据-模型语句](https://docs.djangoproject.com/en/1.8/topics/db/models/)来描述你的数据模型，这解决了数年以来在数据库模式中的难题。以下是一个简明的例子：
+你可以使用强大的[模型](https://docs.djangoproject.com/en/1.8/topics/db/models/)来描述你的数据，这解决了数年以来在数据库模式中的难题。以下是一个简明的例子：
 
 ```python3
 # mysite/news/models.py
@@ -31,7 +31,7 @@ class Article(models.Model):
         return self.headline
 ```
 
-## 应用数据模型
+## 创建模型
 
 然后，运行 Django 命令行工具来创建数据库表。
 
@@ -41,9 +41,9 @@ $ python manage.py migrate
 
 [**migrate**](https://docs.djangoproject.com/en/1.8/ref/django-admin/#django-admin-migrate) 命令会查找所有可用的模型，如果数据库中没有与之对应的表，则会为其自动创建。Django 也提供了其他[更丰富的控制方式](https://docs.djangoproject.com/en/1.8/topics/migrations/)。
 
-## 享用便捷的API
+## 享用便捷的 API
 
-接下来，你就可以使用一套便捷而丰富的 [Python API](https://docs.djangoproject.com/en/1.8/topics/db/queries/) 用于访问你的数据。这些 API 是即时创建的，而不用显式的生成代码。
+接下来，你就可以使用一套便捷而丰富的 [Python API](https://docs.djangoproject.com/en/1.8/topics/db/queries/) 用于访问你的数据。这些 API 是自动即时创建的，你不用编写其他任何代码。
 
 ```pycon
 # 从我们的 news 应用里导入模型（译注：记者和文章模型）。
@@ -115,9 +115,9 @@ DoesNotExist: Reporter matching query does not exist.
 >>> r.delete()
 ```
 
-## 一个动态管理接口：并非徒有其表
+## 动态生成的管理页面：并非徒有其表
 
-当你的模型完成定义，Django 就会自动生成一个专业的生产级[管理接口](https://docs.djangoproject.com/en/1.8/ref/contrib/admin/) - 一个可以认证用户添加、更改和删除对象的 Web 站点。你只需简单的在 admin 站点上注册你的模型即可。
+当你的模型完成定义，Django 就会自动生成一个专业的生产级[管理页面](https://docs.djangoproject.com/en/1.8/ref/contrib/admin/) - 一个可以认证用户添加、更改和删除对象的 Web 站点。你只需简单的在 admin 站点上注册你的模型即可。
 
 ```	python3
 # mysite/news/models.py
@@ -218,7 +218,7 @@ Django 允许设置搜索模板路径，这样可以最小化模板之间的冗�
 {% endblock %}
 ```
 
-我们看到变量都被双大括号括起来了。 **{{ article.headline }}** 的意思是“输出 **article** 的 **headline** 属性值”。这个“点”还有更多的用途，比如查找字典键值、查找索引和函数调用。
+我们看到变量都被双大括号括起来了。 **{{ article.headline }}** 的意思是“输出 **article** 的 **headline** 属性值”。这个“点”还有更多的用途，比如查找字典键值、索引和函数调用。
 
 我们注意到 **{{ article.pub_date|date:"F j, Y" }}** 使用了 Unix 风格的“管道符”（“|”字符）。这是一个模板过滤器，用于过滤变量值。在这里过滤器将一个 Python **datetime** 对象转化为指定的格式（就像 PHP 中的日期函数那样）。
 
@@ -257,4 +257,4 @@ Django 使用了“模板继承”的概念。这就是 **{% extends "base.html"
  - [聚合器框架](https://docs.djangoproject.com/en/1.8/ref/contrib/syndication/)可以通过简单编写一个 Python 类来推送 RRS 和 Atom。
  - 更多令人心动的自动化管理功能：概述里面仅仅浅尝辄止。
 
-接下来您可以[下载 Django](https://www.djangoproject.com/download/)，阅读[实例教程（zh）][part1.md]，然后加入[我们的社区](https://www.djangoproject.com/community/)！感谢您的关注！
+接下来您可以[下载 Django](https://www.djangoproject.com/download/)，阅读[实例教程（zh）](part1.md)，然后加入[Django 社区](https://www.djangoproject.com/community/)！感谢您的关注！
