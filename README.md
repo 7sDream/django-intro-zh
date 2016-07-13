@@ -81,4 +81,4 @@ Writing your first patch for Django           [          ]   0/100
  [django-intro-pathch]: https://docs.djangoproject.com/en/1.8/intro/contributing/
 
 [rtd-url]: http://django-intro-zh.readthedocs.org/zh_CN/latest/
-[gh-url]: https://github.com/djangoStudyTeam/django-intro-zh
+[gh-url]: http://7sdream.github.io/django-intro-zh/
