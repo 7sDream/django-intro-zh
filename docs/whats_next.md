@@ -1,4 +1,4 @@
-# 接下来阅读什么
+# 接下来如何学习？
 
 看来您已经阅读完所有的[介绍文档](https://docs.djangoproject.com/en/1.8/intro/)（introductory material），并且决定继续使用Django。但是我们前面只是进行了概括性的介绍（事实上，即使您全部浏览完，也只是涉及了所有文档5%左右的内容）。
 
