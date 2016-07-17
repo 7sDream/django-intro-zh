@@ -71,7 +71,6 @@ Django 文档和其代码使用同一份版本控制进行管理。它位于我�
 
 ```
 $ grep -r max_length /path/to/django/docs/
-
 ```
 
 ### 下载为本地HTML文件
