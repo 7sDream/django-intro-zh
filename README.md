@@ -49,7 +49,7 @@ Writing your first Django app, part 3         [==========] 100/100
 Writing your first Django app, part 4         [==========] 100/100
 Writing your first Django app, part 5         [==========] 100/100
 Writing your first Django app, part 6         [==========] 100/100
-What to read next                             [==========]   0/100
+What to read next                             [==========] 100/100
 Advanced tutorial: How to write reusable apps [==========] 100/100
 Writing your first patch for Django           [          ]   0/100
 ```
