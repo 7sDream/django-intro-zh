@@ -248,7 +248,7 @@ class QuestionAdmin(admin.ModelAdmin):
 admin.site.register(Question, QuestionAdmin)
 ```
 
-增加的代码将会告诉 Django：“**Choice（选项）** 对象将会在 **问题（Question）** 的管理界面里被编辑。默认显示3个问题字段以供编辑。”
+增加的代码将会告诉 Django：“**Choice（选项）** 对象将会在 **问题（Question）** 的管理界面里被编辑。默认显示3个选项字段以供编辑。”
 
 重新打开“添加问题（Add question）”页面：
 
