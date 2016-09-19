@@ -379,7 +379,7 @@ class QuestionAdmin(admin.ModelAdmin):
 admin.site.register(Question, QuestionAdmin)
 </code></pre>
 
-<p>增加的代码将会告诉 Django：“<strong>Choice（选项）</strong> 对象将会在 <strong>问题（Question）</strong> 的管理界面里被编辑。默认显示3个问题字段以供编辑。”</p>
+<p>增加的代码将会告诉 Django：“<strong>Choice（选项）</strong> 对象将会在 <strong>问题（Question）</strong> 的管理界面里被编辑。默认显示3个选项字段以供编辑。”</p>
 <p>重新打开“添加问题（Add question）”页面：</p>
 <p><img alt="Add question page now has choices on it" src="../img/admin11t.png" /></p>
 <p>现在有3个可以添加相关选项（choices）的单元——“3”是由代码里的 extra 所规定的——并且当你每次进入一个已经创建好的对象的修改界面时，总会多出另外三个单元让你可以添加选项。</p>

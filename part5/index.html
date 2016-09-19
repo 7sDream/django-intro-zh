@@ -236,7 +236,7 @@ True
 <p>因为将来发生的是肯定不是最近发生的，所以代码明显是错误的。</p>
 <h3 id="bug_1">写个测试来发现 Bug</h3>
 <p>我们刚刚在 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/django-admin/#django-admin-shell">shell</a></strong> 里做的测试也就是自动化测试应该做的工作。所以我们来把它改写成自动化的吧。</p>
-<p>按照惯例，Django 应用的测试因该卸载应用的 <strong>test.py</strong> 文件里。测试系统会自动的在所有以 <strong>test</strong> 开头的文件里寻找并执行测试代码。</p>
+<p>按照惯例，Django 应用的测试因该写在应用的 <strong>test.py</strong> 文件里。测试系统会自动的在所有以 <strong>test</strong> 开头的文件里寻找并执行测试代码。</p>
 <p>在 <strong>poll</strong> 应用的 <strong>test.py</strong> 文件里输入以下代码：</p>
 <pre><code class="python"># polls/test.py
 
