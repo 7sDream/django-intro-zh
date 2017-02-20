@@ -11,7 +11,7 @@
 
 
 ``` html
-<!--- polls/template/polls/detail.html -->
+<!--- polls/templates/polls/detail.html -->
 
 <h1>{{ question.question_text }}</h1>
 
@@ -104,11 +104,6 @@ from django.shortcuts import get_object_or_404, render
 def results(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     return render(request, 'polls/results.html', {'question': question})
-    from django.http import HttpResponse
-
-
-def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
 ```
 
 这和[第三部分（zh）](part3.md)中的 **detail()** 视图几乎一模一样。唯一的不同是模板的名字。 我们将在稍后解决这个冗余问题。
