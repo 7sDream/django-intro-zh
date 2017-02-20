@@ -208,7 +208,7 @@ def index(request):
 
 这里有个问题：页面的设计是硬编码在视图函数的代码里的。如果你想改变页面的样子，你需要编辑 Python 代码。所以让我们使用 Django 的模板系统，只要创建一个视图，就可以将页面的设计从代码中分离出来。
 
-首先，在你的 **polls** 目录里创建一个 **template** 目录。Django 将会在这个目录里查找模板文件。
+首先，在你的 **polls** 目录里创建一个 **templates** 目录。Django 将会在这个目录里查找模板文件。
 
 你项目的 **[TEMPLATES](https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-TEMPLATES)** 配置项描述了 Django 如何载入和渲染模板。默认的设置文件设置了 **DjangoTemplates** 后端，并将 **[APP_DIRS](https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-TEMPLATES-APP_DIRS)** 设置成了 True。这一选项将会让 **DjangoTemplates** 在每个 **[INSTALLED_APPS](https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-INSTALLED_APPS)** 文件夹中寻找“templates”子目录。这就是为什么尽管我们没有像在[第二部分(zh)](part2.md)中那样修改 **[DIRS](https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-TEMPLATES-DIRS)** 设置，Django 也能正确找到 polls 的模板位置的原因。
 
@@ -216,7 +216,7 @@ def index(request):
 >
 > 我们*可以*把所有的模板都放在一个大的模板目录里，并且它也将完美运行。然而，有些模板是专属于 polls 应用的，所以，不像我们在之前的教程中创建的管理界面模板。我们将这些模板放在应用的模板文件夹（**polls/templates**）中，而不放在项目的模板文件夹（**templates**)中。我们将在教程的[可重用的应用(zh)](reusable_app.md)这一节中详细讨论为什么要这样做。
 
-在你刚刚创建的 **template** 目录里，再创建一个目录 **polls**，然后在其中新建一个文件 **index.html**。换句话说，你的模板文件的路径应该是 **polls/templates/polls/index.html**。因为 Django 会寻找到对应的 **app_directiories**，所以你只需要使用 **polls/index.html** 就可以引用到这一模板了。
+在你刚刚创建的 **templates** 目录里，再创建一个目录 **polls**，然后在其中新建一个文件 **index.html**。换句话说，你的模板文件的路径应该是 **polls/templates/polls/index.html**。因为 Django 会寻找到对应的 **app_directiories**，所以你只需要使用 **polls/index.html** 就可以引用到这一模板了。
 
 > 模板命名空间
 >
@@ -345,7 +345,7 @@ def detail(request, question_id):
 回过头去看看我们的 **detail()** 视图。它向模板传递了上下文变量 **question**。下面是 **polls/detail.html** 模板里正式的代码：
 
 ```html
-<!--- polls/template/polls/detail.html -->
+<!--- polls/templates/polls/detail.html -->
 
 <h1>{{ question.question_text }}</h1>
 <ul>
