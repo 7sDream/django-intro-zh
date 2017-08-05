@@ -224,7 +224,7 @@ def detail(request, question_id):
 
 ## 一个快捷函数：[get_object_of_404()][get_object_or_404]
 
- 「用[**get()**][get] 函数获取对象，抛出 [**Http404**][Http404]错误」也是一个常用流程。Django 也提供了一个快捷函数，下面是重写的 **detail()** 视图：
+ 「用 [**get()**][get] 函数获取对象，抛出 [**Http404**][Http404]错误」也是一个常用流程。Django 也提供了一个快捷函数，下面是重写的 **detail()** 视图：
 
 ```python3
 # polls/views.py
@@ -238,15 +238,15 @@ def detail(request, question_id):
     return render(request, 'polls/detail.html', {'question': question})
 ```
 
-[get_object_of_404()][get_object_of_404] 函数的第一个参数是一个 Django 模型。在此之后可以有任意个的关键字参数，他们会被直接传递给模型的 [**get()**][get] 函数。如果对象并不存在，此快捷函数将会抛出一个 [**Http404**][Http404] 异常。
+[**get_object_of_404()**][get_object_or_404] 函数的第一个参数是一个 Django 模型。在此之后可以有任意个的关键字参数，他们会被直接传递给模型的 [**get()**][get] 函数。如果对象并不存在，此快捷函数将会抛出一个 [**Http404**][Http404] 异常。
 
 > **设计哲学**
 >
 > 为什么我们使用辅助函数 [**get_object_of_404()**][get_object_or_404] 而不是自己捕获 [**ObjectDoesNotExist**][ObjectDoesNotExist] 异常呢？或者，为什么模型 API 不直接抛出 [**Http404**][Http404] 而是抛出 [**ObjectDoesNotExist**][ObjectDoesNotExist] 呢？
 >
-> 因为这样做会增加模型层和视图层的耦合度。指导 Django 设计的最重要的思想之一就是要保证松散耦合。一些受控的耦合将会被包含在 [**django.shortcuts**][shortcuts] 模块中。
+> 因为这样做会增加模型层和视图层的耦合度。指导 Django 设计的最重要的思想之一就是要保证松散耦合。一些受控的耦合将会被包含在 [**django.shortcuts**][django.shortcuts] 模块中。
 
-也有 [get_list_of_404()][get_object_or_404] 函数，工作原理和 [get_object_of_404()][get_object_or_404] 一样，除了 [**get()**][get] 函数被换成了 [**filter()**][filter] 函数。如果列表为空的话会抛出 [**Http404**][Http404] 异常。
+也有 [**get_list_of_404()**][get_object_or_404] 函数，工作原理和 [**get_object_of_404()**][get_object_or_404] 一样，除了 [**get()**][get] 函数被换成了 [**filter()**][filter] 函数。如果列表为空的话会抛出 [**Http404**][Http404] 异常。
 
 ## 使用模板系统
 
@@ -344,6 +344,7 @@ urlpatterns = [
 当你弄懂如何编写视图之后，就可以去看教程的 [第四部分（zh）](part4.md)，来学习关于表单处理和视图类的相关内容。
 
 
+[filter]: https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.filter
 [templatetag-for]: https://docs.djangoproject.com/en/1.11/ref/templates/builtins/#std:templatetag-for
 [render]: https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.render
 [HttpResponse]: https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpResponse
