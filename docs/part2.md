@@ -9,9 +9,9 @@
 默认情况下，配置的数据库是 SQLite，如果你对数据库不太熟，或者你只是对尝试 Django 感兴趣，这是最简单的选择。SQLite 内嵌在 Python 里，所以你不用再安装其他东西来支持你的数据库。但是当你开始做第一个实际的项目时，你也许想使用一个可扩展的数据库，比如 PostgreSQL 来避免令人头痛地切换数据库问题。
 
 如果你希望使用其他数据库，你需要安装合适的 [database bingings](https://docs.djangoproject.com/en/1.11/topics/install/#database-installation) 和在 [DATABASES](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASES) 'default' 默认项里改变一些键值，以匹配你的数据库设置：
-- [**引擎（ENGINE）**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASE-ENGINE) - **'django.db.backends.sqlite3'**,
-	**'django.db.backends.postgresql'**,
-	**'django.db.backends.mysql'**, 或者
+- [**引擎（ENGINE）**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASE-ENGINE) - **'django.db.backends.sqlite3'**、
+	**'django.db.backends.postgresql'**、
+	**'django.db.backends.mysql'** 或者
 	**'django.db.backends.oracle'**。 其他的后端 [也可以参考](https://docs.djangoproject.com/en/1.11/ref/databases/#third-party-notes)。
 - [**名字（NAME）**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-NAME) - 你数据库的名字。如果你正在使用 SQLite，数据库将以文件形式保存在你的电脑；在这种情况下，[**名字**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-NAME) 应该是绝对路径，包括文件名。默认 **os.path.join(BASE_DIR, 'db.sqlite3')** 将把文件保存在你项目的目录下。
 
