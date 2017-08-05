@@ -8,18 +8,18 @@
 
 默认情况下，配置的数据库是 SQLite，如果你对数据库不太熟，或者你只是对尝试 Django 感兴趣，这是最简单的选择。SQLite 内嵌在 Python 里，所以你不用再安装其他东西来支持你的数据库。但是当你开始做第一个实际的项目时，你也许想使用一个可扩展的数据库，比如 PostgreSQL 来避免令人头痛地切换数据库问题。
 
-如果你希望使用其他数据库，安装合适的 [database bingings](https://docs.djangoproject.com/en/1.11/topics/install/#database-installation) 和在 [DATABASES](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASES) 'default' 项里改变一些键值，以匹配你的数据库设置：
-- [**引擎**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASE-ENGINE) - **'django.db.backends.sqlite3'**,
+如果你希望使用其他数据库，你需要安装合适的 [database bingings](https://docs.djangoproject.com/en/1.11/topics/install/#database-installation) 和在 [DATABASES](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASES) 'default' 默认项里改变一些键值，以匹配你的数据库设置：
+- [**引擎（ENGINE）**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASE-ENGINE) - **'django.db.backends.sqlite3'**,
 	**'django.db.backends.postgresql'**,
 	**'django.db.backends.mysql'**, 或者
 	**'django.db.backends.oracle'**。 其他的后端 [也可以参考](https://docs.djangoproject.com/en/1.11/ref/databases/#third-party-notes)。
-- [**名字**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-NAME) - 你数据库的名字。如果你正在使用 SQLite，数据库将以文件形式保存在你的电脑；在这种情况下，[**名字**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-NAME) 应该是绝对路径，包括文件名。默认值 **os.path.join(BASE_DIR, 'db.sqlite3')** 将把文件保存在你项目的目录下。
+- [**名字（NAME）**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-NAME) - 你数据库的名字。如果你正在使用 SQLite，数据库将以文件形式保存在你的电脑；在这种情况下，[**名字**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-NAME) 应该是绝对路径，包括文件名。默认 **os.path.join(BASE_DIR, 'db.sqlite3')** 将把文件保存在你项目的目录下。
 
-如果你不使用 SQLite 作为你的数据库，一些额外的设置比如 [**USER**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-USER)， [**PASSWORD**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-PASSWORD)，， [**HOST**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-HOST) 也必须添加上。若想查看更多详情，可以参考文档 [**DATABASES**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASES)。
+如果你不使用 SQLite 作为你的数据库，那就必须额外设置下比如 [**USER**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-USER)， [**PASSWORD**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-PASSWORD) 和  [**HOST**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-HOST)。若想查看更多详情，可以参考文档 [**DATABASES**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASES)。
 
 > 对于 SQLite 以外的数据库
 >
-> 如果你使用除了 SQLite 以外的数据库，请确认你已经创建了数据库。用 “CREATE DATABASE database_name;” 在你的数据库交互提示里创建数据库。
+> 如果你使用除 SQLite 以外的数据库，请确认你已经创建了数据库。在你的数据库交互提示里用 “CREATE DATABASE database_name;” 创建数据库。
 >
 > 同样要确认在 **mysite/settings.py** 中的数据库用户拥有创建数据库的权限。这可以允许自动创建 [测速数据库](https://docs.djangoproject.com/en/1.11/topics/testing/overview/#the-test-database) —— 后面的教程需要。
 >
@@ -27,9 +27,9 @@
 
 当你编辑 **mysite/settings** 的时候，记得把时区 [**TIME_ZONE**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TIME_ZONE) 设成你要的时区。
 
-同样的，注意 [*INSTALLED_APPS*](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 应该设置在文件的最顶端。它放着这个 Django 实例激活的所有 Django 应用程序。应用可以被用在多个项目中，你可以把它们打包分发，供其他人在他们的项目中使用。
+同样的，注意 [**INSTALLED_APPS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 应该设置在文件的较顶端处。它放着这个 Django 实例激活的所有 Django 应用程序。应用可以被用在多个项目中，你可以把它们打包分发，供其他人在项目中使用。
 
-默认情况下，[*INSTALLED_APPS*](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 包含着下面这些应用，它们都来自 Django：
+默认情况下，[**INSTALLED_APPS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 包含着下面这些应用，它们都来自 Django：
 
 - [**django.contrib.admin**](https://docs.djangoproject.com/en/1.11/ref/contrib/admin/#module-django.contrib.admin) —— 管理站点。你可以快捷地使用它。
 - [**django.contrib.auth**](https://docs.djangoproject.com/en/1.11/topics/auth/#module-django.contrib.auth) —— 认证系统。
@@ -38,7 +38,7 @@
 - [**django.contrib.messages**](https://docs.djangoproject.com/en/1.11/ref/contrib/messages/#module-django.contrib.messages) —— 消息框架。
 - [**django.contrib.staticfiles**](https://docs.djangoproject.com/en/1.11/ref/contrib/staticfiles/#module-django.contrib.staticfiles) —— 静态文件管理框架。
 
-为了方便通常情况，这些应用默认已被包含。
+通常情况下为了方便，这些应用默认已被包含。
 
 其中一些应用使用了至少一张数据库表，所以在使用它们之前，我们需要先在数据库中创建这些表。可以运行这行命令做些事：
 
@@ -46,11 +46,11 @@
 $ python manage.py migrate
 ```
 
-[**migrate**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate) 命令在 [*INSTALLED_APPS*](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 设置中寻找，并根据 **mysite/settings.py** 文件的数据库设置创建一些必要的数据库表和随应用迁移的数据库（我们将会稍后介绍）。你将看到应用于各个迁移的消息。如果你感兴趣，可以运行一下你的数据库客户端，然后输入（**\dt** (PostgreSQL), **SHOW TABLES;** (MySQL), **.schema** (SQLite), **SELECT TABLE_NAME FROM USER_TABLES;** (Oracle)）来看下 Django 创建的这些表。
+[**migrate**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate) 命令在 **mysite/settings.py** 文件的 [**INSTALLED_APPS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 设置中寻找，并根据数据库设置创建一些必要的数据库表和随应用迁移的数据库（我们将会稍后介绍）。你将看到应用于各个迁移的消息。如果你感兴趣，可以运行一下你的数据库客户端，然后输入（**\dt** (PostgreSQL), **SHOW TABLES;** (MySQL), **.schema** (SQLite), **SELECT TABLE_NAME FROM USER_TABLES;** (Oracle)）来看下 Django 创建的这些表。
 
-> 给极简主义者
+> **给极简主义者**
 >
-> 就像我们上面说的，通常情况下，这些默认应用都被包含了，但不是人人都需要它们的。如果你不需要其中一些，或者不需要它们全部，在运行 [**migrate**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate) 之前，可以随心把它们从 [*INSTALLED_APPS*](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 中注释或删掉。[**migrate**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate) 命令只会迁移那些在 [*INSTALLED_APPS*](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 中的应用的数据库。
+> 就像我们上面说的，通常情况下，这些默认应用都被包含了，但不是人人都需要它们的。如果你不需要其中一些，或者不需要它们全部，在运行 [**migrate**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate) 之前，可以随心把它们从 [**INSTALLED_APPS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 中注释或删掉。[**migrate**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate) 命令只会迁移那些在 [**INSTALLED_APPS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 中激活的应用的数据库。
 
 ## 创建模型
 
@@ -58,7 +58,7 @@ $ python manage.py migrate
 
 > **设计哲学**
 >
-> 模型是你数据的简单明确的描述。它包含了储存的数据所必要的字段和行为。Django 遵循 [DRY 原则](https://docs.djangoproject.com/en/1.11/misc/design-philosophies/#dry)。它的目标是让你只需要在一个地方定义数据模型，就能自动从中导出迁移代码。
+> 模型是你数据的简单明确的描述。它包含了储存的数据所必要的字段和行为。Django 遵循 [DRY 原则](https://docs.djangoproject.com/en/1.11/misc/design-philosophies/#dry)。它的目标是让你只需要在一个地方定义数据模型，Django 就能自动从中导出迁移代码。
 >
 > 来介绍一下迁移 - 举个例子，不像 Ruby On Rails，Django 的迁移代码全部都是从你的模型文件导出的，它本质上只是个历史记录，Django 可以通过滚动更新数据库来匹配你当前的模型。
 
@@ -68,6 +68,7 @@ $ python manage.py migrate
 
 ```python3
 # polls/models.py
+
 from django.db import models
 
 class Question(models.Model):
@@ -80,7 +81,7 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
 ```
 
-代码非常直白。每个模型都被表示为 [**django.db.models.Model**](https://docs.djangoproject.com/en/1.11/ref/models/instances/#django.db.models.Model) 类的子类。每个模型都有一些类变量，每一个都表示为模型里的一个数据库字段。
+代码非常直白。每个模型都被表示为 [**django.db.models.Model**](https://docs.djangoproject.com/en/1.11/ref/models/instances/#django.db.models.Model) 类的子类。每个模型都有些类变量，每一个都表示为模型里的一个数据库字段。
 
 每个字段都是 [**Field**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field) 类的实例 - 比如，字符字段被表示为 [**CharField**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.CharField)，日期时间字段被表示为 [**DateTimeField**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.DateTimeField)。这告诉 Django 每个要处理的字段是什么数据类型。
 
@@ -107,7 +108,7 @@ class Choice(models.Model):
 >
 > Django 应用是“可插拔”的。你可以在多个项目中使用同一个应用。除此之外，你还可以分发自己的应用，因为它们并不会被绑定到当前安装的 Django 上。
 
-要在项目中包含应用，我们需要在 **INSTALLED_APPS** 设置里添加这个应用的设置类。这个设置类**PollsConfig** 在 **polls/apps.py** 文件里，它的点分路径是 **'polls.apps.PollsConfig'**。编辑 **mysite/settings.py**，然后在 **INSTALLED_APPS** 设置里添加这个点分路径，使其包含字符串 **polls**。看起来应该像这样：
+要在项目中包含应用，我们需要在 **INSTALLED_APPS** 设置里添加这个应用的设置类。这个设置类 **PollsConfig** 在 **polls/apps.py** 文件里，它的点分路径是 **'polls.apps.PollsConfig'**。编辑 **mysite/settings.py**，然后在 **INSTALLED_APPS** 设置里添加这个点分路径，使其包含字符串 **polls**。看起来应该像这样：
 
 ```python3
 # mysite/settings.py
@@ -211,8 +212,8 @@ Running migrations:
 迁移是非常强大的功能，它能让你在开发过程中持续的改变数据库结构而不需要重新删除和创建表 - 它专注于使数据库平滑升级而不会丢失数据。我们会在后面的教程中更加深入的学习这部分内容，现在，你只需要记住，改变模型需要这三步：
 
 - 编辑 **models.py** 文件，改变模型。
-- 运行 `python manage.py makemigrations` 为模型的改变生成迁移文件。
-- 运行 `python manage.py migrate` 来应用数据库迁移。
+- 运行 **python manage.py makemigrations** 为模型的改变生成迁移文件。
+- 运行 **python manage.py migrate** 来应用数据库迁移。
 
 数据库迁移被分解成生成和应用两个命令是为了让你能够在代码控制系统上提交迁移数据并使其能在多个应用里使用；这不仅仅会让开发更加简单，也给别的开发者和生产环境中的使用带来方便。
 
@@ -456,7 +457,7 @@ Django 的管理界面默认就是启用的。让我们启动开发服务器，�
 $ python manage.py runserver
 ```
 
-现在，打开浏览器，转到你本地域名的 “/admin/” 目录，比如 “http://127.0.0.1:8000/admin”。你应该会看见管理员登录界面：
+现在，打开浏览器，转到你本地域名的 “/admin/” 目录，比如 “http://127.0.0.1:8000/admin” 。你应该会看见管理员登录界面：
 
 ![Django admin login screen](img/admin01.png)
 
@@ -503,7 +504,7 @@ admin.site.register(Question)
 有些事情需要注意：
 
 - 这个表单是从 **Question** 模型中自动生成的。
-- 不同的字段类型（**日期时间字段（DateTimeField）**、**字符字段（CharField）**）会生成对应的 HTML 输入控件。每个类型的字段都知道它们该如何在管理页面里显示自己。
+- 不同的字段类型 **日期时间字段（DateTimeField）**、**字符字段（CharField）** 会生成对应的 HTML 输入控件。每个类型的字段都知道它们该如何在管理页面里显示自己。
 - 每个 **日期时间字段（DateTimeField）** 都有 JavaScript 写的快捷按钮。日期有转到今天（Today）的快捷按钮和一个弹出式日历界面。时间有设为现在（Now）的快捷按钮和一个列出常用时间的方便的弹出式列表。
 
 页面的底部提供了几个选项：
@@ -513,7 +514,7 @@ admin.site.register(Question)
 - 保存并新增（Save and add another） - 保存改变，然后添加一个新的空对象并载入修改界面。
 - 删除（Delete） - 显示一个确认删除页面。
 
-如果显示的“发布日期（Date Published）”和你在教程第一部分里创建它们的时间不一致，这意味着你可能没有正确的设置 **[TIME_ZONE]https://docs.djangoproject.com/en/1.11/intro/tutorial01/)**。改变设置，然后重新载入页面看看是否显示了正确的值。
+如果显示的“发布日期（Date Published）”和你在教程第一部分里创建它们的时间不一致，这意味着你可能没有正确的设置 [**TIME_ZONE**](https://docs.djangoproject.com/en/1.11/intro/tutorial01/)。改变设置，然后重新载入页面看看是否显示了正确的值。
 
 通过点击“今天”（Today）和“现在（Now）”按钮改变“发布日期（Date Published）”。然后点击“保存并继续编辑（Save and add another）”按钮。然后点击右上角的“历史（History）”按钮。你会看到一个列出了所有通过 Django 管理页面对当前对象进行的改变的页面，其中列出了时间戳和进行修改操作的用户名：
 
