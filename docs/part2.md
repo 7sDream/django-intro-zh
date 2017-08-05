@@ -8,14 +8,14 @@
 
 默认情况下，配置的数据库是 SQLite，如果你对数据库不太熟，或者你只是对尝试 Django 感兴趣，这是最简单的选择。SQLite 内嵌在 Python 里，所以你不用再安装其他东西来支持你的数据库。但是当你开始做第一个实际的项目时，你也许想使用一个可扩展的数据库，比如 PostgreSQL 来避免令人头痛地切换数据库问题。
 
-如果你希望使用其他数据库，你需要安装合适的 [database bingings](https://docs.djangoproject.com/en/1.11/topics/install/#database-installation) 和在 [DATABASES](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASES) 'default' 默认项里改变一些键值，以匹配你的数据库设置：
-- [**引擎（ENGINE）**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASE-ENGINE) - **'django.db.backends.sqlite3'**、
+如果你希望使用其他数据库，你需要安装合适的 [database bingings](https://docs.djangoproject.com/en/1.11/topics/install/#database-installation) 和在 [DATABASES][DATABASES] 'default' 默认项里改变一些键值，以匹配你的数据库设置：
+- [**引擎（ENGINE）**][ENGINE] - **'django.db.backends.sqlite3'**、
 	**'django.db.backends.postgresql'**、
 	**'django.db.backends.mysql'** 或者
 	**'django.db.backends.oracle'**。 其他的后端 [也可以参考](https://docs.djangoproject.com/en/1.11/ref/databases/#third-party-notes)。
-- [**名字（NAME）**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-NAME) - 你数据库的名字。如果你正在使用 SQLite，数据库将以文件形式保存在你的电脑；在这种情况下，[**名字**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-NAME) 应该是绝对路径，包括文件名。默认 **os.path.join(BASE_DIR, 'db.sqlite3')** 将把文件保存在你项目的目录下。
+- [**名字（NAME）**][NAME] - 你数据库的名字。如果你正在使用 SQLite，数据库将以文件形式保存在你的电脑；在这种情况下，[**名字**][NAME] 应该是绝对路径，包括文件名。默认 **os.path.join(BASE_DIR, 'db.sqlite3')** 将把文件保存在你项目的目录下。
 
-如果你不使用 SQLite 作为你的数据库，那就必须额外设置下比如 [**USER**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-USER)， [**PASSWORD**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-PASSWORD) 和  [**HOST**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-HOST)。若想查看更多详情，可以参考文档 [**DATABASES**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASES)。
+如果你不使用 SQLite 作为你的数据库，那就必须额外设置下比如 [**USER**][USER]， [**PASSWORD**][PASSWORD] 和  [**HOST**][HOST]。若想查看更多详情，可以参考文档 [**DATABASES**][DATABASES]。
 
 > 对于 SQLite 以外的数据库
 >
@@ -25,11 +25,11 @@
 >
 > 如果你在使用 SQLite，你不需要在这之前创建什么 —— 数据库文件会在需要的时候自动创建。
 
-当你编辑 **mysite/settings** 的时候，记得把时区 [**TIME_ZONE**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TIME_ZONE) 设成你要的时区。
+当你编辑 **mysite/settings** 的时候，记得把时区 [**TIME_ZONE**][TIME_ZONE] 设成你要的时区。
 
-同样的，注意 [**INSTALLED_APPS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 应该设置在文件的较顶端处。它放着这个 Django 实例激活的所有 Django 应用程序。应用可以被用在多个项目中，你可以把它们打包分发，供其他人在项目中使用。
+同样的，注意 [**INSTALLED_APPS**][INSTALLED_APPS] 应该设置在文件的较顶端处。它放着这个 Django 实例激活的所有 Django 应用程序。应用可以被用在多个项目中，你可以把它们打包分发，供其他人在项目中使用。
 
-默认情况下，[**INSTALLED_APPS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 包含着下面这些应用，它们都来自 Django：
+默认情况下，[**INSTALLED_APPS**][INSTALLED_APPS] 包含着下面这些应用，它们都来自 Django：
 
 - [**django.contrib.admin**](https://docs.djangoproject.com/en/1.11/ref/contrib/admin/#module-django.contrib.admin) —— 管理站点。你可以快捷地使用它。
 - [**django.contrib.auth**](https://docs.djangoproject.com/en/1.11/topics/auth/#module-django.contrib.auth) —— 认证系统。
@@ -46,11 +46,11 @@
 $ python manage.py migrate
 ```
 
-[**migrate**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate) 命令在 **mysite/settings.py** 文件的 [**INSTALLED_APPS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 设置中寻找，并根据数据库设置创建一些必要的数据库表和随应用迁移的数据库（我们将会稍后介绍）。你将看到应用于各个迁移的消息。如果你感兴趣，可以运行一下你的数据库客户端，然后输入（**\dt** (PostgreSQL), **SHOW TABLES;** (MySQL), **.schema** (SQLite), **SELECT TABLE_NAME FROM USER_TABLES;** (Oracle)）来看下 Django 创建的这些表。
+[**migrate**][migrate] 命令在 **mysite/settings.py** 文件的 [**INSTALLED_APPS**][INSTALLED_APPS] 设置中寻找，并根据数据库设置创建一些必要的数据库表和随应用迁移的数据库（我们将会稍后介绍）。你将看到应用于各个迁移的消息。如果你感兴趣，可以运行一下你的数据库客户端，然后输入（**\dt** (PostgreSQL), **SHOW TABLES;** (MySQL), **.schema** (SQLite), **SELECT TABLE_NAME FROM USER_TABLES;** (Oracle)）来看下 Django 创建的这些表。
 
 > **给极简主义者**
 >
-> 就像我们上面说的，通常情况下，这些默认应用都被包含了，但不是人人都需要它们的。如果你不需要其中一些，或者不需要它们全部，在运行 [**migrate**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate) 之前，可以随心把它们从 [**INSTALLED_APPS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 中注释或删掉。[**migrate**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate) 命令只会迁移那些在 [**INSTALLED_APPS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 中激活的应用的数据库。
+> 就像我们上面说的，通常情况下，这些默认应用都被包含了，但不是人人都需要它们的。如果你不需要其中一些，或者不需要它们全部，在运行 [**migrate**][migrate] 之前，可以随心把它们从 [**INSTALLED_APPS**][INSTALLED_APPS] 中注释或删掉。[**migrate**][migrate] 命令只会迁移那些在 [**INSTALLED_APPS**][INSTALLED_APPS] 中激活的应用的数据库。
 
 ## 创建模型
 
@@ -83,15 +83,15 @@ class Choice(models.Model):
 
 代码非常直白。每个模型都被表示为 [**django.db.models.Model**](https://docs.djangoproject.com/en/1.11/ref/models/instances/#django.db.models.Model) 类的子类。每个模型都有些类变量，每一个都表示为模型里的一个数据库字段。
 
-每个字段都是 [**Field**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field) 类的实例 - 比如，字符字段被表示为 [**CharField**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.CharField)，日期时间字段被表示为 [**DateTimeField**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.DateTimeField)。这告诉 Django 每个要处理的字段是什么数据类型。
+每个字段都是 [**Field**][Field] 类的实例 - 比如，字符字段被表示为 [**CharField**][CharField]，日期时间字段被表示为 [**DateTimeField**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.DateTimeField)。这告诉 Django 每个要处理的字段是什么数据类型。
 
-每个 [**Field**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field) 类实例变量的名字（比如 **question_text** 或 **pub_date**）都是字段名，这是对机器友好的格式。你将会在 Python 代码里使用它们，而数据库会将它们作为列名。
+每个 [**Field**][Field] 类实例变量的名字（比如 **question_text** 或 **pub_date**）都是字段名，这是对机器友好的格式。你将会在 Python 代码里使用它们，而数据库会将它们作为列名。
 
-你可以使用可选的选项来为 [**Field**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field) 定义一个人类可读的名字。这个功能在很多 Django 内部组成部分中都被使用了，而且作为文档的一部分。如果某个字段没有被提供，Django 将会使用对机器友好的名称（也就是变量名）。在上面的例子中，我们只为 **Question.pub_date** 定义了对人类可读的名字。对于模型内的其他字段，它们的机器可读名也会被作为人类可读名使用。
+你可以使用可选的选项来为 [**Field**][Field] 定义一个人类可读的名字。这个功能在很多 Django 内部组成部分中都被使用了，而且作为文档的一部分。如果某个字段没有被提供，Django 将会使用对机器友好的名称（也就是变量名）。在上面的例子中，我们只为 **Question.pub_date** 定义了对人类可读的名字。对于模型内的其他字段，它们的机器可读名也会被作为人类可读名使用。
 
-定义某些 [**Field**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field) 类实例需要参数。例如 [**CharField**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.CharField) 需要参数 [**max_length**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.CharField.max_length)。该参数不止用于定义数据库结构，也用于验证数据，我们稍后将会看到这方面的内容。
+定义某些 [**Field**][Field] 类实例需要参数。例如 [**CharField**][CharField] 需要参数 [**max_length**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.CharField.max_length)。该参数不止用于定义数据库结构，也用于验证数据，我们稍后将会看到这方面的内容。
 
-[**Field**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field) 能够接收多个可选参数；在上面的例子中：我们已经将 **votes** 的 [**default**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field.default) 默认值设为0。
+[**Field**][Field] 能够接收多个可选参数；在上面的例子中：我们已经将 **votes** 的 [**default**][default] 默认值设为0。
 
 最后，还要注意到我们使用了 [**ForeignKey**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.ForeignKey) 外键来定义一个关系。这会告诉 Django 每个 **Choice** 对象都和一个 **Question** 对象相关联。Django 支持所有常用的数据库关系：多对一、多对多和一对一。
 
@@ -196,7 +196,7 @@ COMMIT;
 
 如果你感兴趣，你也可以尝试运行 [**python manage.py check**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-check)；这个命令帮助你检查项目中的问题，并且在检查过程中不会对数据库进行任何操作。
 
-现在，再次运行 [**migrate**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate) 命令，在数据库里创建模型的数据表：
+现在，再次运行 [**migrate**][migrate] 命令，在数据库里创建模型的数据表：
 
 ```text
 $ python manage.py migrate
@@ -207,7 +207,7 @@ Running migrations:
   Applying polls.0001_initial... OK
 ```
 
-[**migrate**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate) 命令选中所有还没有执行过的迁移（Django 通过在数据库中创建一个特殊的表 **django_migrations** 来跟踪执行过哪些迁移）并应用在数据库上 - 也就是将你对模型的更改同步到数据库结构上。
+[**migrate**][migrate] 命令选中所有还没有执行过的迁移（Django 通过在数据库中创建一个特殊的表 **django_migrations** 来跟踪执行过哪些迁移）并应用在数据库上 - 也就是将你对模型的更改同步到数据库结构上。
 
 迁移是非常强大的功能，它能让你在开发过程中持续的改变数据库结构而不需要重新删除和创建表 - 它专注于使数据库平滑升级而不会丢失数据。我们会在后面的教程中更加深入的学习这部分内容，现在，你只需要记住，改变模型需要这三步：
 
@@ -514,10 +514,24 @@ admin.site.register(Question)
 - 保存并新增（Save and add another） - 保存改变，然后添加一个新的空对象并载入修改界面。
 - 删除（Delete） - 显示一个确认删除页面。
 
-如果显示的“发布日期（Date Published）”和你在教程第一部分里创建它们的时间不一致，这意味着你可能没有正确的设置 [**TIME_ZONE**](https://docs.djangoproject.com/en/1.11/intro/tutorial01/)。改变设置，然后重新载入页面看看是否显示了正确的值。
+如果显示的“发布日期（Date Published）”和你在教程第一部分里创建它们的时间不一致，这意味着你可能没有正确的设置 [**TIME_ZONE**][TIME_ZONE]。改变设置，然后重新载入页面看看是否显示了正确的值。
 
 通过点击“今天”（Today）和“现在（Now）”按钮改变“发布日期（Date Published）”。然后点击“保存并继续编辑（Save and add another）”按钮。然后点击右上角的“历史（History）”按钮。你会看到一个列出了所有通过 Django 管理页面对当前对象进行的改变的页面，其中列出了时间戳和进行修改操作的用户名：
 
 ![History page for question object](img/admin06t.png)
 
 当你明白了模型的 API 和熟悉了你自己的管理站点后，你就可以开始阅读 [教程的第三部分（zh）](part3.md) ，学习如何在投票应用中添加更多的视图。
+
+
+[TIME_ZONE]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TIME_ZONE
+[USER]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-USER
+[PASSWORD]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-PASSWORD
+[HOST]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-HOST
+[NAME]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-NAME
+[DATABASES]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASES
+[INSTALLED_APPS]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS
+[migrate]: https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate
+[Field]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field
+[CharField]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.CharField
+[default]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field.default
+[ENGINE]： https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASE-ENGINE
