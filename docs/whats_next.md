@@ -1,6 +1,6 @@
 # 接下来如何学习？
 
-看来您已经阅读完所有的[介绍文档](https://docs.djangoproject.com/en/1.8/intro/)，并且决定继续使用 Django。但是我们前面只是进行了概括性的介绍（事实上，即使您全部浏览完，也只是涉及了所有文档 5% 左右的内容）。
+看来您已经阅读完所有的[介绍文档](index.md)，并且决定继续使用 Django。但是我们前面只是进行了概括性的介绍（事实上，即使您全部浏览完，也只是涉及了所有文档 5% 左右的内容）。
 
 所以接下来是？
 
@@ -12,7 +12,7 @@
 
 ## 如何查询文档
 
-Django 拥有着大量的文档 – 大概在 450,000 单词左右 – 因此有时候查询您所需要的内容并非易事。一些查看文档的好地方是[搜索页面](https://docs.djangoproject.com/en/1.8/search/)和[目录](https://docs.djangoproject.com/en/1.8/genindex/)。
+Django 拥有着大量的文档 – 大概在 450,000 单词左右 – 因此有时候查询您所需要的内容并非易事。一些查看文档的好地方是[搜索页面](https://docs.djangoproject.com/en/1.11/search/)和[索引页](https://docs.djangoproject.com/en/1.11/genindex/)。
 
 或者您可以完整浏览！
 
@@ -20,21 +20,21 @@ Django 拥有着大量的文档 – 大概在 450,000 单词左右 – 因此有
 
 Django 官方文档的主体内容可以根据满足不同的需要分解成不同的部分：
 
-- [介绍文档](https://docs.djangoproject.com/en/1.8/intro/)通常是为刚接触 Djang 或者 Web 开发的人所设计的。它并不涉及太多高深的内容，但相对地提供了一个宏观的概览视角帮助培养如何使用 Django 进行开发的“感觉”。
+- [介绍文档](https://docs.djangoproject.com/en/1.11/intro/)通常是为刚接触 Djang 或者 Web 开发的人所设计的。它并不涉及太多高深的内容，但相对地提供了一个宏观的概览视角帮助培养如何使用 Django 进行开发的“感觉”。
 
-- 另一方面，[主题指南](https://docs.djangoproject.com/en/1.8/topics/)对 Django 的每一块进行了深入讲解。主题指南包括了对于 Django 的[模型系统](https://docs.djangoproject.com/en/1.8/topics/db/), [模板引擎](https://docs.djangoproject.com/en/1.8/topics/templates/), [表单框架](https://docs.djangoproject.com/en/1.8/topics/forms/)以及更多内容的完整指导。
+- 另一方面，[主题指南](https://docs.djangoproject.com/en/1.11/topics/)对 Django 的每一块进行了深入讲解。主题指南包括了对于 Django 的[模型系统](https://docs.djangoproject.com/en/1.11/topics/db/), [模板引擎](https://docs.djangoproject.com/en/1.11/topics/templates/), [表单框架](https://docs.djangoproject.com/en/1.11/topics/forms/)以及更多内容的完整指导。
 
 这里可能是您花费时间最多的地方；如果您动手实践了这些指导文档包含的内容，那么您应该对 Django 非常熟悉了。
 
-- Web 开发涉猎范围广，但是并不深入——遇到的问题可能跨越了不同的领域，为此我们撰写了一系列 [how-to guides](https://docs.djangoproject.com/en/1.8/howto/)文档来回答常见诸如 “How do I..?”（我该如何）这类的问题。在这部分的文档里，您可以找到关于[使用 Django 生成 PDF](https://docs.djangoproject.com/en/1.8/howto/outputting-pdf/)，[如何编写自定义的模板标签](https://docs.djangoproject.com/en/1.8/howto/custom-template-tags/)等等的内容。
+- Web 开发涉猎范围广，但是并不深入——遇到的问题可能跨越了不同的领域，为此我们撰写了一系列 [how-to guides](https://docs.djangoproject.com/en/1.11/howto/)文档来回答常见诸如 “How do I..?”（我该如何）这类的问题。在这部分的文档里，您可以找到关于[使用 Django 生成 PDF](https://docs.djangoproject.com/en/1.11/howto/outputting-pdf/)，[如何编写自定义的模板标签](https://docs.djangoproject.com/en/1.11/howto/custom-template-tags/)等等的内容。
 
-对于常见问题的答案可以在 [FAQ](https://docs.djangoproject.com/en/1.8/faq) 找到。
+对于常见问题的答案可以在 [FAQ](https://docs.djangoproject.com/en/1.11/faq/) 找到。
 
-- 指导文档和 How-To 文档并没有完全覆盖到 Django 中的每一个类、函数、方法，那样的话内容会太多，不利于学习。实际上，每个类、函数、方法还有模块的实现细节都记录在[参考部分](https://docs.djangoproject.com/en/1.8/ref/)中。那里才是当你需要查找函数细节或是其他具体细节的地方。
+- 指导文档和 How-To 文档并没有完全覆盖到 Django 中的每一个类、函数、方法，那样的话内容会太多，不利于学习。实际上，每个类、函数、方法还有模块的实现细节都记录在[参考部分](https://docs.djangoproject.com/en/1.11/ref/)中。那里才是当你需要查找函数细节或是其他具体细节的地方。
 
-- 如果您对于部署 Django 项目到公共网络感兴趣的话，我们文档也提供了一些关于各种部署设置的[指导](https://docs.djangoproject.com/en/1.8/howto/deployment/)，包括您所需要关注的[部署清单](https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/)。
+- 如果您对于部署 Django 项目到公共网络感兴趣的话，我们文档也提供了一些关于各种部署设置的[指导](https://docs.djangoproject.com/en/1.11/howto/deployment/)，包括您所需要关注的[部署清单](https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/)。
 
-- 最后，有一些"特殊"的文档通常与大多数开发者无关，比如[发行记录](https://docs.djangoproject.com/en/1.8/releases/)以及针对于那些想为 Django 项目贡献力量的开发人员的[内部文档](https://docs.djangoproject.com/en/1.8/internals/)，此外还包括了一些[不好分类的杂散文档](https://docs.djangoproject.com/en/1.8/misc/)。
+- 最后，有一些"特殊"的文档通常与大多数开发者无关，比如[发行记录](https://docs.djangoproject.com/en/1.11/releases/)以及针对于那些想为 Django 项目贡献力量的开发人员的[内部文档](https://docs.djangoproject.com/en/1.11/internals/)，此外还包括了一些[不好分类的杂散文档](https://docs.djangoproject.com/en/1.11/misc/)。
 
 ## 文档是如何更新的
 
@@ -55,9 +55,9 @@ Django 文档和其代码使用同一份版本控制进行管理。它位于我�
 
 最新版本的 Django 官方文档位于 [https://docs.djangoproject.com/en/dev/](https://docs.djangoproject.com/en/dev/)。这些HTML页面是通过源代码控制的文本文件自动生成的。这就意味着它们涉及了 Django “最新和最好”的方面——包括了最新的修正和新添加的内容，以及对于只面向使用 Django 最新版本的用户开放的新特性讨论。（参考下文“版本之间的差异”）
 
-我们鼓励您通过[反馈系统](https://code.djangoproject.com/newticket?component=Documentation) 提交更新，修正和建议以促进文档质量的改善。Django的开发人员会积极地关注反馈系统，并根据您的反馈来改善文档。
+我们鼓励您通过[反馈系统](https://code.djangoproject.com) 提交更新，修正和建议以促进文档质量的改善。Django的开发人员会积极地关注反馈系统，并根据您的反馈来改善文档。
 
-请注意，无论如何，提交的反馈应该和文档密切相关，而不是涉及技术支持的问题。如果您需要额外的技术支持，请试试 [django user](https://docs.djangoproject.com/en/1.8/internals/mailing-lists/#django-users-mailing-list) 邮件列表或者 [#django IRC channel](irc://irc.freenode.net/django)。
+请注意，无论如何，提交的反馈应该和文档密切相关，而不是涉及技术支持的问题。如果您需要额外的技术支持，请试试 [django user](https://docs.djangoproject.com/en/1.11/internals/mailing-lists/#django-users-mailing-list) 邮件列表或者 [#django IRC channel](irc://irc.freenode.net/django)。
 
 ### 纯文本
 
@@ -69,7 +69,7 @@ Django 文档和其代码使用同一份版本控制进行管理。它位于我�
 
 一个稍微有点技术含量的查看文档的方法是通过 Unix 系统的 **`grep`** 命令来查找关键字搜索文档。例如，这将会展示 Django 文档中每一处提及"**`max_length`**"的地方：
 
-```
+```bash
 $ grep -r max_length /path/to/django/docs/
 ```
 
@@ -79,31 +79,27 @@ $ grep -r max_length /path/to/django/docs/
 
 - Django 的文档使用了 [Sphinx](http://sphinx-doc.org/) 文档系统来进行从纯文本到 HTML 的转换。您需要通过 Sphinx 官网下载安装包，或者通过 **`pip`** 方式进行安装：
 
-```
+```bash
 $ pip install Sphinx
 ```
 
 - 然后使用文档目录下的 **`Makefile`** 进行纯文本到 HTML 格式的转换：
 
-```
+```bash
 cd path/to/django/docs
 $ make html
 ```
 
-进行此操作，您需要安装 [GUN Make](http://www.gnu.org/software/make/)。
+进行此操作，您需要安装 [GUN Make](https://www.gnu.org/software/make/)。
 
 如果您是在 Windows 系统的环境下，也可以选择使用目录中的批处理文件：
 
-```
+```bash
 cd path\to\django\docs
 make.bat html
 ```
 
 - 最后生成的 HTML 格式的文档会位于 **`docs/_build/html`** 中。
-
-#### 注意
-
-Django 文档的生成需要 Sphinx 版本大于 0.6 或者更新的版本，但我们更建议直接使用 Sphinx 1.0.2 或者更新的版本。
 
 ## 版本之间的差异
 
@@ -117,6 +113,6 @@ Django 文档的生成需要 Sphinx 版本大于 0.6 或者更新的版本，但
 
 - 为了在文档中区分特性的更改或者添加，我们使用了如下说明文字：“`New in version X.Y`”，意思是将出现在接下来的发行版本中（因此，还处在开发的阶段中）。
 
-- 在某些情况下，文档的修复和改进可能会在开发人员的同意下回迁到最后的发行分支。然而，一旦某个版本的 Django 不再被支持，那么对应版本的文档也会停止进一步的更新。
+- 在某些情况下，文档的修复和改进可能会在开发人员的同意下回迁到最后的发行分支。然而，一旦某个版本的 Django [不再被支持](https://docs.djangoproject.com/en/1.11/internals/release-process/#backwards-compatibility-policy)，那么对应版本的文档也会停止进一步的更新。
 
 - [文档主页面](https://docs.djangoproject.com/en/dev/) 包含着所有旧版本的文档。请务必确保您阅读的文档版本对应着您正在使用的 Django！
