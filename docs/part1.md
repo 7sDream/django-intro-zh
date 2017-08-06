@@ -65,7 +65,7 @@ mysite/
 - **manage.py**：一个让你可以用各种方式管理该 Django 项目的命令行工具。你可以阅读 [django-admin and manage.py](https://docs.djangoproject.com/en/1.11/ref/django-admin/) 来获取关于 **manage.py** 的更多细节。
 - 里面一层的 **mysite/** 目录就是你项目的实际 Python 包。它的名字就是当你引用它内部任何东西时需要用到的 Python 包名（比如：**mysite.urls**）。
 - **mysite/\_\_init\_\_.py**：一个用于指明此目录是 Python 包的空白文件。（如果你刚开始学习 Python，请阅读 Python 官方文档中的 [more about packages](https://docs.python.org/3/tutorial/modules.html#tut-packages) 。）
-- **mysite/settings.py**：该 Django 项目的配置文件。如果你想知道这个文件是如何工作的，请看文档 [Django settings](https://docs.djangoproject.com/en/1.11/topics/settings/)。
+- **mysite/settings.py**：该 Django 项目的配置文件。如果你想知道这个文件是如何工作的，请看文档 [Django settings][settings]。
 - **mysite/urls.py**：该 Django 项目的 URL 声明，就像是你网站的“目录”。阅读 [URL dispatcher](https://docs.djangoproject.com/en/1.11/topics/http/urls/) 文档来获取更多关于 URL 的内容。
 - **mysite/wsgi.py**：当你部署项目到一个兼容 WSGI 的服务器上时所需要的入口点。[How to deploy with WSGI](https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/) 文档内有更多关于这个文件的细节。
 
@@ -106,7 +106,7 @@ Quit the server with CONTROL-C.
 
 > **更换端口**
 >
-> 默认情况下，[**runserver**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-runserver) 命令会将服务器设置为监听本机内部 IP 的 8000 端口。
+> 默认情况下，[**runserver**][runserver] 命令会将服务器设置为监听本机内部 IP 的 8000 端口。
 >
 > 如果你想更换服务器监听的端口，请使用命令行参数。比如，让服务器监听 8080 端口：
 >
@@ -120,7 +120,7 @@ $ python manage.py runserver 8080
 $ python manage.py runserver 0:8000
 ```
 >
-> 0 是 0.0.0.0 的快捷方式。想了解更多关于这个用于开发的服务器的内容可以参考 [**runserver**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-runserver)。
+> 0 是 0.0.0.0 的快捷方式。想了解更多关于这个用于开发的服务器的内容可以参考 [**runserver**][runserver]。
 
 > **会自动重载的服务器**
 >
@@ -201,7 +201,7 @@ urlpatterns = [
 ]
 ```
 
-下一步就是将根目录下的 URLconf 指向 **polls.urls** 模块。在 **mysite/urls.py** 中导入 **django.conf.urls.include**，并且在 **urlpatterns** 列表中插入 [**include()**](https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.include)，像下面这样：
+下一步就是将根目录下的 URLconf 指向 **polls.urls** 模块。在 **mysite/urls.py** 中导入 **django.conf.urls.include**，并且在 **urlpatterns** 列表中插入 [**include()**][include]，像下面这样：
 
 ```python3
 # mysite/urls.py
@@ -214,11 +214,11 @@ urlpatterns = [
 ]
 ```
 
-[**include()**](https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.include) 函数允许引用其他的 URLconf。要注意到 [**include()**](https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.include) 函数并没有 **$**(字符串匹配结束)，取而代之的是尾部的一个斜杠。每当 Django 遇到 [**include()**](https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.include)，它就会排除正则匹配的部分，并将剩下的字符串发送到引用的 URLconf 中做进一步的处理。
+[**include()**][include] 函数允许引用其他的 URLconf。要注意到 [**include()**][include] 函数并没有 **$**(字符串匹配结束)，取而代之的是尾部的一个斜杠。每当 Django 遇到 [**include()**][include]，它就会排除正则匹配的部分，并将剩下的字符串发送到引用的 URLconf 中做进一步的处理。
 
-[**include()**](https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.include) 背后的想法是想使得 URL 的即插即用变得简单。polls 是在它们自己的 URLconf 中（ **polls/urls.py** ），它们是可以被放在“/polls/”、 “/fun_polls/”、 “/content/polls/”、 或者其他任何路径，而应用仍然是可以运行的。
+[**include()**][include] 背后的想法是想使得 URL 的即插即用变得简单。polls 是在它们自己的 URLconf 中（ **polls/urls.py** ），它们是可以被放在“/polls/”、 “/fun_polls/”、 “/content/polls/”、 或者其他任何路径，而应用仍然是可以运行的。
 
-> **什么时候使用 [include()](https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.include)**
+> **什么时候使用 [include()][include]**
 >
 > 当你要包含其他 URL 匹配模式时，你应该一直使用 **include()**。 **admin.site.urls** 在这里是一个例外。
 
@@ -234,9 +234,9 @@ $ python manage.py runserver
 
 在你的浏览器中打开 [http://localhost:8000/polls/](http://localhost:8000/polls/)。你应该能看到文字 “Hello, world. You’re at the polls index.” —— 这是你在 **index** 视图中定义的。
 
-[**url**](https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.url) 函数有四个参数，两个必需参数：**regex** 正则和 **view** 视图；两个选项参数：**kwargs**字典和 **name** 名字。在这点上，值得再看下这些参数到底是干什么的。
+[**url**][url] 函数有四个参数，两个必需参数：**regex** 正则和 **view** 视图；两个选项参数：**kwargs**字典和 **name** 名字。在这点上，值得再看下这些参数到底是干什么的。
 
-## [url](https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.url) 参数：regex
+### [url][url]参数：regex
 
 术语 “regex” 是正则表达式 “regular expression” 的缩写，是匹配字符串的一段语法，像这里例子的是 url 匹配模式。Django 从列表的第一个正则表达式开始，按顺序匹配请求的 URL，直到找到与之匹配的。
 
@@ -246,16 +246,23 @@ $ python manage.py runserver
 
 最后，一个性能注意点：这些正则表达式在 URLconf 模块加载后的第一时间就被编译了。它们都是非常快的（只要查找的不是特别复杂就像上面举例的）。
 
-## [url](https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.url) 参数：view
+### [url][url] 参数：view
 
-当 Django 发现一个正则表达式匹配时，Django 就会调用指定的视图函数，[**HttpRequest**](https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpRequest) 对象作为第一个参数，正则表达式捕获的值作为其他参数。如果正则使用简单捕获，值会作为位置参数传递；如果使用命名捕获，值会作为关键字传递。我们稍后会给出一个例子。
+当 Django 发现一个正则表达式匹配时，Django 就会调用指定的视图函数，[**HttpRequest**][HttpRequest] 对象作为第一个参数，正则表达式捕获的值作为其他参数。如果正则使用简单捕获，值会作为位置参数传递；如果使用命名捕获，值会作为关键字传递。我们稍后会给出一个例子。
 
-## [url](https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.url) 参数：kwargs
+### [url][url] 参数：kwargs
 
 任意的关键字参数都可以作为字典传递到目标视图。但我们不准备在本教程里使用 Django 的这个特性。
 
-## [url](https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.url) 参数：name
+### [url][url] 参数：name
 
-命名你的 URL 可以让你在 Django 的别处明白引用的是什么，特别是在模版里。这个强大的特性允许你在项目里对 URL 模式做全局改变，就在一个文件里就能做到。
+命名你的 URL 可以让你在 Django 的别处明白引用的是什么，特别是在模版里。这个强大的特性允许你在项目里对一个文件操作就能对 URL 模式做全局改变。
 
 当你对基本的请求和响应流都明白时，你就可以阅读 [第二部分（zh）](part2.md)开始使用数据库了。
+
+
+[settings]: https://docs.djangoproject.com/en/1.11/topics/settings/
+[runserver]: https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-runserver
+[url]: https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.url
+[include]: https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.include
+[HttpRequest]: https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpRequest

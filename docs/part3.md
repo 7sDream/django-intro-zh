@@ -30,7 +30,7 @@ Django 中的视图的概念是「一类具有相同功能和模板的网页的�
 
 为了将 URL 和视图关联起来，Django 使用了 “URLconfs” 来配置。URLconf 将 URL 模式（表现为一个正则表达式）映射到视图。
 
-本教程只会介绍 URLconf 的基础内容，你可以查看 [**django.core.urlresolvers**](https://docs.djangoproject.com/en/1.11/ref/urlresolvers/#module-django.urls) 以获取更多内容。
+本教程只会介绍 URLconf 的基础内容，你可以查看 [**django.core.urlresolvers**][module-django.urls] 以获取更多内容。
 
 ## 编写更多的视图
 
@@ -73,7 +73,7 @@ urlpatterns = [
 
 然后在你的浏览器里转到 “/polls/34/”，Django 将会运行 **detail()** 方法并展示你在 URL 里提供的问题 ID。再试试 “/polls/34/results” 和 “/polls/34/vote/” —— 你将会看到暂时用于占位的结果和投票页。
 
- 当某人请求你网站的某一页面时——比如说，“/polls/34/”，Django 将会载入 **mysite.urls** 模块，因为配置项 [**ROOT_URLCONF**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-ROOT_URLCONF) 说要载入它。然后 Django 寻找名为 **urlpatterns** 变量并且按序遍历正则表达式。Django 找到匹配的正则表达式 **'^polls/'** 
+ 当某人请求你网站的某一页面时——比如说，“/polls/34/”，Django 将会载入 **mysite.urls** 模块，因为配置项 [**ROOT_URLCONF**][ROOT_URLCONF] 说要载入它。然后 Django 寻找名为 **urlpatterns** 变量并且按序遍历正则表达式。Django 找到匹配的正则表达式 **'^polls/'** 
 然后 Django 将会去除被匹配的部分（**polls/**）,然后发送剩下的文本 —— **“34/”** —— 给 “polls.urls” 这个 URLconf 做进一步处理。然后找到匹配的正则表达式 **r'^(?P<question_id>[0-9]+)/$'**，随后用以下方式调用 **detail()** 函数：
 
 ```python3
@@ -120,7 +120,7 @@ def index(request):
 
 首先，在你的 **polls** 目录里创建一个 **templates** 目录。Django 将会在这个目录里查找模板文件。
 
-你项目的 [**TEMPLATES**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TEMPLATES) 配置项描述了 Django 如何加载和渲染模板。默认的设置文件设置了 **DjangoTemplates** 后端，并将 [**APP_DIRS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TEMPLATES-APP_DIRS) 设置成了 **True**。这一选项将会让 **DjangoTemplates** 在每个 [**INSTALLED_APPS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 中激活的应用文件夹中寻找 “templates” 子目录。
+你项目的 [**TEMPLATES**][TEMPLATES] 配置项描述了 Django 如何加载和渲染模板。默认的设置文件设置了 **DjangoTemplates** 后端，并将 [**APP_DIRS**][APP_DIRS] 设置成了 **True**。这一选项将会让 **DjangoTemplates** 在每个 [**INSTALLED_APPS**][INSTALLED_APPS] 中激活的应用文件夹中寻找 “templates” 子目录。
 
 **templates** 目录建好后，在里面再创建一个目录 **polls**，在这个 **polls** 的目录里再建立一个文件 **index.html**。换句话说，你的模版路径应该是 **polls/templates/polls/index.html**。由于 **app_directories** 模版加载器的工作原理如上所述，所以你使用简单的 **polls/index.html** 就能引用这模版了。
 
@@ -268,7 +268,7 @@ def detail(request, question_id):
 在 [**{% for %}**][templatetag-for] 循环中发生的函数调用：
 **question.choice_set.all** 被解释为 Python 代码 **question.choice_set.all()**，将会返回一个可迭代的 **Choice** 对象，这一对象可以在[**{% for %}**][templatetag-for] 标签内部使用。
 
-查看 [模板指南](https://docs.djangoproject.com/en/1.11/topics/templates/) 可以了解关于模板的更多信息。
+查看 [模板指南][templates] 可以了解关于模板的更多信息。
 
 ## 去除模板中的硬编码 URL
 
@@ -344,6 +344,12 @@ urlpatterns = [
 当你弄懂如何编写视图之后，就可以去看教程的 [第四部分（zh）](part4.md)，来学习关于表单处理和视图类的相关内容。
 
 
+[ROOT_URLCONF]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-ROOT_URLCONF
+[TEMPLATES]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TEMPLATES
+[APP_DIRS]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TEMPLATES-APP_DIRS
+[INSTALLED_APPS]:https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS
+[templates]: https://docs.djangoproject.com/en/1.11/topics/templates/
+[module-django.urls]: https://docs.djangoproject.com/en/1.11/ref/urlresolvers/#module-django.urls
 [filter]: https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.filter
 [templatetag-for]: https://docs.djangoproject.com/en/1.11/ref/templates/builtins/#std:templatetag-for
 [render]: https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.render

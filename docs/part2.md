@@ -8,11 +8,11 @@
 
 默认情况下，配置的数据库是 SQLite，如果你对数据库不太熟，或者你只是对尝试 Django 感兴趣，这是最简单的选择。SQLite 内嵌在 Python 里，所以你不用再安装其他东西来支持你的数据库。但是当你开始做第一个实际的项目时，你也许想使用一个可扩展的数据库，比如 PostgreSQL 来避免令人头痛地切换数据库问题。
 
-如果你希望使用其他数据库，你需要安装合适的 [database bingings](https://docs.djangoproject.com/en/1.11/topics/install/#database-installation) 和在 [DATABASES][DATABASES] 'default' 默认项里改变一些键值，以匹配你的数据库设置：
+如果你希望使用其他数据库，你需要安装合适的 [database bingings][database-installation] 和在 [DATABASES][DATABASES] 'default' 默认项里改变一些键值，以匹配你的数据库设置：
 - [**引擎（ENGINE）**][ENGINE] - **'django.db.backends.sqlite3'**、
 	**'django.db.backends.postgresql'**、
 	**'django.db.backends.mysql'** 或者
-	**'django.db.backends.oracle'**。 其他的后端 [也可以参考](https://docs.djangoproject.com/en/1.11/ref/databases/#third-party-notes)。
+	**'django.db.backends.oracle'**。 其他的后端 [也可以参考][third-party-notes]。
 - [**名字（NAME）**][NAME] - 你数据库的名字。如果你正在使用 SQLite，数据库将以文件形式保存在你的电脑；在这种情况下，[**名字**][NAME] 应该是绝对路径，包括文件名。默认 **os.path.join(BASE_DIR, 'db.sqlite3')** 将把文件保存在你项目的目录下。
 
 如果你不使用 SQLite 作为你的数据库，那就必须额外设置下比如 [**USER**][USER]， [**PASSWORD**][PASSWORD] 和  [**HOST**][HOST]。若想查看更多详情，可以参考文档 [**DATABASES**][DATABASES]。
@@ -21,7 +21,7 @@
 >
 > 如果你使用除 SQLite 以外的数据库，请确认你已经创建了数据库。在你的数据库交互提示里用 “CREATE DATABASE database_name;” 创建数据库。
 >
-> 同样要确认在 **mysite/settings.py** 中的数据库用户拥有创建数据库的权限。这可以允许自动创建 [测速数据库](https://docs.djangoproject.com/en/1.11/topics/testing/overview/#the-test-database) —— 后面的教程需要。
+> 同样要确认在 **mysite/settings.py** 中的数据库用户拥有创建数据库的权限。这可以允许自动创建 [测速数据库][the-test-database] —— 后面的教程需要。
 >
 > 如果你在使用 SQLite，你不需要在这之前创建什么 —— 数据库文件会在需要的时候自动创建。
 
@@ -31,12 +31,12 @@
 
 默认情况下，[**INSTALLED_APPS**][INSTALLED_APPS] 包含着下面这些应用，它们都来自 Django：
 
-- [**django.contrib.admin**](https://docs.djangoproject.com/en/1.11/ref/contrib/admin/#module-django.contrib.admin) —— 管理站点。你可以快捷地使用它。
-- [**django.contrib.auth**](https://docs.djangoproject.com/en/1.11/topics/auth/#module-django.contrib.auth) —— 认证系统。
-- [**django.contrib.contenttypes**](https://docs.djangoproject.com/en/1.11/ref/contrib/contenttypes/#module-django.contrib.contenttypes) —— 内容类型框架。
-- [**django.contrib.sessions**](https://docs.djangoproject.com/en/1.11/topics/http/sessions/#module-django.contrib.sessions) —— session 框架。
-- [**django.contrib.messages**](https://docs.djangoproject.com/en/1.11/ref/contrib/messages/#module-django.contrib.messages) —— 消息框架。
-- [**django.contrib.staticfiles**](https://docs.djangoproject.com/en/1.11/ref/contrib/staticfiles/#module-django.contrib.staticfiles) —— 静态文件管理框架。
+- [**django.contrib.admin**][admin] —— 管理站点。你可以快捷地使用它。
+- [**django.contrib.auth**][auth] —— 认证系统。
+- [**django.contrib.contenttypes**][contenttypes] —— 内容类型框架。
+- [**django.contrib.sessions**][sessions] —— session 框架。
+- [**django.contrib.messages**][messages] —— 消息框架。
+- [**django.contrib.staticfiles**][staticfiles] —— 静态文件管理框架。
 
 通常情况下为了方便，这些应用默认已被包含。
 
@@ -58,7 +58,7 @@ $ python manage.py migrate
 
 > **设计哲学**
 >
-> 模型是你数据的简单明确的描述。它包含了储存的数据所必要的字段和行为。Django 遵循 [DRY 原则](https://docs.djangoproject.com/en/1.11/misc/design-philosophies/#dry)。它的目标是让你只需要在一个地方定义数据模型，Django 就能自动从中导出迁移代码。
+> 模型是你数据的简单明确的描述。它包含了储存的数据所必要的字段和行为。Django 遵循 [DRY 原则][dry]。它的目标是让你只需要在一个地方定义数据模型，Django 就能自动从中导出迁移代码。
 >
 > 来介绍一下迁移 - 举个例子，不像 Ruby On Rails，Django 的迁移代码全部都是从你的模型文件导出的，它本质上只是个历史记录，Django 可以通过滚动更新数据库来匹配你当前的模型。
 
@@ -81,19 +81,19 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
 ```
 
-代码非常直白。每个模型都被表示为 [**django.db.models.Model**](https://docs.djangoproject.com/en/1.11/ref/models/instances/#django.db.models.Model) 类的子类。每个模型都有些类变量，每一个都表示为模型里的一个数据库字段。
+代码非常直白。每个模型都被表示为 [**django.db.models.Model**][Model] 类的子类。每个模型都有些类变量，每一个都表示为模型里的一个数据库字段。
 
-每个字段都是 [**Field**][Field] 类的实例 - 比如，字符字段被表示为 [**CharField**][CharField]，日期时间字段被表示为 [**DateTimeField**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.DateTimeField)。这告诉 Django 每个要处理的字段是什么数据类型。
+每个字段都是 [**Field**][Field] 类的实例 - 比如，字符字段被表示为 [**CharField**][CharField]，日期时间字段被表示为 [**DateTimeField**][DateTimeField]。这告诉 Django 每个要处理的字段是什么数据类型。
 
 每个 [**Field**][Field] 类实例变量的名字（比如 **question_text** 或 **pub_date**）都是字段名，这是对机器友好的格式。你将会在 Python 代码里使用它们，而数据库会将它们作为列名。
 
 你可以使用可选的选项来为 [**Field**][Field] 定义一个人类可读的名字。这个功能在很多 Django 内部组成部分中都被使用了，而且作为文档的一部分。如果某个字段没有被提供，Django 将会使用对机器友好的名称（也就是变量名）。在上面的例子中，我们只为 **Question.pub_date** 定义了对人类可读的名字。对于模型内的其他字段，它们的机器可读名也会被作为人类可读名使用。
 
-定义某些 [**Field**][Field] 类实例需要参数。例如 [**CharField**][CharField] 需要参数 [**max_length**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.CharField.max_length)。该参数不止用于定义数据库结构，也用于验证数据，我们稍后将会看到这方面的内容。
+定义某些 [**Field**][Field] 类实例需要参数。例如 [**CharField**][CharField] 需要参数 [**max_length**][max_length]。该参数不止用于定义数据库结构，也用于验证数据，我们稍后将会看到这方面的内容。
 
 [**Field**][Field] 能够接收多个可选参数；在上面的例子中：我们已经将 **votes** 的 [**default**][default] 默认值设为0。
 
-最后，还要注意到我们使用了 [**ForeignKey**](https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.ForeignKey) 外键来定义一个关系。这会告诉 Django 每个 **Choice** 对象都和一个 **Question** 对象相关联。Django 支持所有常用的数据库关系：多对一、多对多和一对一。
+最后，还要注意到我们使用了 [**ForeignKey**][ForeignKey] 外键来定义一个关系。这会告诉 Django 每个 **Choice** 对象都和一个 **Question** 对象相关联。Django 支持所有常用的数据库关系：多对一、多对多和一对一。
 
 ## 激活模型
 
@@ -143,7 +143,7 @@ Migrations for 'polls':
 
 迁移是 Django 对于模型（也就是你的数据库结构）的修改的储存形式 - 它们其实也只是一些磁盘上的文件。如果你想的话，你可以阅读一下你模型的迁移数据，它被储存在 **polls/migrations/0001_initial.py** 里。别担心，你不需要每次都阅读迁移文件，但是它们被设计成人类可编辑的形式，这是为了你能手动对它们进行微调。
 
-Django 有一个自动执行数据库迁移并同步管理你的数据库结构的命令 - 这个命令是 [**migrate**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate)，我们马上就会接触它 - 但是首先，让我们看看迁移命令会执行哪些 SQL 语句。[**sqlmigrate**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-sqlmigrate) 命令接收一个迁移的名称，然后返回对应的 SQL：
+Django 有一个自动执行数据库迁移并同步管理你的数据库结构的命令 - 这个命令是 [**migrate**][migrate]，我们马上就会接触它 - 但是首先，让我们看看迁移命令会执行哪些 SQL 语句。[**sqlmigrate**][sqlmigrate] 命令接收一个迁移的名称，然后返回对应的 SQL：
 
 ```bash
 $ python manage.py sqlmigrate polls 0001
@@ -192,9 +192,9 @@ COMMIT;
 - 惯例下，Django 会在外键字段名后追加字符串 **“\_id”**。（同样，这也可以自定义。）
 - 外键关系由 **FOREIGN KEY** 生成。别担心 **DEFERRABLE** 部分，它只是告诉 PostgreSQL，请在事务全都执行完之后再创建外键关系。
 - 生成的 SQL 语句是为你所用的数据库定制的，所以那些和数据库有关的字段类型，比如 **auto_increment**（MySQL）、**serial**（PostgreSQL）和 **integer primary key autoincrement**（SQLite），都会为你自动处理的。那些和引号相关的事情 - 例如，是使用单引号还是双引号 - 也一样会被自动处理。
-- [**sqlmigrate**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-sqlmigrate) 命令并没有真正在你的数据库中的执行迁移 - 它只是把命令输出到屏幕上，让你看看 Django 认为需要执行哪些 SQL 语句。这在你想看看 Django 到底准备做什么，或者当你是数据库管理员，需要写脚本来批量处理数据库时会很有用。
+- [**sqlmigrate**][sqlmigrate] 命令并没有真正在你的数据库中的执行迁移 - 它只是把命令输出到屏幕上，让你看看 Django 认为需要执行哪些 SQL 语句。这在你想看看 Django 到底准备做什么，或者当你是数据库管理员，需要写脚本来批量处理数据库时会很有用。
 
-如果你感兴趣，你也可以尝试运行 [**python manage.py check**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-check)；这个命令帮助你检查项目中的问题，并且在检查过程中不会对数据库进行任何操作。
+如果你感兴趣，你也可以尝试运行 [**python manage.py check**][django-admin-check]；这个命令帮助你检查项目中的问题，并且在检查过程中不会对数据库进行任何操作。
 
 现在，再次运行 [**migrate**][migrate] 命令，在数据库里创建模型的数据表：
 
@@ -217,7 +217,7 @@ Running migrations:
 
 数据库迁移被分解成生成和应用两个命令是为了让你能够在代码控制系统上提交迁移数据并使其能在多个应用里使用；这不仅仅会让开发更加简单，也给别的开发者和生产环境中的使用带来方便。
 
-通过阅读文档 [Django-admin documentation](https://docs.djangoproject.com/en/1.11/ref/django-admin/)，你可以获得关于 **manage.py** 工具的更多信息。
+通过阅读 [Django-admin 文档][django-admin]，你可以获得关于 **manage.py** 工具的更多信息。
 
 ## 初试 API
 
@@ -231,7 +231,7 @@ $ python manage.py shell
 
 > **我就是不想用 manage.py**
 >
-> 如果你不想使用 **manage.py** ，没问题，你只要手动将 [**DJANGO_SETTINGS_MODULE**](https://docs.djangoproject.com/en/1.11/topics/settings/#envvar-DJANGO_SETTINGS_MODULE) 环境变量设置为 **mysite.settings** 就行。打开一个普通的 Python 命令行，然后输入以下命令来配置 Django：
+> 如果你不想使用 **manage.py** ，没问题，你只要手动将 [**DJANGO_SETTINGS_MODULE**][DJANGO_SETTINGS_MODULE] 环境变量设置为 **mysite.settings** 就行。打开一个普通的 Python 命令行，然后输入以下命令来配置 Django：
 >
 ```pycon
 >>> import django
@@ -242,9 +242,9 @@ $ python manage.py shell
 >
 > 你必须在 **manage.py** 所在目录中运行 **python** 命令，或者确保这个目录在 Python path 里，因为只有这样 import mysite 才能被正确的执行。
 >
-> 阅读文档 [Django-admin documentation](https://docs.djangoproject.com/en/1.11/ref/django-admin/) 获取更多信息。
+> 阅读 [Django-admin 文档][django-admin] 获取更多信息。
 
-当你成功进入命令行后，来试试 [数据库 API](https://docs.djangoproject.com/en/1.11/topics/db/queries/) 吧：
+当你成功进入命令行后，来试试 [数据库 API][queries] 吧：
 
 ```pycon
 >>> from polls.models import Question, Choice   # 导入刚刚创建的模型类
@@ -324,7 +324,7 @@ class Question(models.Model):
         return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
 ```
 
-注意，新加入的 **import datetime** 和 **from django.utils import timezone** 分别导入了 Python 的标准 [**datetime**](https://docs.python.org/3/library/datetime.html#module-datetime) 模块和 Django 中和时区相关的 [**django.utils.timezone**](https://docs.djangoproject.com/en/1.11/ref/utils/#module-django.utils.timezone) 工具模块。如果你不太熟悉 Python 中的时区处理，可以看看 [time zone support docs](https://docs.djangoproject.com/en/1.11/topics/i18n/timezones/)。
+注意，新加入的 **import datetime** 和 **from django.utils import timezone** 分别导入了 Python 的标准 [**datetime**](https://docs.python.org/3/library/datetime.html#module-datetime) 模块和 Django 中和时区相关的 [**django.utils.timezone**][utils.timezone] 工具模块。如果你不太熟悉 Python 中的时区处理，可以看看 [时区支持文档][timezones]。
 
 保存文件然后通过 **python manage.py shell** 命令再次打开 Python 交互式命令行：
 
@@ -407,7 +407,7 @@ True
 >>> c.delete()
 ```
 
-阅读 [Accessing related objects](https://docs.djangoproject.com/en/1.11/ref/models/relations/) 文档可以获取关于数据库关系的更多内容。想知道关于双下划线的更多用法，参见 [Field Lookup](https://docs.djangoproject.com/en/1.11/topics/db/queries/#field-lookups-intro) 文档。数据库 API 的所有细节可以在 [Database API reference](https://docs.djangoproject.com/en/1.11/topics/db/queries/) 文档中找到。
+阅读 [Accessing related objects](https://docs.djangoproject.com/en/1.11/ref/models/relations/) 文档可以获取关于数据库关系的更多内容。想知道关于双下划线的更多用法，参见 [Field Lookup][field-lookups-intro] 文档。数据库 API 的所有细节可以在 [数据库 API 参考][queries] 文档中找到。
 
 ## 介绍下 Django 的管理站点
 
@@ -461,7 +461,7 @@ $ python manage.py runserver
 
 ![Django admin login screen](img/admin01.png)
 
-因为[翻译](https://docs.djangoproject.com/en/1.11/topics/i18n/translation/)功能默认是开着的，所以登录界面可能会使用你的语言，取决于你的浏览器设置和是否 Django 已被翻译成你的语言。
+因为 [翻译][translation]功能默认是开着的，所以登录界面可能会使用你的语言，取决于你的浏览器设置和是否 Django 已被翻译成你的语言。
 
 ## 进入管理页面
 
@@ -469,7 +469,7 @@ $ python manage.py runserver
 
 ![Django admin index page](img/admin02.png)
 
-你将会看到几种可编辑的内容：组和用户。它们由 [**django.contrib.auth**](https://docs.djangoproject.com/en/1.11/topics/auth/#module-django.contrib.auth) 提供，这是 Django 开发的认证框架。
+你将会看到几种可编辑的内容：组和用户。它们由 [**django.contrib.auth**][auth] 提供，这是 Django 开发的认证框架。
 
 ## 向管理页面中加入投票应用
 
@@ -523,6 +523,22 @@ admin.site.register(Question)
 当你明白了模型的 API 和熟悉了你自己的管理站点后，你就可以开始阅读 [教程的第三部分（zh）](part3.md) ，学习如何在投票应用中添加更多的视图。
 
 
+[utils.timezone]: https://docs.djangoproject.com/en/1.11/ref/utils/#module-django.utils.timezone
+[max_length]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.CharField.max_length
+[ForeignKey]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.ForeignKey
+[Model]:https://docs.djangoproject.com/en/1.11/ref/models/instances/#django.db.models.Model
+[django-admin]: https://docs.djangoproject.com/en/1.11/ref/django-admin/
+[DJANGO_SETTINGS_MODULE]: https://docs.djangoproject.com/en/1.11/topics/settings/#envvar-DJANGO_SETTINGS_MODULE
+[sqlmigrate]: https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-sqlmigrate
+[timezones]: https://docs.djangoproject.com/en/1.11/topics/i18n/timezones/
+[field-lookups-intro]: https://docs.djangoproject.com/en/1.11/topics/db/queries/#field-lookups-intro
+[django-admin-check]: https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-check
+[admin]: https://docs.djangoproject.com/en/1.11/ref/contrib/admin/#module-django.contrib.admin
+[third-party-notes]: https://docs.djangoproject.com/en/1.11/ref/databases/#third-party-notes
+[database-installation]: https://docs.djangoproject.com/en/1.11/topics/install/#database-installation
+[queries]: https://docs.djangoproject.com/en/1.11/topics/db/queries/
+[auth]: https://docs.djangoproject.com/en/1.11/topics/auth/#module-django.contrib.auth
+[the-test-database]: https://docs.djangoproject.com/en/1.11/topics/testing/overview/#the-test-database
 [TIME_ZONE]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TIME_ZONE
 [USER]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-USER
 [PASSWORD]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-PASSWORD
@@ -533,5 +549,12 @@ admin.site.register(Question)
 [migrate]: https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate
 [Field]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field
 [CharField]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.CharField
+[DateTimeField]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.DateTimeField
 [default]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field.default
 [ENGINE]： https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASE-ENGINE
+[translation]: https://docs.djangoproject.com/en/1.11/topics/i18n/translation/
+[contenttypes]: https://docs.djangoproject.com/en/1.11/ref/contrib/contenttypes/#module-django.contrib.contenttypes
+[sessions]: https://docs.djangoproject.com/en/1.11/topics/http/sessions/#module-django.contrib.sessions
+[messages]: https://docs.djangoproject.com/en/1.11/ref/contrib/messages/#module-django.contrib.messages
+[staticfiles]: https://docs.djangoproject.com/en/1.11/ref/contrib/staticfiles/#module-django.contrib.staticfiles
+[dry]: https://docs.djangoproject.com/en/1.11/misc/design-philosophies/#dry

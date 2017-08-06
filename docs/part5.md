@@ -1,6 +1,6 @@
 # 创建你的第一个 Django 项目， 第五部分
 
-这一篇从[第四部分（en）](part4.md)结尾的地方继续讲起。我们在前几章成功的构建了一个在线投票应用，在这一部分里我们将其创建一些自动化测试。
+这一篇从 [第四部分（zh）](part4.md)结尾的地方继续讲起。我们在前几章成功的构建了一个在线投票应用，本章我们将其创建一些自动化测试。
 
 ## 自动化测试简介
 
@@ -8,7 +8,7 @@
 
 测试，是用来检查代码正确性的一些简单的程序。
 
-测试在不同的层次中都存在。有些测试只关注某个很小的细节（某个模型的某个方法的返回值是否满足预期？），而另一些测试可能检查对某个软件的一系列操作（某一用户输入序列是否造成了预期的结果？）。其实这和我们在教程的[第一部分(zh)](part1.md)里做的并没有什么不同，我们使用 **[shell][shell]** 来测试某一方法的功能，或者运行某个应用并输入数据来检查它的行为。
+测试在不同的层次中都存在。有些测试只关注某个很小的细节（某个模型的某个方法的返回值是否满足预期？），而另一些测试可能检查对某个软件的一系列操作（某一用户输入序列是否造成了预期的结果？）。其实这和我们在教程的 [第二部分(zh)](part2.md)里做的并没有什么不同，我们使用 [**shell**][shell] 来测试某一方法的功能，或者运行某个应用并输入数据来检查它的行为。
 
 真正不同的地方在于，自动化测试是由某个系统帮你自动完成的。当你创建好了一系列测试，每次修改应用代码后，就可以自动检查出修改后的代码是否还像你曾经预期的那样正常工作。你不需要花费大量时间来进行手动测试。
 
@@ -52,7 +52,7 @@
 
 测试有几种不同的应用方法。
 
-一些开发者遵循「测试驱动」的开发原则，他们在写代码之前先写测试。这种方法看起来有点反直觉，但事实上，这和大多数人日常的做法是相吻合的。我们会先描述一个问题，然后写代码来解决它。「测试驱动」的开发方法只是将问题的描述抽象为了 Python 的测试样例。
+一些开发者遵循 [测试驱动（test-driven development）](https://en.wikipedia.org/wiki/Test-driven_development)的开发原则，他们在写代码之前先写测试。这种方法看起来有点反直觉，但事实上，这和大多数人日常的做法是相吻合的。我们会先描述一个问题，然后写代码来解决它。「测试驱动」的开发方法只是将问题的描述抽象为了 Python 的测试样例。
 
 更普遍的情况是，一个刚接触自动化测试的新手更倾向于先写代码，然后再写测试。虽然提前写测试可能更好，但是晚点写起码也比没有强。
 
@@ -64,11 +64,11 @@
 
 ### 首先得有个 Bug
 
-幸运的是，我们的投票应用现在就有一个小 Bug 需要被修复：我们的要求是如果 **Question** 是在一天之内发布的，**Question.was_published_recently()** 方法将会返回 **True**，然而现在这个方法在 **Question** 的 **pub_date** 字段比当前时间还晚时也会返回 **True**（这是个 Bug）。
+幸运的是，我们的投票（**polls**）应用现在就有一个小 Bug 需要被修复：我们的要求是如果 **Question** 是在一天之内发布的，**Question.was_published_recently()** 方法将会返回 **True**，然而现在这个方法在 **Question** 的 **pub_date** 字段比当前时间还晚时也会返回 **True**（这是个 Bug）。
 
 你能从管理页面确认这个 Bug。创建一个发布日期是将来的投票，在投票列表里你会看到它被标明为最近发布（published recently）。
 
-也可以从 **[shell][shell]** 里确认 Bug：
+也可以从 [**shell**][shell] 里确认 Bug：
 
 ```pycon
 >>> import datetime
@@ -85,14 +85,14 @@ True
 
 ### 写个测试来发现 Bug
 
-我们刚刚在 **[shell][shell]** 里做的测试也就是自动化测试应该做的工作。所以我们来把它改写成自动化的吧。
+我们刚刚在 [**shell**][shell] 里做的测试也就是自动化测试应该做的工作。所以我们来把它改写成自动化的吧。
 
-按照惯例，Django 应用的测试因该写在应用的 **test.py** 文件里。测试系统会自动的在所有以 **test** 开头的文件里寻找并执行测试代码。
+按照惯例，Django 应用的测试因该写在应用的 **tests.py** 文件里。测试系统会自动的在所有以 **test** 开头的文件里寻找并执行测试代码。
 
-在 **poll** 应用的 **test.py** 文件里输入以下代码：
+在 **polls** 应用的 **tests.py** 文件里输入以下代码：
 
-```python
-# polls/test.py
+```python3
+# polls/tests.py
 
 import datetime
 
@@ -102,7 +102,7 @@ from django.test import TestCase
 from .models import Question
 
 
-class QuestionMethodTests(TestCase):
+class QuestionModelTests(TestCase):
 
     def test_was_published_recently_with_future_question(self):
         """
@@ -110,7 +110,7 @@ class QuestionMethodTests(TestCase):
         """
         time = timezone.now() + datetime.timedelta(days=30)
         future_question = Question(pub_date=time)
-        self.assertEqual(future_question.was_published_recently(), False)
+        self.assertIs(future_question.was_published_recently(), False)
 ```
 
 我们创建了一个 **[django.test.TestCase][TestCase]** 的子类，并添加了一个方法。在此方法中我们创建了一个 **pub_date** 字段值在将来的 **Question** 实例，然后检查它的 **was_published_recently()** 方法的返回值——它应该是 False。
@@ -119,22 +119,23 @@ class QuestionMethodTests(TestCase):
 
 在终端中，我们通过输入以下代码运行测试：
 
-```sh
+```bash
 $ python manage.py test polls
 ```
 
 你将会看到运行结果：
 
-```
+```bash
 Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
 F
 ======================================================================
-FAIL: test_was_published_recently_with_future_question (polls.tests.QuestionMethodTests)
+FAIL: test_was_published_recently_with_future_question (polls.tests.QuestionModelTests)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
   File "/path/to/mysite/polls/tests.py", line 16, in test_was_published_recently_with_future_question
-    self.assertEqual(future_question.was_published_recently(), False)
-AssertionError: True != False
+    self.assertIs(future_question.was_published_recently(), False)
+AssertionError: True is not False
 
 ----------------------------------------------------------------------
 Ran 1 test in 0.001s
@@ -146,11 +147,11 @@ Destroying test database for alias 'default'...
 发生了什么呢？以下是自动化测试的运行过程：
 
 - **`python manage.py test polls`** 将会寻找 **poll** 应用里的测试代码
-- 它找到了一个 **[django.test.TestCase][TestCase]** 的子类
+- 它找到了一个 [**django.test.TestCase**][TestCase] 的子类
 - 它创建一个特殊的数据库供测试使用
 - 它在类中寻找测试方法——以 **test** 开头的方法。
 - 在 **test_was_published_recently_with_future_question** 方法中，它创建了一个 **pub_date** 值为未来第 30 天的 **Question** 实例。
-- 然后使用 **assertEqual()** 方法，发现 **was_published_recently()** 返回了 **True**，而我们希望它返回 **False**
+- 然后使用 **assertIs()** 方法，发现 **was_published_recently()** 返回了 **True**，而我们希望它返回 **False**
 
 测试系统通知我们哪些测试样例失败了，和造成测试失败的代码所在的行号。
 
@@ -158,7 +159,7 @@ Destroying test database for alias 'default'...
 
 我们现在知道了，问题出在当 **pub_date** 为将来时， **Question.was_published_recently()** 应该返回 **False**。我们去修改 models.py 里的方法，让它只在日期是过去的时候才返回 **True**：
 
-```python
+```python3
 # polls/model.py
 
 def was_published_recently(self):
@@ -170,6 +171,7 @@ def was_published_recently(self):
 
 ```
 Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
 .
 ----------------------------------------------------------------------
 Ran 1 test in 0.001s
@@ -188,24 +190,24 @@ Destroying test database for alias 'default'...
 
 我们在上次写的类里再增加两个测试，来更全面的测试这个方法：
 
-```python
-# polls/test.py
+```python3
+# polls/tests.py
 
 def test_was_published_recently_with_old_question(self):
     """
     对于 pub_date 在一天以前的 Question，was_published_recently() 应该返回 False。
     """
-    time = timezone.now() - datetime.timedelta(days=30)
+    time = timezone.now() - datetime.timedelta(days=1, seconds=1)
     old_question = Question(pub_date=time)
-    self.assertEqual(old_question.was_published_recently(), False)
+    self.assertIs(old_question.was_published_recently(), False)
 
 def test_was_published_recently_with_recent_question(self):
     """
     对于 pub_date 在一天之内的 Question，was_published_recently() 应该返回 True。
     """
-    time = timezone.now() - datetime.timedelta(hours=1)
+    time = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
     recent_question = Question(pub_date=time)
-    self.assertEqual(recent_question.was_published_recently(), True)
+    self.assertIs(recent_question.was_published_recently(), True)
 ```
 
 现在，我们有三个测试来确保 **Question.was_published_recently()** 方法对于过去，最近，和将来的三种情况都返回正确的值。
@@ -226,18 +228,18 @@ def test_was_published_recently_with_recent_question(self):
 
 ### Django 测试工具之 Client
 
-Django 提供了一个供测试使用的 **[Client][Client]** 来模拟用户和视图层代码的交互。我们能在 **test.py** 甚至是 **[shell][shell]** 中使用它。
+Django 提供了一个供测试使用的 [**Client**][Client] 来模拟用户和视图层代码的交互。我们能在 **tests.py** 甚至是 [**shell**][shell] 中使用它。
 
-我们依照惯例从 **[shell][shell]** 开始，首先我们要做一些在 **test.py** 里并不需要的准备工作。第一步是在 **[shell][shell]** 中配置测试环境：
+我们依照惯例从 [**shell**][shell] 开始，首先我们要做一些在 **tests.py** 里并不需要的准备工作。第一步是在 [**shell**][shell] 中配置测试环境：
 
 ```pycon
 >>> from django.test.utils import setup_test_environment
 >>> setup_test_environment()
 ```
 
-[setup_test_environment()](https://docs.djangoproject.com/en/1.8/topics/testing/advanced/#django.test.utils.setup_test_environment) 安装了一个特殊的模板渲染器，它能让我们使用 response 的一些在正常情况下不可用的附加属性，比如 **response.context**。注意，这个方法并不会配置测试数据库，所以接下来的代码将会当前存在的数据库上运行，输出的内容可能由于数据库内容的不同而不同。
+[**setup_test_environment()**][setup_test_environment] 安装了一个特殊的模板渲染器，它能让我们使用 response 的一些在正常情况下不可用的附加属性，比如 **response.context**。注意，这个方法并不会配置测试数据库，所以接下来的代码将会当前存在的数据库上运行，输出的内容可能由于数据库内容的不同而不同。如果你在 **settings.py** 中的 **TIME_ZONE** 设置不对，你还有可能得到意想不到的结果。如果你不记得之前是否设置过，那在继续下面的步骤之前先检查一下。
 
-然后我们需要导入 client 类（在后续 **test.py** 的实例中我们将会使用 **[django.test.TestCase][TestCase]** 类，这个类里包含了自己的 client 实例，所以不需要这一步）
+然后我们需要导入 client 类（在后续 **tests.py** 的实例中我们将会使用 [**django.test.TestCase**][TestCase] 类，这个类里包含了自己的 client 实例，所以不需要这一步）
 
 ```pycon
 >>> from django.test import Client
@@ -250,42 +252,33 @@ Django 提供了一个供测试使用的 **[Client][Client]** 来模拟用户和
 ```pycon
 >>> # 获取 '/' 的响应
 >>> response = client.get('/')
->>> # 访问这个地址应该会得到一个 404 状态码
+Not Found: /
+>>> # 我们期望返回一个 404；
+如果你看到一个
+>>> # “无效 HTTP_HOST_header” 错误 和 一个
+400 响应，那你可能
+>>> # 忘记了这之前要调用的 setup_test_environment()
 >>> response.status_code
 404
 >>> # 访问 '/polls/' 的话，我们应该会得到一些有意义的响应
 >>> # 我们使用 'reverse()' 方法而不是硬编码的 URL
->>> from django.core.urlresolvers import reverse
+>>> from django.urls import reverse
 >>> response = client.get(reverse('polls:index'))
 >>> response.status_code
 200
 >>> response.content
-b'\n\n\n    <p>No polls are available.</p>\n\n'
->>> # 注意 - 如果你的 'settings.py' 里的 'TIME_ZONE' 设置的
->>> # 不正确的话，有可能得到不同的结果。如果你修改了它，则需要
->>> # 重新启动你的 shell 会话才会生效。
->>> from polls.models import Question
->>> from django.utils import timezone
->>> # 创建一个 Question 并保存
->>> q = Question(question_text="Who is your favorite Beatle?", pub_date=timezone.now())
->>> q.save()
->>> # 再次查看响应
->>> response = client.get('/polls/')
->>> response.content
-b'\n\n\n    <ul>\n    \n        <li><a href="/polls/1/">Who is your favorite Beatle?</a></li>\n    \n    </ul>\n\n'
->>> # 如果下面的代码无法使用，那么你可能是没有执行我们之前说的
->>> # setup_test_environment() 方法
+b'\n    <ul>\n    \n        <li><a href="/polls/1/">What&#39;s up?</a></li>\n    \n    </ul>\n\n'
 >>> response.context['latest_question_list']
-[<Question: Who is your favorite Beatle?>]
+<QuerySet [<Question: What's up?>]>
 ```
 
 ### 改善视图代码
 
 现在的投票列表会显示将来的投票（**pub_date** 值是将来的那些）。我们来修复这个问题。
 
-在教程的[第四部分(en)](part4.md)里，我们介绍了基于 **[ListView](https://docs.djangoproject.com/en/1.8/ref/class-based-views/generic-display/#django.views.generic.list.ListView)** 的视图类：
+在教程的 [第四部分（zh）](part4.md)里，我们介绍了基于 [**ListView**][ListView] 的视图类：
 
-```python
+```python3
 # polls/views.py
 
 class IndexView(generic.ListView):
@@ -299,7 +292,7 @@ class IndexView(generic.ListView):
 
 我们需要改进 **get_queryset()** 方法，让他它能通过将 Question 的 pub_data 属性与 **timezone.now()** 相比较来判断是否应该显示此 Question。首先我们需要一行 import 语句：
 
-```python
+```python3
 # polls/views.py
 
 from django.utils import timezone
@@ -307,7 +300,7 @@ from django.utils import timezone
 
 然后我们把 **get_queryset** 方法改写成下面这样：
 
-```python
+```python3
 # polls/views.py
 
 def get_queryset(self):
@@ -325,15 +318,15 @@ def get_queryset(self):
 
 在 **polls/tests.py** 里加入一句 import
 
-```python
+```python3
 # polls/tests.py
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 ```
 
 然后我们写一个公用的快捷函数用于创建投票问题，再为视图创建一个测试类：
 
-```python
+```python3
 # polls/test.py
 
 def create_question(question_text, days):
@@ -342,23 +335,22 @@ def create_question(question_text, days):
     days 为正表示将来，为负表示过去。
     """
     time = timezone.now() + datetime.timedelta(days=days)
-    return Question.objects.create(question_text=question_text,
-                                   pub_date=time)
+    return Question.objects.create(question_text=question_text, pub_date=time)
 
 
-class QuestionViewTests(TestCase):
-    def test_index_view_with_no_questions(self):
+class QuestionIndexViewTests(TestCase):
+    def test_no_questions(self):
         """
-        如果数据库里木有投票，应该显示一个合适的提示信息。
+        如果数据库里没有保存问题，应该显示一个合适的提示信息。
         """
         response = self.client.get(reverse('polls:index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "No polls are available.")
         self.assertQuerysetEqual(response.context['latest_question_list'], [])
 
-    def test_index_view_with_a_past_question(self):
+    def test_past_question(self):
         """
-        pub_date 值是过去的问题应该被显示在主页上。
+        值 pub_date 是过去的，问题应该被显示在主页上。
         """
         create_question(question_text="Past question.", days=-30)
         response = self.client.get(reverse('polls:index'))
@@ -367,19 +359,18 @@ class QuestionViewTests(TestCase):
             ['<Question: Past question.>']
         )
 
-    def test_index_view_with_a_future_question(self):
+    def test_future_question(self):
         """
-        pub_date 值是将来的问题不应该被显示在主页上。
+        值 pub_date 是将来的，问题不应该被显示在主页上。
         """
         create_question(question_text="Future question.", days=30)
         response = self.client.get(reverse('polls:index'))
-        self.assertContains(response, "No polls are available.",
-                            status_code=200)
+        self.assertContains(response, "No polls are available.")
         self.assertQuerysetEqual(response.context['latest_question_list'], [])
 
-    def test_index_view_with_future_question_and_past_question(self):
+    def test_future_question_and_past_question(self):
         """
-        如果数据库里同时存在过去和将来的投票，那么只应该显示过去的那些。
+        如果数据库里同时存有过去和将来的投票，那么只应该显示过去那些。
         """
         create_question(question_text="Past question.", days=-30)
         create_question(question_text="Future question.", days=30)
@@ -389,9 +380,9 @@ class QuestionViewTests(TestCase):
             ['<Question: Past question.>']
         )
 
-    def test_index_view_with_two_past_questions(self):
+    def test_two_past_questions(self):
         """
-        目录页应该可以显示多个投票。
+        问题索引页应该可以显示多个问题。
         """
         create_question(question_text="Past question 1.", days=-30)
         create_question(question_text="Past question 2.", days=-5)
@@ -404,13 +395,13 @@ class QuestionViewTests(TestCase):
 
 我们仔细分析一下上面的代码。
 
-首先是一个快捷函数 **create_question**，它封装了创建投票的流程，减少了重复代码。
+首先是一个快捷函数 **create_question**，它封装了创建问题（questions）的流程，减少了重复代码。
 
-**test_index_view_with_no_questions** 方法里没有创建任何投票，它检查返回的网页上有没有“No polls are available.”这段消息和 **latest_question_list** 是否为空。注意到 **[django.test.TestCase](https://docs.djangoproject.com/en/1.8/topics/testing/tools/#django.test.TestCase)** 类提供了一些额外的 assert 方法，在这个例子中，我们使用了 **[assertContains()](https://docs.djangoproject.com/en/1.8/topics/testing/tools/#django.test.SimpleTestCase.assertContains)** 和 **[assertQuerysetEqual()](https://docs.djangoproject.com/en/1.8/topics/testing/tools/#django.test.TransactionTestCase.assertQuerysetEqual)**。
+**test_no_questions** 方法里没有创建任何投票，它检查返回的网页上有没有 “No polls are available.” 这段消息和 **latest_question_list** 是否为空。注意到 [**django.test.TestCase**][TestCase] 类提供了一些额外的 assert 方法，在这个例子中，我们使用了 [**assertContains()**][assertContains] 和 [**assertQuerysetEqual()**][assertQuerysetEqual]。
 
-在 **test_index_view_with_a_past_question** 方法中，我们创建了一个投票并检查它是否出现在列表中。
+在 **test_past_question** 方法中，我们创建了一个投票并检查它是否出现在列表中。
 
-在 **test_index_view_with_a_future_question** 方法中，我们创建了一个 **pub_date** 在将来的投票。数据库会在每次调用测试方法之前被重置，所以第一个方法里创建的投票已经没了，所以此时我们希望看到的是一个没有任何投票的目录页。
+在 **test_future_questionn** 方法中，我们创建了一个 **pub_date** 在将来的投票。数据库会在每次调用测试方法之前被重置，所以第一个方法里创建的投票已经没了，所以此时我们希望看到的是一个没有任何投票的目录页。
 
 剩下的那些也都差不多。实际上，测试就是假装一些管理员的输入，然后通过用户端的表现是否符合预期来判断新加入的改变是否破坏了原有的系统状态。
 
@@ -418,7 +409,7 @@ class QuestionViewTests(TestCase):
 
 我们的工作似乎已经很完美了？不，还有一个问题：就算在将来发布的那些投票不会在目录页里出现，但是用户还是能够通过猜测 URL 的方式访问到他们。所以我们得在 DetailView 里增加一些约束：
 
-```python
+```python3
 # polls/views.py
 
 class DetailView(generic.DetailView):
@@ -430,39 +421,38 @@ class DetailView(generic.DetailView):
         return Question.objects.filter(pub_date__lte=timezone.now())
 ```
 
-当然，我们也要为这一功能写测试，用于确认过去的投票能被用户访问，而将来的则不能：
+当然，我们还要增加一些测试，用于确认过去的 **问题（Question ）**能被用户访问，而将来的则不能：
 
-```python
-class QuestionIndexDetailTests(TestCase):
-    def test_detail_view_with_a_future_question(self):
+```python3
+# polls/tests.py
+
+class QuestionDetailViewTests(TestCase):
+    def test_future_question(self):
         """
-        访问将来发布的投票的详情页应该会收到一个 404 错误。
+        访问将来发布的问题详情页应该会收到一个 404 错误。
         """
-        future_question = create_question(question_text='Future question.',
-                                          days=5)
-        response = self.client.get(reverse('polls:detail',
-                                   args=(future_question.id,)))
+        future_question = create_question(question_text='Future question.', days=5)
+        url = reverse('polls:detail', args=(future_question.id,))
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
-    def test_detail_view_with_a_past_question(self):
+    def test_past_question(self):
         """
-        访问过去发布的投票详情页，页面上应该显示投票标题。
+        访问过去发布的问题详情页，页面上应该显示问题描述。
         """
-        past_question = create_question(question_text='Past Question.',
-                                        days=-5)
-        response = self.client.get(reverse('polls:detail',
-                                   args=(past_question.id,)))
-        self.assertContains(response, past_question.question_text,
-                            status_code=200)
+        past_question = create_question(question_text='Past Question.', days=-5)
+        url = reverse('polls:detail', args=(past_question.id,))
+        response = self.client.get(url)
+        self.assertContains(response, past_question.question_text)
 ```
 
 ### 更多的测试
 
 我们应该给 **ResultsView** 也增加一个类似的 **get_queryset** 方法，并且为它创建测试。这和我们之前干的差不多，事实上，基本就是重复一遍。
 
-我们还可以从各个方面改进投票应用，但是测试会一直伴随我们。比方说，在目录页上显示一个没有选项（**Choices**）的投票问题就没什么意义。我们可以检查并排除这样的投票题。测试里则可以创建一个没有选项的投票，然后检查它是否被显示在目录上。当然也要创建一个有选项的投票，然后确认它确实被显示了。
+我们还可以从各个方面改进应用，但是测试会一直伴随我们。比方说，在目录页上显示一个没有选项（**Choices**）的问题就没什么意义。我们可以检查并排除这样的 **问题（Questions）**。测试里则可以创建一个没有选项的问题，然后检查它是否被显示在目录上。当然也要创建一个有选项的投票，然后确认它确实被显示了。
 
-恩，也许你想让登录的管理员能在目录上够看见未被发布的那些投票，但是其他的用户看不到。不管怎么说，如果你想要增加一个新功能，那么同时一定要为它编写测试。不过你是先写代码还是先写测试那就随你了。
+恩，也许你想让登录的管理员能在目录上够看见未被发布的那些问题，但是其他的用户看不到。不管怎么说，如果你想要增加一个新功能，那么同时一定要为它编写测试。不过你是先写代码还是先写测试那就随你了。
 
 在未来的某个时刻，你一定会去查看测试代码，然后开始怀疑：「这么多的测试不会使代码越来越复杂吗？」。别着急，我们马上就会谈到这一点。
 
@@ -482,24 +472,30 @@ class QuestionIndexDetailTests(TestCase):
 - 每个测试方法之测试一个功能
 - 给每个测试方法起个能描述其功能的名字
 
-## 深入代码测试
+## 进一步测试
 
 在本教程中，我们仅仅是了解了测试的基础知识。你能做的还有很多，而且世界上有很多有用的工具来帮你完成这些有意义的事。
 
-举个例子，在我们上述的测试中，已经从代码逻辑和视图响应的角度检查了应用的输出，现在你可以从一个更加用户的角度来检查最终渲染出的 HTML 是否符合预期，使用 **[Selenium](http://seleniumhq.org/)** 可以很轻松的完成这件事。这个工具不仅可以测试 Django 框架里的代码，还可以检查其他部分，比如说你的 JavaScript。它假装成是一个正在和你站点进行交互的浏览器，就好像有个真人在访问网站一样！Django 它提供了 **[LiveServerTestCase](https://docs.djangoproject.com/en/1.8/topics/testing/tools/#django.test.LiveServerTestCase)** 来和 Selenium 这样的工具进行交互。
+举个例子，在我们上述的测试中，已经从代码逻辑和视图响应的角度检查了应用的输出，现在你可以从一个更加用户的角度来检查最终渲染出的 HTML 是否符合预期，使用 [Selenium](http://seleniumhq.org/) 可以很轻松的完成这件事。这个工具不仅可以测试 Django 框架里的代码，还可以检查其他部分，比如说你的 JavaScript。它假装成是一个正在和你站点进行交互的浏览器，就好像有个真人在访问网站一样！Django 它提供了 [**LiveServerTestCase**][LiveServerTestCase] 来和 Selenium 这样的工具进行交互。
 
-如果你在开发一个很复杂的应用的话，你也许想在每次提交代码时自动运行测试，也就是我们所说的[持续整合](https://zh.wikipedia.org/wiki/%E6%8C%81%E7%BA%8C%E6%95%B4%E5%90%88)，这样的话就实现质量控制的自动化，起码是部分自动化。
+如果你在开发一个很复杂的应用的话，你也许想在每次提交代码时自动运行测试，也就是我们所说的[持续整合](https://en.wikipedia.org/wiki/Continuous_integration)，这样的话就实现质量控制的自动化，起码是部分自动化。
 
-一个找出代码中未被测试部分的方法是检查代码覆盖率。它有助于找出代码中的薄弱部分和无用部分。如果你无法测试一段代码，通常说明这段代码需要被重构或者删除。想知道代码覆盖率和无用代码的详细信息，请看文档 [和 coverage.py 结合使用](https://docs.djangoproject.com/en/1.8/topics/testing/advanced/#topics-testing-code-coverage)。
-
-文档 [Testing in Django](https://docs.djangoproject.com/en/1.8/topics/testing/) 里有关于测试的更多信息。
+一个找出代码中未被测试部分的方法是检查代码覆盖率。它有助于找出代码中的薄弱部分和无用部分。如果你无法测试一段代码，通常说明这段代码需要被重构或者删除。想知道代码覆盖率和无用代码的详细信息，请看文档 [和 coverage.py 结合使用][topics-testing-code-coverage]。
 
 ## 然后呢？
 
-如果你想深入了解测试，就去看 [Testing in Django](https://docs.djangoproject.com/en/1.8/topics/testing/)。
+如果你想深入了解测试，就去看 [在 Django 中测试][testing]。
 
-当你已经比较熟悉该如何测试 Django 的视图之后，就可以继续于读[教程的第六部分(en)](part6.md)，来学习关于静态文件管理的相关知识。
+当你已经比较熟悉该如何测试 Django 的视图之后，就可以继续于读 [教程的第六部分(zh)](part6.md)，来学习关于静态文件管理的相关知识。
 
-[shell]: https://docs.djangoproject.com/en/1.8/ref/django-admin/#django-admin-shell
-[TestCase]: https://docs.djangoproject.com/en/1.8/topics/testing/tools/#django.test.TestCase
-[Client]: https://docs.djangoproject.com/en/1.8/topics/testing/tools/#django.test.Client
+
+[topics-testing-code-coverage]: https://docs.djangoproject.com/en/1.11/topics/testing/advanced/#topics-testing-code-coverage
+[shell]: https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-shell
+[TestCase]: https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.TestCase
+[Client]: https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.Client
+[setup_test_environment]: https://docs.djangoproject.com/en/1.11/topics/testing/advanced/#django.test.utils.setup_test_environment
+[assertContains]: https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.SimpleTestCase.assertContains
+[assertQuerysetEqual]: https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.TransactionTestCase.assertQuerysetEqual
+[LiveServerTestCase]: https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.LiveServerTestCase
+[ListView]: https://docs.djangoproject.com/en/1.11/ref/class-based-views/generic-display/#django.views.generic.list.ListView
+[testing]: https://docs.djangoproject.com/en/1.11/topics/testing/

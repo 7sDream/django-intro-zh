@@ -4,9 +4,9 @@
 
 ## 安装 Python
 
-作为一个 Python Web 框架，Django 依赖 Python。从[ Django 适用于哪些版本的 Python ](https://docs.djangoproject.com/en/1.11/faq/install/#faq-python-version-support)可以获取更多信息。较新版本的 Python 内置一个轻量级的数据库 [ SQLite ](https://sqlite.org)，所以你暂时不需要配置数据库。
+作为一个 Python Web 框架，Django 依赖 Python。从 [Django 适用于哪些版本的 Python](https://docs.djangoproject.com/en/1.11/faq/install/#faq-python-version-support)可以获取更多信息。较新版本的 Python 内置一个轻量级的数据库 [SQLite](https://sqlite.org)，所以你暂时不需要配置数据库。
 
-可以从[ Python 官网](https://www.python.org/downloads/)或者系统的包管理工具获取到最新版的 Python。
+可以从 [Python 官网](https://www.python.org/downloads/)或者系统的包管理工具获取到最新版的 Python。
 
 > **Jython 上的 Django**
 >

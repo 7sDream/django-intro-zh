@@ -1,6 +1,6 @@
 # 创建你的第一个 Django 项目， 第四部分
 
-这一篇从 [第三部分（zh）](part3.md)结尾的地方继续讲起。我们将继续编写投票应用，着力于简单的表单处理和精简我们的代码。
+这一篇从 [第三部分（zh）](part3.md)结尾的地方继续讲起。我们将继续编写投票应用，本章着力于简单的表单处理和精简我们的代码。
 
 
 
@@ -90,7 +90,7 @@ def vote(request, question_id):
   
   其中 **3** 是 **question.id** 的值。重定向的 URL 将调用 **'results'** 视图来显示最终的页面。
 
-正如在 [第三部分（zh）](part3.md)中提到的，**request** 是一个 [**HttpRequest**][HttpRequest] 对象。更多关于 [**HttpRequest**][HttpRequest] 对象的内容，请参见 [*请求和响应的文档*](https://docs.djangoproject.com/en/1.11/ref/request-response/)。
+正如在 [第三部分（zh）](part3.md)中提到的，**request** 是一个 [**HttpRequest**][HttpRequest] 对象。更多关于 [**HttpRequest**][HttpRequest] 对象的内容，请参见 [*请求和响应的文档*][request-response]。
 
 当有人对 Question 进行投票后，**vote()** 视图将请求重定向到 Question 的结果界面。让我们来编写这个视图：
 
@@ -128,7 +128,7 @@ def results(request, question_id):
 >
 > 我们的 **vote()** 视图代码有点小问题。它首先从数据库中得到 **selected_choice** 对象，然后计算新的票数（**votes**），最后把新的票数存回数据库中。但如果两个用户几乎在同一时间在我们的网站上投票就会出现错误：同票数，比如说 42 张票。然后两个用户计算和保存的票数都会是 43，而不是我们期待的 44。
 >
-> 这就是*竞争条件（race condition）*，如果你感兴趣，可以阅读 [Avoiding race conditions using F()](https://docs.djangoproject.com/en/1.11/ref/models/expressions/#avoiding-race-conditions-using-f)，学一下如何解决这个问题。
+> 这就是*竞争条件（race condition）*，如果你感兴趣，可以阅读 [使用 F() 来避免竞争条件][avoiding-race-conditions-using-f]，学一下如何解决这个问题。
 
 ## 使用通用视图：代码还是少点好
 
@@ -225,11 +225,12 @@ def vote(request, question_id):
 
 启动服务器，使用一下基于通用视图的新投票应用。
 
-更多关于通用视图的详细信息，请查看[通用视图的文档](https://docs.djangoproject.com/en/1.11/topics/class-based-views/)。
+更多关于通用视图的详细信息，请查看 [通用视图的文档](https://docs.djangoproject.com/en/1.11/topics/class-based-views/)。
 
 当你明白了这些表单和通用视图后，可以继续阅读 [教程的第5部分（zh）](part5.md) 来了解如何测试我们的投票应用。
 
 
+[request-response]: https://docs.djangoproject.com/en/1.11/ref/request-response/
 [for]: https://docs.djangoproject.com/en/1.11/ref/templates/builtins/#std:templatetag-for
 [csrf_token]: https://docs.djangoproject.com/en/1.11/ref/templates/builtins/#std:templatetag-csrf_token
 [POST]: https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpRequest.POST
@@ -241,3 +242,4 @@ def vote(request, question_id):
 [reverse]: https://docs.djangoproject.com/en/1.11/ref/urlresolvers/#django.urls.reverse
 [ListView]: https://docs.djangoproject.com/en/1.11/ref/class-based-views/generic-display/#django.views.generic.list.ListView
 [DetailView]: https://docs.djangoproject.com/en/1.11/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView
+[avoiding-race-conditions-using-f]: https://docs.djangoproject.com/en/1.11/ref/models/expressions/#avoiding-race-conditions-using-f
