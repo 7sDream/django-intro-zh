@@ -259,4 +259,4 @@ Django 使用了“模板继承”的概念。这就是 **{% extends "base.html"
  - [聚合器框架](https://docs.djangoproject.com/en/1.11/ref/contrib/syndication/)可以通过简单编写一个 Python 类来推送 RSS 和 Atom。
  - 更多令人心动的自动化管理功能：概述里面仅仅浅尝辄止。
 
-接下来您可以[下载 Django](https://www.djangoproject.com/download/)，阅读[实例教程（zh）](part1.md)，然后加入[Django 社区](https://www.djangoproject.com/community/)！感谢您的关注！
+接下来您可以[下载 Django（zh）](install.md)，阅读 [实例教程（zh）](part1.md)，然后加入 [Django 社区](https://www.djangoproject.com/community/)！感谢您的关注！
