@@ -54,7 +54,7 @@ Writing your first Django app, part 6         [==========] 100/100
 Writing your first Django app, part 7         [==========] 100/100
 Advanced tutorial: How to write reusable apps [==========] 100/100
 What to read next                             [==========] 100/100
-Writing your first patch for Django           [          ]   0/100
+Writing your first patch for Django           [==========] 100/100
 ```
 
 ## 我也想一起翻译
