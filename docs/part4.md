@@ -152,7 +152,7 @@ def results(request, question_id):
 > 
 > 就像在使用计算器之前你需要知道基本的数学一样。
 
-### 改良 URLconf
+### **改良 URLconf**
 
 首先，打开 **polls/urls.py** 这个 URLconf 并将它修改成：
 
@@ -174,7 +174,7 @@ urlpatterns = [
 
 注意在第二个和第三个模式的正则表达式中，匹配的模式的名字由 **&lt;question_id>**  变成 **&lt;pk>**。
 
-### 改良视图
+### **改良视图**
 
 下一步，我们将删除旧的 **index**、 **detail** 和 **results** 视图，并用 Django 的通用视图代替。打开 **polls/views.py** 文件，并将它修改成：
 
@@ -227,7 +227,7 @@ def vote(request, question_id):
 
 更多关于通用视图的详细信息，请查看 [通用视图的文档](https://docs.djangoproject.com/en/1.11/topics/class-based-views/)。
 
-当你明白了这些表单和通用视图后，可以继续阅读 [教程的第5部分（zh）](part5.md) 来了解如何测试我们的投票应用。
+当你明白了这些表单和通用视图后，可以继续阅读 [教程第五部分（zh）](part5.md) 来了解如何测试我们的投票应用。
 
 
 [request-response]: https://docs.djangoproject.com/en/1.11/ref/request-response/

@@ -258,7 +258,7 @@ $ python manage.py runserver
 
 命名你的 URL 可以让你在 Django 的别处明白引用的是什么，特别是在模版里。这个强大的特性允许你在项目里对一个文件操作就能对 URL 模式做全局改变。
 
-当你对基本的请求和响应流都明白时，你就可以阅读 [第二部分（zh）](part2.md)开始使用数据库了。
+当你对基本的请求和响应流都明白时，你就可以阅读 [教程第二部分（zh）](part2.md)开始使用数据库了。
 
 
 [settings]: https://docs.djangoproject.com/en/1.11/topics/settings/

@@ -520,7 +520,7 @@ admin.site.register(Question)
 
 ![History page for question object](img/admin06t.png)
 
-当你明白了模型的 API 和熟悉了你自己的管理站点后，你就可以开始阅读 [教程的第三部分（zh）](part3.md) ，学习如何在投票应用中添加更多的视图。
+当你明白了模型的 API 和熟悉了你自己的管理站点后，你就可以开始阅读 [教程第三部分（zh）](part3.md) ，学习如何在投票应用中添加更多的视图。
 
 
 [utils.timezone]: https://docs.djangoproject.com/en/1.11/ref/utils/#module-django.utils.timezone
@@ -551,7 +551,7 @@ admin.site.register(Question)
 [CharField]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.CharField
 [DateTimeField]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.DateTimeField
 [default]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field.default
-[ENGINE]： https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASE-ENGINE
+[ENGINE]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASE-ENGINE
 [translation]: https://docs.djangoproject.com/en/1.11/topics/i18n/translation/
 [contenttypes]: https://docs.djangoproject.com/en/1.11/ref/contrib/contenttypes/#module-django.contrib.contenttypes
 [sessions]: https://docs.djangoproject.com/en/1.11/topics/http/sessions/#module-django.contrib.sessions

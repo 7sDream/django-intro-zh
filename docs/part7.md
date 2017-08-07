@@ -1,10 +1,10 @@
 # 创建你的第一个 Django 项目， 第七部分
 
-这一篇从 [第六部分（zh）](part6.md)结尾的地方继续讲起。我们继续在投票程序上下功夫，本章着力于自定义 Django 自动生成的管理站点（在 [第二章（zh）](part2.md)已有涉及）。
+这一篇从 [第六部分（zh）](part6.md)结尾的地方继续讲起。我们继续在投票程序上下功夫，本章着力于自定义 Django 自动生成的管理站点（在 [第二部分（zh）](part2.md)已有涉及）。
 
 ## 自定义管理表单
 
-通过使用 **admin.site.register(Question)** 注册 **问题（Question）**模型，Django 能构造一个出一个默认的表单样式。通常，你会想自定义表单的样式和作用。你能通过在注册对象时增加一些选项来达到这一目的。
+通过使用 **admin.site.register(Question)** 注册 **问题（Question）** 模型，Django 能构造一个出一个默认的表单样式。通常，你会想自定义表单的样式和作用。你能通过在注册对象时增加一些选项来达到这一目的。
 
 来看看如何改变表单中字段的顺序。把 **admin.site.register(Question)** 替换成下面的代码：
 
@@ -24,7 +24,7 @@ admin.site.register(Question, QuestionAdmin)
 
 当你想改变管理页面的某些选项时，步骤一般是这样的：创建模型管理对象（model admin object），然后把它当作第二个参数传递给 **admin.site.register()** 函数。
 
-上面的代码会使“发布日期（Publication date）”出现在“问题说明（Question text）”字段之前。
+上面的代码会使 “发布日期（Publication date）” 出现在 “问题说明（Question text）” 字段之前。
 
 ![Fields have been reordered](img/admin07.png)
 
@@ -55,11 +55,11 @@ admin.site.register(Question, QuestionAdmin)
 
 ## 添加关联对象
 
-现在我们已经可以管理问题（Question）了。但是每个 **问题（Question）**都有多个 **选项（Choices）**，而且管理页面里并没有选项。
+现在我们已经可以管理问题（Question）了。但是每个 **问题（Question）** 都有多个 **选项（Choices）**，而且管理页面里并没有选项。
 
 不过马上就有了。
 
-有两个方法来解决这个问题。第一种是像注册 **问题（Question）**一样去注册 **选项（Choices）**。这很简单：
+有两个方法来解决这个问题。第一种是像注册 **问题（Question）** 一样去注册 **选项（Choices）**。这很简单：
 
 ```python3
 # polls/admin.py
@@ -81,7 +81,7 @@ admin.site.register(Choice)
 
 但是，说实话，这样添加选项（Choices）到数据库中是非常低效的。如果当你添加一个问题（Question）时能够同时为它加上几个选项的话那就再好不过了。来看看怎么实现：
 
-删掉 **选项（Choices）**模型的 **register()** 语句，然后编辑 **问题（Question）**的注册代码：
+删掉 **选项（Choices）** 模型的 **register()** 语句，然后编辑 **问题（Question）** 的注册代码：
 
 ```python3
 # polls/admin.py
@@ -106,7 +106,7 @@ class QuestionAdmin(admin.ModelAdmin):
 admin.site.register(Question, QuestionAdmin)
 ```
 
-增加的代码将会告诉 Django：“**Choice（选项）**对象将会在 **问题（Question）**的管理界面里被编辑。默认显示3个选项字段以供编辑。”
+增加的代码将会告诉 Django：“**Choice（选项）** 对象将会在 **问题（Question）** 的管理界面里被编辑。默认显示3个选项字段以供编辑。”
 
 重新打开“添加问题（Add question）”页面：
 
@@ -127,7 +127,7 @@ class ChoiceInline(admin.TabularInline):
     #...
 ```
 
-通过使用 **TabularInline** （而不是 **StackedInline**），相关的对象将会用更紧凑的，表格式的格式显示：
+通过使用 **TabularInline**（而不是 **StackedInline**），相关的对象将会用更紧凑的，表格式的格式显示：
 
 ![Add question page now has more compact choices](img/admin12t.png)
 

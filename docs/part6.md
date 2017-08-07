@@ -66,7 +66,7 @@ body {
 
 这些都只是 **基础（basics）**。关于静态文件的各种设置，和框架中其余和静态文件有关的部分，请参考 [the static files howto][static-files] 和 [the staticfiles reference][staticfiles]。另外，[Deploying static files][deployment] 讨论了在真实的服务器上组织静态文件的方法。
 
-如果你明白静态文件，来阅读 [教程第七章（zh）](part7.md) 学习如何自定义 Django 自动生成的管理站点吧！
+如果你明白静态文件，来阅读 [教程第七部分（zh）](part7.md) 学习如何自定义 Django 自动生成的管理站点吧！
 
 
 [STATICFILES_FINDERS]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-STATICFILES_FINDERS

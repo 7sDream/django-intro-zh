@@ -77,7 +77,7 @@ Python 的 *打包* 是指将你的应用制作成特定的格式，以便能被
 >
 > 当为你的包选择名称时，记得检查 PyPI 上的内容以避免与现有的包产生冲突。以 **django-** 作为模块名称前缀是很实用的，这将有助于想寻找 Django 应用的人来识别哪些包是用于 Django 的。
 >
-> 应用标签（即，以点分隔的模块路径的最后一部分）*必须* 在 [**INSTALLED_APPS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 里是独一无二的。避免和 Django [contrib package](https://docs.djangoproject.com/en/1.11/ref/contrib/)使用相同的标签，例如 **auth**，**admin**，或 **message**。
+> 应用标签（即，以点分隔的模块路径的最后一部分）*必须* 在 [**INSTALLED_APPS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 里是独一无二的。避免和 Django [contrib package](https://docs.djangoproject.com/en/1.11/ref/contrib/) 使用相同的标签，例如 **auth**，**admin**，或 **message**。
 
 2.移动 **polls** 目录到 **django-polls**目录下
 
@@ -180,7 +180,7 @@ recursive-include polls/templates *
 recursive-include docs *
 ```
 
-注意，如果 **docs** 目录里没有文件，那么它是不会被打包的。很多 Django 应用还通过托管网站，如[readthedocs.org](https://readthedocs.org)，提供在线文档。
+注意，如果 **docs** 目录里没有文件，那么它是不会被打包的。很多 Django 应用还通过托管网站，如 [readthedocs.org](https://readthedocs.org)，提供在线文档。
 
 8.尝试通过 **python setup.py sdist** 命令进行打包（在 **django/polls** 目录里运行）。这将创建一个名为 **dist** 的目录，并在其中创建打包文件 **django-polls-0.1.tar.gz**。
 
@@ -216,7 +216,7 @@ pip uninstall django-polls
 
 - 将这个包通过电子邮件发给朋友。
 - 将包上传到你自己的网站上。
-- 在公共库，如[Python 包索引（PyPI）](https://pypi.python.org/pypi)，上发布你的包。[packaging.python.org](https://packaging.python.org)上有[很棒的教程](https://packaging.python.org/distributing/#uploading-your-project-to-pypi)。
+- 在公共库，如 [Python 包索引（PyPI）](https://pypi.python.org/pypi)，上发布你的包。[packaging.python.org](https://packaging.python.org) 上有[很棒的教程](https://packaging.python.org/distributing/#uploading-your-project-to-pypi)。
 
 ## 用 virtualenv 安装 Python 包
 
