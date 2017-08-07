@@ -2,7 +2,7 @@
 
 ## 介绍
 
-对反馈社区有点兴趣？也许你发现了 Django 的一个 bug，然后你想修复它，或者你为 Django 想添加一些小特性。
+对向社区回馈有点兴趣？也许你发现了 Django 的一个 bug，然后你想修复它，或者你想为 Django 添加一些功能。
 
 回馈 Django 本身就是看到自己所关心的问题的最佳方式。也许初看会吓到你，但这实际上是很简单的。我们将带你走一遍整个流程，好让你可以从例子中学习。
 
@@ -16,7 +16,7 @@
 
 不熟悉版本控制系统和 Trac 的人会发现本教程及其链接的信息刚刚好够开始。但是，如果你打算定期为 Django 做贡献，你可能会想了解更多关于这些不同工具的知识。
 
-在大多数情况下，本教程会尽可能多地进行解释，以确保受众能接受。
+在大多数情况下，本教程会尽可能多地进行说明，以确保受众能接受。
 
 > **哪里可以获得帮助：**
 >
@@ -31,29 +31,29 @@
 - 运行 Django 的测试套件
 - 为你的补丁编写测试程序
 - 为你的补丁编写代码
-- 测试你的不行
-- 提交 Pull Request
+- 测试你的补丁
+- 提交拉去请求（pull request）
 - 哪里可以查看更多信息
 
 一旦你完成了本教程，你就可以去看完[为 Django 做贡献文档](https://docs.djangoproject.com/en/1.11/internals/contributing/)的剩下部分了。那里有很多信息，而且是那些想成为定期贡献者必看的。如果你有问题，你也可能在那得到答案。
 
-> 需要 **Python3**！
+> 需要 **Python 3**！
 >
-> 本教程假定你用的就是 Python3。请到[Python 官网下载页](https://www.python.org/downloads/)或者你系统的包管理安装最新版的 Python3。
+> 本教程假定你用的就是 Python 3。请到[Python 官网下载页](https://www.python.org/downloads/)或者你系统的包管理安装最新版的 Python3。
 
 > **给 Windows 用户**
 >
-> 给 Windows 安装 Python 时，请确保把 python.exe 添加进了 Path，这样可以直接在命令行直接使用。
+> 给 Windows 安装 Python 时，请确保把 python.exe 添加进了 Path，这样可以直接在命令行使用。
 
-## 行为守则
+## 行为准则（Code of Conduct）
 
-作为一名贡献者，你可以帮助我们保持 Django 社区的开放和包含。请阅读和遵守我们的[Code of Conduct](https://www.djangoproject.com/conduct/)
+作为一名贡献者，你可以帮助我们保持 Django 社区的开放和包容。请阅读和遵循我们的[行为准则（Code of Conduct）](https://www.djangoproject.com/conduct/)
 
 ## 安装 Git
 
 本教程里，为了下载到最新的开发版 Django 和生成你修改过的补丁文件，你将需要安装 Git。
 
-为了确认你是否安装了 Git，可以在命令行输入 git。如果提示说命令找不到，那你就需要下载安装了，[Git 下载页](https://git-scm.com/download)。
+为了确认是否安装了 Git，你可以在命令行输入 git。如果提示说命令找不到，那你就需要下载安装了，[Git 下载页](https://git-scm.com/download)。
 
 > **给 Windows 用户**
 >
@@ -140,9 +140,9 @@ $ pip install -e /path/to/your/local/clone/django/
 
 ## 回滚到先前的 Django 版本
 
-本教程里，我们将会使用 [#24788](https://code.djangoproject.com/ticket/24788) 任务（ticket）作为例子学习，所以在任务（ticket）补丁应用之前，我们将回退到 Django 的历史版本。这让我们可以走完所有步骤，包括从 scratch 中写编写补丁，还有运行 Django 的测试套件。
+本教程里，我们将会使用 [#24788](https://code.djangoproject.com/ticket/24788) 任务（ticket）作为例子学习，所以在任务（ticket）补丁应用之前，我们将回退到 Django 的历史版本。这让我们可以走完所有步骤，包括从头开始写编写补丁，还有运行 Django 的测试套件。
 
-**请记住，为了下面的教程，我们将使用 Django 的主干旧版本，当你编写自己的补丁时，您应该始终使用 Django 当前的开发版本**
+**请记住，为了下面的教程，我们将使用 Django 的主干旧版本，当你编写自己的补丁时，你应该始终使用 Django 当前的开发版本**
 
 > **注意**
 >
@@ -164,7 +164,7 @@ $ git checkout 4ccfc4439a7add24f8db4ef3960d02ef8ae09887
 $ pip install -r requirements/py3.txt
 ```
 
-如果你再安装过程中遇到错误，你的系统可能有一些 Python 包的依赖关系缺失。查询一下安装失败的包的文档，或者在网上搜索一下你遇到的这个错误信息。
+如果你在安装过程中遇到错误，你的系统可能有一些 Python 包的依赖关系缺失。查询一下安装失败的包的文档，或者在网上搜索一下你遇到的这个错误信息。
 
 现在我们准备好运行测试套件了。如果你用的是 GNU/Linux，macOS 或者其他 Unix 风格的系统，运行：
 
@@ -206,7 +206,7 @@ $ git checkout -b ticket_24788
 
 ## 为任务 #24788 编写一些测试
 
-任务 #24788 推荐加点小功能：给 Form 类指定类级别（class level）属性加 **前缀（prefix）**的功能：
+任务 #24788 推荐加点小功能：给 Form 类指定类级别（class level）属性加 **前缀（prefix）** 的功能：
 
 ```text
 […] forms which ship with apps could effectively namespace themselves such
@@ -234,8 +234,241 @@ def test_class_prefix(self):
     self.assertEqual(p.prefix, 'bar')
 ```
 
-这个新的测试：检查 [设置一个类级别前缀] 是否如预期一样地工作；并且在创建实例时传递一个 **前缀（prefix）**参数，看是否也工作。
+这个新的测试：检查 [设置一个类级别前缀] 是否如预期一样地工作；并且在创建实例时传递一个 **前缀（prefix）** 参数，看是否也工作。
 
 > **但这个测试的东西看起来特别困难……**
 >
-> 
+> 如果你之前从来没有接触过测试，第一眼看上去它们确实有点难。幸运的是，测试在电脑编程中是个 *非常* 大的主题，有很多出自这里的信息：
+> - [编写和运行测试文档](https://docs.djangoproject.com/en/1.11/topics/testing/overview/) —— 给 Django 编写测试。
+> - [单元测试介绍](www.diveintopython3.net/unit-testing.html) —— 《深入 Python》（一本给 Python 初学开发者的免费的在线书籍）。
+> - 在阅读完这些后，如果你求知若渴，还可以看看 Python 的官方文档 [**unittest**](https://docs.python.org/3/library/unittest.html#module-unittest)。
+
+## 运行你写的新测试
+
+请记住，我们实际上没有对 **BaseForm** 做任何修改，所以我们的测试应该会失败。为了确保失败真的出现了，让我们在 **forms_tests** 文件夹运行一下所有的测试。从命令行里， **cd** 切换进 Django 的 **tests/** 目录里，然后运行：
+
+```bash
+$ ./runtests.py forms_tests
+```
+
+如果测试运行正常，你应该看到和我们添加的测试方法相对应的一个失败。如果所有的测试都通过了，那么你要确认一下你已经将新测试添加到了上面合适的文件夹和类里。
+
+## 为你的任务编写代码
+
+下一步我们将给任务（ticket）[#24788](https://code.djangoproject.com/ticket/24788) 添加函数描述。
+
+### **为任务 #24788 编写代码**
+
+切换到 **django/django/forms/** 文件夹里，然后打开 **forms.py**。在第 72 行找到 **BaseForm** 类，然后在 **field_order** 属性之后添加 **前缀（prefix）** 类属性：
+
+```python3
+class BaseForm(object):
+    # This is the main implementation of all the Form logic. Note that this
+    # class is different than Form. See the comments by the Form class for
+    # more information. Any improvements to the form API should be made to
+    # *this* class, not to the Form class.
+    field_order = None
+    prefix = None
+```
+
+### **现在验证并通过你的测试**
+
+一旦你修改完了 Django，我们就需要确保之前写的测试都能通过，这样我们才能看到我们上面写的代码正确工作。为了在 **forms_tests** 文件夹运行测试， **cd** 切换到 Django 的 **tests/** 目录里，然后运行：
+
+```bash
+$ ./runtests.py forms_tests
+```
+
+噢，我们写的那些测试好了！您应该仍然会看到一个例外失败：
+
+```bash
+AssertionError: None != 'foo'
+```
+
+我们忘记在 **__init__()** 方法里添加条件语句了。在 **django/forms/forms.py** 现在的第  87 行修改 **self.prefix = prefix**，添加一个条件语句：
+
+```python3
+if prefix is not None:
+    self.prefix = prefix
+```
+
+重新运行测试，所有都应该是通过的。如果不是，请确认你像上面那样正确修改了 **BaseForm** 类，然后正确复制了新的测试。
+
+## 第二次运行 Django 的测试套件
+
+一旦你验证了你的补丁，你的测试都是正常工作的，运行整个测试套件是个好主意，去验证你的修改没有将 bug 引入到 Django 的其他地方。整个测试套件成功通过并不保证你的代码是没有 bug 的，尽管它确实有助于识别很多可能被忽视的错误和回退。
+
+为了运行整个 Django 测试套件， **cd** 切换到 Django 的 **tests/** 目录里，然后运行：
+
+```bash
+$ ./runtests.py
+```
+
+只要你没看到任何失败，你就可以继续了。
+
+## 写文档
+
+这是个新功能，所以应该被记录到文档里。在 **django/docs/ref/forms/api.txt** 的第 1068 行（文件结尾）添加：
+
+```text
+The prefix can also be specified on the form class::
+
+    >>> class PersonForm(forms.Form):
+    ...     ...
+    ...     prefix = 'person'
+
+.. versionadded:: 1.9
+
+    The ability to specify ``prefix`` on the form class was added.
+```
+
+由于这个新功能将被添加到还没发布的 Django 1.9 版本的发行说明中，在 **docs/releases/1.9.txt** 文件的 164 行的 “Forms” 部分：
+
+```text
+* A form prefix can be specified inside a form class, not only when
+  instantiating a form. See :ref:`form-prefix` for details.
+```
+
+有关编写文档的更多信息，包括有关 **versionadded** 的说明，可以查看[文档编写](https://docs.djangoproject.com/en/1.11/internals/contributing/writing-documentation/)。文章还包括了一篇关于怎样在本地建立文档副本的说明，好让你可以预览将被生成的 HTML。
+
+## 预览你的修改
+
+现在是时候看看我们的补丁做的所有修改了。为了显示你当前的 Django 副本（有你的修改）和你最初的版本：
+
+```bash
+$ git diff
+```
+
+使用箭头键上下移动。
+
+```git
+diff --git a/django/forms/forms.py b/django/forms/forms.py
+index 509709f..d1370de 100644
+--- a/django/forms/forms.py
++++ b/django/forms/forms.py
+@@ -75,6 +75,7 @@ class BaseForm(object):
+     # information. Any improvements to the form API should be made to *this*
+     # class, not to the Form class.
+     field_order = None
++    prefix = None
+
+     def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None,
+                  initial=None, error_class=ErrorList, label_suffix=None,
+@@ -83,7 +84,8 @@ class BaseForm(object):
+         self.data = data or {}
+         self.files = files or {}
+         self.auto_id = auto_id
+-        self.prefix = prefix
++        if prefix is not None:
++            self.prefix = prefix
+         self.initial = initial or {}
+         self.error_class = error_class
+         # Translators: This is the default suffix added to form field labels
+diff --git a/docs/ref/forms/api.txt b/docs/ref/forms/api.txt
+index 3bc39cd..008170d 100644
+--- a/docs/ref/forms/api.txt
++++ b/docs/ref/forms/api.txt
+@@ -1065,3 +1065,13 @@ You can put several Django forms inside one ``<form>`` tag. To give each
+     >>> print(father.as_ul())
+     <li><label for="id_father-first_name">First name:</label> <input type="text" name="father-first_name" id="id_father-first_name" /></li>
+     <li><label for="id_father-last_name">Last name:</label> <input type="text" name="father-last_name" id="id_father-last_name" /></li>
++
++The prefix can also be specified on the form class::
++
++    >>> class PersonForm(forms.Form):
++    ...     ...
++    ...     prefix = 'person'
++
++.. versionadded:: 1.9
++
++    The ability to specify ``prefix`` on the form class was added.
+diff --git a/docs/releases/1.9.txt b/docs/releases/1.9.txt
+index 5b58f79..f9bb9de 100644
+--- a/docs/releases/1.9.txt
++++ b/docs/releases/1.9.txt
+@@ -161,6 +161,9 @@ Forms
+   :attr:`~django.forms.Form.field_order` attribute, the ``field_order``
+   constructor argument , or the :meth:`~django.forms.Form.order_fields` method.
+
++* A form prefix can be specified inside a form class, not only when
++  instantiating a form. See :ref:`form-prefix` for details.
++
+ Generic Views
+ ^^^^^^^^^^^^^
+
+diff --git a/tests/forms_tests/tests/test_forms.py b/tests/forms_tests/tests/test_forms.py
+index 690f205..e07fae2 100644
+--- a/tests/forms_tests/tests/test_forms.py
++++ b/tests/forms_tests/tests/test_forms.py
+@@ -1671,6 +1671,18 @@ class FormsTestCase(SimpleTestCase):
+         self.assertEqual(p.cleaned_data['last_name'], 'Lennon')
+         self.assertEqual(p.cleaned_data['birthday'], datetime.date(1940, 10, 9))
+
++    def test_class_prefix(self):
++        # Prefix can be also specified at the class level.
++        class Person(Form):
++            first_name = CharField()
++            prefix = 'foo'
++
++        p = Person()
++        self.assertEqual(p.prefix, 'foo')
++
++        p = Person(prefix='bar')
++        self.assertEqual(p.prefix, 'bar')
++
+     def test_forms_with_null_boolean(self):
+         # NullBooleanField is a bit of a special case because its presentation (widget)
+         # is different than its data. This is handled transparently, though.
+```
+
+当你预览完了这个补丁，按下 **q** 键回到命令行。如果补丁的内容看起来是对的，那就是时候 提交（commit） 这些修改了。
+
+## 提交补丁中的修改
+
+为了提交修改：
+
+```bash
+$ git commit -a
+```
+
+为了输入提交的信息，会打开一个文本编辑器。根据[提交信息准则](https://docs.djangoproject.com/en/1.11/internals/contributing/committing-code/#committing-guidelines)，写下像这样的信息：
+
+```text
+Fixed #24788 -- Allowed Forms to specify a prefix at the class level.
+```
+
+## 推送提交和拉取请求（pull request）
+
+在提交了补丁之后，把它发送到在 GitHub 上你 fork 下来的仓库（如果不一样，就把 “ticket_24788”替换为分支的名字）：
+
+```bash
+$ git push origin ticket_24788
+```
+
+通过 [Django 的 GitHub 页面](https://github.com/django/django/)，你可以创建一个拉取请求。你会看到你的分支在 “你最近推送的分支（Your recently pushed branches）” 里。点击旁边的 “对比和拉取请求（Compare & pull request）”。
+
+但在本教程里，请别那么做，在下一页里显示预览补丁，你可以点击 “创建拉取请求（Create pull request）”
+
+## 下一步
+
+恭喜你，你已经学会了如何给 Django 创建拉取请求了！更多进阶技术细节你可以看[用 Git 和 GitHub 工作](https://docs.djangoproject.com/en/1.11/internals/contributing/writing-code/working-with-git/)。
+
+现在，你可以通过帮助改进 Django 的代码库来使这些技能得到很好的使用了。
+
+### **更多关于新贡献者的信息**
+
+在你给 Django 写补丁之前，这里有些关于贡献的信息，你应该看一下：
+
+- 你应该确保读了 Django 的文档[认领任务和提交补丁](https://docs.djangoproject.com/en/1.11/internals/contributing/writing-code/submitting-patches/)。它涵盖了 Trac 礼仪，如何申请自己的任务，期望的补丁代码风格以及很多其他的重要细节。
+- 首次贡献者，也应该读下 Django 的[给第一次贡献者文档](https://docs.djangoproject.com/en/1.11/internals/contributing/new-contributors/)。那里有很多好的建议。
+- 读完这些后，如果你仍然渴望得到更多关于贡献的信息，你可以随时浏览 [Django 关于做贡献的文档](https://docs.djangoproject.com/en/1.11/internals/contributing/)的剩下部分。那里包含了非常多的信息，也应该是回答你任何问题的第一来源。
+
+### **寻找你真正的第一次任务**
+
+一旦你已经看完了所有的那些信息，你就准备好入门了，然后寻找属于你的任务，去编写补丁吧。特别留意那些写着 “轻松（easy pickings）” 级别的任务。这些任务通常更简单，对于首次贡献者而言是非常棒的。一旦你熟悉了为 Django 做贡献，你就可以继续为更困难更复杂的任务编写补丁了。
+
+如果你只是想在已经完成的任务上开始（没人会怪你），可以看看这个列表[需要补丁的简单任务](https://code.djangoproject.com/query?status=new&status=reopened&has_patch=0&easy=1&col=id&col=summary&col=status&col=owner&col=type&col=milestone&order=priority)和[已有补丁但需要改进的简单任务](https://code.djangoproject.com/query?status=new&status=reopened&needs_better_patch=1&easy=1&col=id&col=summary&col=status&col=owner&col=type&col=milestone&order=priority)。如果你对编写测试很熟，你也可以看看这个列表[需要测试的简单任务](https://code.djangoproject.com/query?status=new&status=reopened&needs_tests=1&easy=1&col=id&col=summary&col=status&col=owner&col=type&col=milestone&order=priority)。要记得遵循 Django 的关于[认领任务和提交补丁](https://docs.djangoproject.com/en/1.11/internals/contributing/writing-code/submitting-patches/)文档中提到的认领任务问题。
+
+### **在创建完拉取请求后还要干什么呢？**
+
+在任务有了补丁之后，它需要被第二次审查。在提交了拉取请求后，通过设置标志在任务上，比如 “有补丁了（has patch”）”，“不用测试了（doesn’t need tests）” 等，来更新任务元数据，好让其他人为了审查而找到它。做贡献不意味着总是从头开始写补丁。审查已经存在的补丁也是非常有帮助的一次贡献。查看 [Triaging tickets](https://docs.djangoproject.com/en/1.11/internals/contributing/triaging-tickets/) 获取更多细节。
