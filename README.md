@@ -1,8 +1,15 @@
 # Django-intro-zh Django 官方教程翻译项目
 
+目前版本：1.11
+---
+
 这个项目的目的是将 [Django 官方教程的 intro 部分][django-intro] 翻译成中文版。
 
 起因是在看完 Django Book 之后觉得有点过时，随后看了官方文档，还是觉得官方文档写的比较通俗易懂。为了方便更多想要学习 Django 的人（顺便翻译一遍也能更深入的理解文档），就有了这个项目。
+
+这一项目离不开辛勤帮助翻译的[小伙伴们](https://github.com/7sDream/django-intro-zh/graphs/contributors)，没有他们这个项目也无法完成。
+
+特别感谢 [@Zoctan](https://github.com/Zoctan)，将翻译版本从 1.8 升级到了 1.11（[pr](https://github.com/7sDream/django-intro-zh/pull/17)），跟上了 Django 的发展。
 
 ## 官方文档目录
 
