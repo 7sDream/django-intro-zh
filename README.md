@@ -6,7 +6,7 @@
 
 ## 官方文档目录
 
-官方文档[在此][django-intro]。
+官方文档 [在此][django-intro]。
 
 以下是官方文档的目录：
 
@@ -18,8 +18,9 @@
 - [Writing your first Django app, part 4][django-intro-wyfda-4]
 - [Writing your first Django app, part 5][django-intro-wyfda-5]
 - [Writing your first Django app, part 6][django-intro-wyfda-6]
-- [What to read next][django-intro-whatsnext]
+- [Writing your first Django app, part 7][django-intro-wyfda-7]
 - [Advanced tutorial: How to write reusable apps][django-intro-reusableapp]
+- [What to read next][django-intro-whatsnext]
 - [Writing your first patch for Django][django-intro-pathch]
 
 ## 中文版文档
@@ -34,8 +35,9 @@
 - [创建你的第一个 Django 项目， 第四部分](part4.md)
 - [创建你的第一个 Django 项目， 第五部分](part5.md)
 - [创建你的第一个 Django 项目， 第六部分](part6.md)
+- [创建你的第一个 Django 项目， 第七部分](part7.md)
+- [进阶内容：编写可重用的应用](reusable_app.md)
 - [接下来如何学习？](whats_next.md)
-- [高级内容：编写可重用的应用](reusable_app.md)
 - [编写你的第一个 Django 补丁](patch.md)
 
 ## 翻译进度
@@ -49,9 +51,10 @@ Writing your first Django app, part 3         [==========] 100/100
 Writing your first Django app, part 4         [==========] 100/100
 Writing your first Django app, part 5         [==========] 100/100
 Writing your first Django app, part 6         [==========] 100/100
-What to read next                             [==========] 100/100
+Writing your first Django app, part 7         [==========] 100/100
 Advanced tutorial: How to write reusable apps [==========] 100/100
-Writing your first patch for Django           [          ]   0/100
+What to read next                             [==========] 100/100
+Writing your first patch for Django           [==========] 100/100
 ```
 
 ## 我也想一起翻译
@@ -67,18 +70,19 @@ Writing your first patch for Django           [          ]   0/100
 5. 可以开始翻译咯。
 6. PR。
 
- [django-intro]: https://docs.djangoproject.com/en/1.8/intro/
- [django-intro-glance]: https://docs.djangoproject.com/en/1.8/intro/overview/
- [django-intro-install]: https://docs.djangoproject.com/en/1.8/intro/install/
- [django-intro-wyfda-1]: https://docs.djangoproject.com/en/1.8/intro/tutorial01/
- [django-intro-wyfda-2]: https://docs.djangoproject.com/en/1.8/intro/tutorial02/
- [django-intro-wyfda-3]: https://docs.djangoproject.com/en/1.8/intro/tutorial03/
- [django-intro-wyfda-4]: https://docs.djangoproject.com/en/1.8/intro/tutorial04/
- [django-intro-wyfda-5]: https://docs.djangoproject.com/en/1.8/intro/tutorial05/
- [django-intro-wyfda-6]: https://docs.djangoproject.com/en/1.8/intro/tutorial06/
- [django-intro-whatsnext]: https://docs.djangoproject.com/en/1.8/intro/whatsnext/
- [django-intro-reusableapp]: https://docs.djangoproject.com/en/1.8/intro/reusable-apps/
- [django-intro-pathch]: https://docs.djangoproject.com/en/1.8/intro/contributing/
+ [django-intro]: https://docs.djangoproject.com/en/1.11/intro/
+ [django-intro-glance]: https://docs.djangoproject.com/en/1.11/intro/overview/
+ [django-intro-install]: https://docs.djangoproject.com/en/1.11/intro/install/
+ [django-intro-wyfda-1]: https://docs.djangoproject.com/en/1.11/intro/tutorial01/
+ [django-intro-wyfda-2]: https://docs.djangoproject.com/en/1.11/intro/tutorial02/
+ [django-intro-wyfda-3]: https://docs.djangoproject.com/en/1.11/intro/tutorial03/
+ [django-intro-wyfda-4]: https://docs.djangoproject.com/en/1.11/intro/tutorial04/
+ [django-intro-wyfda-5]: https://docs.djangoproject.com/en/1.11/intro/tutorial05/
+ [django-intro-wyfda-6]: https://docs.djangoproject.com/en/1.11/intro/tutorial06/
+ [django-intro-wyfda-7]: https://docs.djangoproject.com/en/1.11/intro/tutorial07/
+ [django-intro-reusableapp]: https://docs.djangoproject.com/en/1.11/intro/reusable-apps/
+ [django-intro-whatsnext]: https://docs.djangoproject.com/en/1.11/intro/whatsnext/
+ [django-intro-pathch]: https://docs.djangoproject.com/en/1.11/intro/contributing/
 
 [rtd-url]: http://django-intro-zh.readthedocs.org/zh_CN/latest/
 [gh-url]: http://7sdream.github.io/django-intro-zh/
