@@ -611,29 +611,33 @@
 <p>如果您正在使用 Django 的官方发行版本，请注意对应发行版的说明文档都包含在了代码压缩包（tarball）的 <strong><code>docs/</code></strong> 的目录下。</p>
 <p>如果您正在使用开发版本的 Django (又名"trunk 版本")，请注意 <strong><code>docs/</code></strong> 目录包含了所有的文档。您可以通过 <strong><code>git checkout</code></strong> 来获取最新更新。</p>
 <p>一个稍微有点技术含量的查看文档的方法是通过 Unix 系统的 <strong><code>grep</code></strong> 命令来查找关键字搜索文档。例如，这将会展示 Django 文档中每一处提及"<strong><code>max_length</code></strong>"的地方：</p>
-<pre><code class="bash">$ grep -r max_length /path/to/django/docs/
-</code></pre>
+<div class="codehilite"><pre><span></span>$ grep -r max_length /path/to/django/docs/
+</pre></div>
+
 
 <h3 id="html">下载为本地HTML文件</h3>
 <p>您也可以通过以下简单的步骤获取到官方文档的本地HTML文件：</p>
 <ul>
 <li>Django 的文档使用了 <a href="http://sphinx-doc.org/">Sphinx</a> 文档系统来进行从纯文本到 HTML 的转换。您需要通过 Sphinx 官网下载安装包，或者通过 <strong><code>pip</code></strong> 方式进行安装：</li>
 </ul>
-<pre><code class="bash">$ pip install Sphinx
-</code></pre>
+<div class="codehilite"><pre><span></span>$ pip install Sphinx
+</pre></div>
+
 
 <ul>
 <li>然后使用文档目录下的 <strong><code>Makefile</code></strong> 进行纯文本到 HTML 格式的转换：</li>
 </ul>
-<pre><code class="bash">cd path/to/django/docs
+<div class="codehilite"><pre><span></span><span class="nb">cd</span> path/to/django/docs
 $ make html
-</code></pre>
+</pre></div>
+
 
 <p>进行此操作，您需要安装 <a href="https://www.gnu.org/software/make/">GUN Make</a>。</p>
 <p>如果您是在 Windows 系统的环境下，也可以选择使用目录中的批处理文件：</p>
-<pre><code class="bash">cd path\to\django\docs
+<div class="codehilite"><pre><span></span><span class="nb">cd</span> path<span class="se">\t</span>o<span class="se">\d</span>jango<span class="se">\d</span>ocs
 make.bat html
-</code></pre>
+</pre></div>
+
 
 <ul>
 <li>最后生成的 HTML 格式的文档会位于 <strong><code>docs/_build/html</code></strong> 中。</li>

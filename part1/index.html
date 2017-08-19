@@ -565,8 +565,9 @@
 <li>一个能让你增加、修改和删除投票的管理界面。</li>
 </ul>
 <p>我们假设你已经成功 <a href="../install/">安装 Django（zh）</a>。如果你不清楚是否已经安装 Django 或不清楚安装的是哪个版本，请运行以下命令：</p>
-<pre><code class="bash">$ python -m django --version
-</code></pre>
+<div class="codehilite"><pre><span></span>$ python -m django --version
+</pre></div>
+
 
 <p>如果已安装，你会看到安装的版本号；如果还没安装，你会看到错误提示：“No module named django”。</p>
 <p>本教程的目标版本是 Django 1.11 和 Python 3.4 或更高版本。如果 Django 版本不匹配，你可以通过点击页面右下角的切换版本按钮来转到适合你版本的教程，或者你可以选择将 Django 升级到最新版本。如果你还在用 Python 2.7，你将需要对教程中的代码作一些微调，微调内容会被写在代码的注释里。</p>
@@ -578,8 +579,9 @@
 <h2 id="_1">创建项目</h2>
 <p>如果这是你第一次使用 Django ，你还需要进行一些初始化设置。也就是说，你需要通过自动生成代码来建立一个 Django <a href="https://docs.djangoproject.com/en/1.11/glossary/#term-project">项目</a>（一个 Django 项目实例需要的设置项集合，包括数据库配置， Django 选项和应用程序的具体设置）。</p>
 <p>打开命令行，<strong>cd</strong> 切换到一个你想存放代码的目录，然后运行以下命令：</p>
-<pre><code class="bash">$ django-admin startproject mysite
-</code></pre>
+<div class="codehilite"><pre><span></span>$ django-admin startproject mysite
+</pre></div>
+
 
 <p>这行代码将会在当前目录下创建一个 <strong>mysite</strong> 目录。如果命令不起作用，请看文档 <a href="https://docs.djangoproject.com/en/1.11/faq/troubleshooting/#troubleshooting-django-admin">Problems running django-admin</a>。</p>
 <blockquote>
@@ -590,14 +592,15 @@
 <p>你可以把代码放在文档根目录 <strong>以外</strong> 的地方，比如 <strong>/home/mycode</strong>。</p>
 </blockquote>
 <p>让我们看看 <a href="https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-startproject">startproject</a> 这命令创建了什么：</p>
-<pre><code class="text">mysite/
+<div class="codehilite"><pre><span></span>mysite/
     manage.py
     mysite/
         __init__.py
         settings.py
         urls.py
         wsgi.py
-</code></pre>
+</pre></div>
+
 
 <p>这些目录和文件的用处是：</p>
 <ul>
@@ -612,22 +615,24 @@
 <h2 id="_2">用于开发的服务器</h2>
 <p>让我们验证下项目是否可用。
 切换到最外层的 <strong>mysite</strong> 目录下，如果你已经在这个目录下了，那就运行下面的命令：</p>
-<pre><code class="bash">$ python manage.py runserver
-</code></pre>
+<div class="codehilite"><pre><span></span>$ python manage.py runserver
+</pre></div>
+
 
 <p>你会看到命令行输出：</p>
-<pre><code class="bash">Performing system checks...
+<div class="codehilite"><pre><span></span>Performing system checks...
 
-System check identified no issues (0 silenced).
+System check identified no issues <span class="o">(</span><span class="m">0</span> silenced<span class="o">)</span>.
 
-You have unapplied migrations; your app may not work properly until they are applied.
-Run 'python manage.py migrate' to apply them.
+You have unapplied migrations<span class="p">;</span> your app may not work properly <span class="k">until</span> they are applied.
+Run <span class="s1">&#39;python manage.py migrate&#39;</span> to apply them.
 
-August 02, 2017 - 15:50:53
-Django version 1.11, using settings 'mysite.settings'
+August <span class="m">02</span>, <span class="m">2017</span> - <span class="m">15</span>:50:53
+Django version <span class="m">1</span>.11, using settings <span class="s1">&#39;mysite.settings&#39;</span>
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
-</code></pre>
+</pre></div>
+
 
 <blockquote>
 <p><strong>注意</strong>
@@ -643,15 +648,17 @@ Quit the server with CONTROL-C.
 <p>如果你想更换服务器监听的端口，请使用命令行参数。比如，让服务器监听 8080 端口：
 </p>
 </blockquote>
-<pre><code class="bash">$ python manage.py runserver 8080
-</code></pre>
+<div class="codehilite"><pre><span></span>$ python manage.py runserver <span class="m">8080</span>
+</pre></div>
+
 
 <blockquote>
 <p>如果你想更换服务器监听的 IP ，可以将它和端口号写在一起作为参数。比如，监听所有公网 IP（这尤其有用，当你想通过网络展示给其他人时），像这样：
 </p>
 </blockquote>
-<pre><code class="bash">$ python manage.py runserver 0:8000
-</code></pre>
+<div class="codehilite"><pre><span></span>$ python manage.py runserver <span class="m">0</span>:8000
+</pre></div>
+
 
 <blockquote>
 <p>0 是 0.0.0.0 的快捷方式。想了解更多关于这个用于开发的服务器的内容可以参考 <a href="https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-runserver"><strong>runserver</strong></a>。</p>
@@ -667,11 +674,12 @@ Quit the server with CONTROL-C.
 </blockquote>
 <p>你的应用可以放在 <a href="https://docs.python.org/3/tutorial/modules.html#tut-searchpath">Python path</a> 中的任何目录里。在本教程中，我们将直接在 <strong>manage.py</strong> 所在的目录里创建投票应用，这样它就能作为顶级模块被引入，而不是作为 <strong>mysite</strong> 的子模块。</p>
 <p>请确定你现在处于 <strong>manage.py</strong> 所在的目录下，然后运行这行命令来创建一个应用：</p>
-<pre><code class="bash">$ python manage.py startapp polls
-</code></pre>
+<div class="codehilite"><pre><span></span>$ python manage.py startapp polls
+</pre></div>
+
 
 <p>这将会创建一个 <strong>polls</strong> 目录，它的目录结构大致如下：</p>
-<pre><code class="text">polls/
+<div class="codehilite"><pre><span></span>polls/
     __init__.py
     admin.py
     migrations/
@@ -679,21 +687,23 @@ Quit the server with CONTROL-C.
     models.py
     tests.py
     views.py
-</code></pre>
+</pre></div>
+
 
 <p>这个目录结构包括了投票应用的全部内容。</p>
 <h2 id="_3">编写你的第一个视图</h2>
 <p>创建并打开 <strong>polls/views.py</strong>，然后写进 Python 代码： </p>
-<pre><code class="python"># polls/views.py
-from django.http import HttpResponse
+<div class="codehilite"><pre><span></span><span class="c1"># polls/views.py</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
 
-def index(request):
-    return HttpResponse(&quot;Hello, world. You're at the polls index.&quot;)
-</code></pre>
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;Hello, world. You&#39;re at the polls index.&quot;</span><span class="p">)</span>
+</pre></div>
+
 
 <p>这也许是 Django 中最简单的视图了。为了调用这个视图，我们需要在它和一个 URL 之间做映射，这就需要 URLconf。</p>
 <p>为了在 polls 目录下创建一个 URLconf，需要先创建 <strong>urls.py</strong> 文件，你的应用目录现在应该是这样的： </p>
-<pre><code class="text">polls/
+<div class="codehilite"><pre><span></span>polls/
     __init__.py
     admin.py
     apps.py
@@ -703,29 +713,32 @@ def index(request):
     tests.py
     urls.py
     views.py
-</code></pre>
+</pre></div>
+
 
 <p><strong>polls/urls.py</strong> 文件里包含以下代码：</p>
-<pre><code class="python"># polls/urls.py
-from django.conf.urls import url
+<div class="codehilite"><pre><span></span><span class="c1"># polls/urls.py</span>
+<span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
 
-from . import views
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
 
-urlpatterns = [
-    url(r'^$', views.index, name='index'),
-]
-</code></pre>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+
 
 <p>下一步就是将根目录下的 URLconf 指向 <strong>polls.urls</strong> 模块。在 <strong>mysite/urls.py</strong> 中导入 <strong>django.conf.urls.include</strong>，并且在 <strong>urlpatterns</strong> 列表中插入 <a href="https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.include"><strong>include()</strong></a>，像下面这样：</p>
-<pre><code class="python"># mysite/urls.py
-from django.conf.urls import include, url
-from django.contrib import admin
+<div class="codehilite"><pre><span></span><span class="c1"># mysite/urls.py</span>
+<span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">include</span><span class="p">,</span> <span class="n">url</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
 
-urlpatterns = [
-    url(r'^polls/', include('polls.urls')),
-    url(r'^admin/', admin.site.urls),
-]
-</code></pre>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^polls/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;polls.urls&#39;</span><span class="p">)),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^admin/&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+
 
 <p><a href="https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.include"><strong>include()</strong></a> 函数允许引用其他的 URLconf。要注意到 <a href="https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.include"><strong>include()</strong></a> 函数并没有 <strong>$</strong>(字符串匹配结束)，取而代之的是尾部的一个斜杠。每当 Django 遇到 <a href="https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.include"><strong>include()</strong></a>，它就会排除正则匹配的部分，并将剩下的字符串发送到引用的 URLconf 中做进一步的处理。</p>
 <p><a href="https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.include"><strong>include()</strong></a> 背后的想法是想使得 URL 的即插即用变得简单。polls 是在它们自己的 URLconf 中（ <strong>polls/urls.py</strong> ），它们是可以被放在“/polls/”、 “/fun_polls/”、 “/content/polls/”、 或者其他任何路径，而应用仍然是可以运行的。</p>
@@ -736,8 +749,9 @@ urlpatterns = [
 <p>如果你看到的是 <strong>include(admin.iste.urls)</strong> 而不是 <strong>admin.site.urls</strong>，可能是你正在使用的 Django 版本和本教程的目标版本（1.11）不一致。那你就需要切换到旧版本的教程或者是安装较新的 Django。</p>
 </blockquote>
 <p>现在你已经将 <strong>index</strong> 视图和 URLconf 连接在一起了。让我们验证下是不是生效了，运行以下命令：</p>
-<pre><code class="bash">$ python manage.py runserver
-</code></pre>
+<div class="codehilite"><pre><span></span>$ python manage.py runserver
+</pre></div>
+
 
 <p>在你的浏览器中打开 <a href="http://localhost:8000/polls/">http://localhost:8000/polls/</a>。你应该能看到文字 “Hello, world. You’re at the polls index.” —— 这是你在 <strong>index</strong> 视图中定义的。</p>
 <p><a href="https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.url"><strong>url</strong></a> 函数有四个参数，两个必需参数：<strong>regex</strong> 正则和 <strong>view</strong> 视图；两个选项参数：<strong>kwargs</strong>字典和 <strong>name</strong> 名字。在这点上，值得再看下这些参数到底是干什么的。</p>

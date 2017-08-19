@@ -526,11 +526,12 @@
 <p>如果你使用的是 Jython（一种 Java 平台的 Python 实现），你需要做一些额外的步骤。查看<a href="https://docs.djangoproject.com/en/1.11/howto/jython/">在 Jython 上运行 Django </a>获取详细信息。</p>
 </blockquote>
 <p>你可以在终端下输入命令 <strong>python</strong> 来验证是否已经安装 Python；你应该看到下面的信息：</p>
-<pre><code class="pycon">Python 3.4.x
-[GCC 4.x] on linux
-Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
-&gt;&gt;&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="go">Python 3.4.x</span>
+<span class="go">[GCC 4.x] on linux</span>
+<span class="go">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+
 
 <h2 id="_2">配置数据库</h2>
 <p>只有当你需要使用“大型”数据库例如 PostgreSQL、MySQL 或 Oracle 时，才需要这一步。若要安装这样的数据库，请参考<a href="https://docs.djangoproject.com/en/1.11/topics/install/#database-installation">数据库安装信息</a>。</p>
@@ -549,10 +550,11 @@ Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;licen
 </blockquote>
 <h2 id="_3">验证安装</h2>
 <p>如果想验证是否成功安装了 Django，可以在终端输入 <strong>python</strong>。然后在 Python 提示符下，尝试导入 Django：</p>
-<pre><code class="pycon">&gt;&gt;&gt; import django
-&gt;&gt;&gt; print(django.get_version())
-1.11
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">django</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">django</span><span class="o">.</span><span class="n">get_version</span><span class="p">())</span>
+<span class="go">1.11</span>
+</pre></div>
+
 
 <p>如果版本和上面不一样，那你可能安装了其他版本的 Django 。</p>
 <h2 id="_4">安装完成</h2>

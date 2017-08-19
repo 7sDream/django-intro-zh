@@ -852,66 +852,70 @@
 <p>幸运的是，我们的投票（<strong>polls</strong>）应用现在就有一个小 Bug 需要被修复：我们的要求是如果 <strong>Question</strong> 是在一天之内发布的，<strong>Question.was_published_recently()</strong> 方法将会返回 <strong>True</strong>，然而现在这个方法在 <strong>Question</strong> 的 <strong>pub_date</strong> 字段比当前时间还晚时也会返回 <strong>True</strong>（这是个 Bug）。</p>
 <p>你能从管理页面确认这个 Bug。创建一个发布日期是将来的投票，在投票列表里你会看到它被标明为最近发布（published recently）。</p>
 <p>也可以从 <a href="https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-shell"><strong>shell</strong></a> 里确认 Bug：</p>
-<pre><code class="pycon">&gt;&gt;&gt; import datetime
-&gt;&gt;&gt; from django.utils import timezone
-&gt;&gt;&gt; from polls.models import Question
-&gt;&gt;&gt; # 创建一个 30 天后发布的投票
-&gt;&gt;&gt; future_question = Question(pub_date=timezone.now() + datetime.timedelta(days=30))
-&gt;&gt;&gt; # 检查它是否是最近发布的
-&gt;&gt;&gt; future_question.was_published_recently()
-True
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">django.utils</span> <span class="kn">import</span> <span class="n">timezone</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">polls.models</span> <span class="kn">import</span> <span class="n">Question</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 创建一个 30 天后发布的投票</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">future_question</span> <span class="o">=</span> <span class="n">Question</span><span class="p">(</span><span class="n">pub_date</span><span class="o">=</span><span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">30</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 检查它是否是最近发布的</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">future_question</span><span class="o">.</span><span class="n">was_published_recently</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+
 
 <p>因为将来发生的是肯定不是最近发生的，所以代码明显是错误的。</p>
 <h3 id="bug_1">写个测试来发现 Bug</h3>
 <p>我们刚刚在 <a href="https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-shell"><strong>shell</strong></a> 里做的测试也就是自动化测试应该做的工作。所以我们来把它改写成自动化的吧。</p>
 <p>按照惯例，Django 应用的测试因该写在应用的 <strong>tests.py</strong> 文件里。测试系统会自动的在所有以 <strong>test</strong> 开头的文件里寻找并执行测试代码。</p>
 <p>在 <strong>polls</strong> 应用的 <strong>tests.py</strong> 文件里输入以下代码：</p>
-<pre><code class="python"># polls/tests.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/tests.py</span>
 
-import datetime
+<span class="kn">import</span> <span class="nn">datetime</span>
 
-from django.utils import timezone
-from django.test import TestCase
+<span class="kn">from</span> <span class="nn">django.utils</span> <span class="kn">import</span> <span class="n">timezone</span>
+<span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">TestCase</span>
 
-from .models import Question
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Question</span>
 
 
-class QuestionModelTests(TestCase):
+<span class="k">class</span> <span class="nc">QuestionModelTests</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
 
-    def test_was_published_recently_with_future_question(self):
-        &quot;&quot;&quot;
-        was_published_recently() 应该对 pub_date 字段值是将来的那些问题返回 False。
-        &quot;&quot;&quot;
-        time = timezone.now() + datetime.timedelta(days=30)
-        future_question = Question(pub_date=time)
-        self.assertIs(future_question.was_published_recently(), False)
-</code></pre>
+    <span class="k">def</span> <span class="nf">test_was_published_recently_with_future_question</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        was_published_recently() 应该对 pub_date 字段值是将来的那些问题返回 False。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">future_question</span> <span class="o">=</span> <span class="n">Question</span><span class="p">(</span><span class="n">pub_date</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">future_question</span><span class="o">.</span><span class="n">was_published_recently</span><span class="p">(),</span> <span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
 
 <p>我们创建了一个 <strong><a href="https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.TestCase">django.test.TestCase</a></strong> 的子类，并添加了一个方法。在此方法中我们创建了一个 <strong>pub_date</strong> 字段值在将来的 <strong>Question</strong> 实例，然后检查它的 <strong>was_published_recently()</strong> 方法的返回值——它应该是 False。</p>
 <h3 id="_10">运行测试</h3>
 <p>在终端中，我们通过输入以下代码运行测试：</p>
-<pre><code class="bash">$ python manage.py test polls
-</code></pre>
+<div class="codehilite"><pre><span></span>$ python manage.py <span class="nb">test</span> polls
+</pre></div>
+
 
 <p>你将会看到运行结果：</p>
-<pre><code class="bash">Creating test database for alias 'default'...
-System check identified no issues (0 silenced).
-F
-======================================================================
-FAIL: test_was_published_recently_with_future_question (polls.tests.QuestionModelTests)
+<div class="codehilite"><pre><span></span>Creating <span class="nb">test</span> database <span class="k">for</span> <span class="nb">alias</span> <span class="s1">&#39;default&#39;</span>...
+System check identified no issues <span class="o">(</span><span class="m">0</span> silenced<span class="o">)</span>.
+<span class="nv">F</span>
+<span class="o">======================================================================</span>
+FAIL: test_was_published_recently_with_future_question <span class="o">(</span>polls.tests.QuestionModelTests<span class="o">)</span>
 ----------------------------------------------------------------------
-Traceback (most recent call last):
-  File &quot;/path/to/mysite/polls/tests.py&quot;, line 16, in test_was_published_recently_with_future_question
-    self.assertIs(future_question.was_published_recently(), False)
+Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">&quot;/path/to/mysite/polls/tests.py&quot;</span>, line <span class="m">16</span>, in test_was_published_recently_with_future_question
+    self.assertIs<span class="o">(</span>future_question.was_published_recently<span class="o">()</span>, False<span class="o">)</span>
 AssertionError: True is not False
 
 ----------------------------------------------------------------------
-Ran 1 test in 0.001s
+Ran <span class="m">1</span> <span class="nb">test</span> in <span class="m">0</span>.001s
 
-FAILED (failures=1)
-Destroying test database for alias 'default'...
-</code></pre>
+FAILED <span class="o">(</span><span class="nv">failures</span><span class="o">=</span><span class="m">1</span><span class="o">)</span>
+Destroying <span class="nb">test</span> database <span class="k">for</span> <span class="nb">alias</span> <span class="s1">&#39;default&#39;</span>...
+</pre></div>
+
 
 <p>发生了什么呢？以下是自动化测试的运行过程：</p>
 <ul>
@@ -925,47 +929,50 @@ Destroying test database for alias 'default'...
 <p>测试系统通知我们哪些测试样例失败了，和造成测试失败的代码所在的行号。</p>
 <h3 id="bug_2">修复 Bug</h3>
 <p>我们现在知道了，问题出在当 <strong>pub_date</strong> 为将来时， <strong>Question.was_published_recently()</strong> 应该返回 <strong>False</strong>。我们去修改 models.py 里的方法，让它只在日期是过去的时候才返回 <strong>True</strong>：</p>
-<pre><code class="python"># polls/model.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/model.py</span>
 
-def was_published_recently(self):
-    now = timezone.now()
-    return now - datetime.timedelta(days=1) &lt;= self.pub_date &lt;= now
-</code></pre>
+<span class="k">def</span> <span class="nf">was_published_recently</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">now</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pub_date</span> <span class="o">&lt;=</span> <span class="n">now</span>
+</pre></div>
+
 
 <p>然后我们重新运行测试：</p>
-<pre><code>Creating test database for alias 'default'...
+<div class="codehilite"><pre><span></span>Creating test database for alias &#39;default&#39;...
 System check identified no issues (0 silenced).
 .
 ----------------------------------------------------------------------
 Ran 1 test in 0.001s
 
 OK
-Destroying test database for alias 'default'...
-</code></pre>
+Destroying test database for alias &#39;default&#39;...
+</pre></div>
+
 
 <p>在出现 Bug 之后，我们编写了能够发现这个 Bug 的自动化测试。在修复 Bug 之后，我们的代码顺利的通过了测试。</p>
 <p>将来，我们的应用可能会出现其他的问题，但是我们可以肯定的是，一定不会再次出现这个 Bug，因为只要简单的运行一遍测试，就会立刻收到警告。我们可以认为应用的这一小部分代码永远是安全的。</p>
 <h3 id="_11">更全面的测试</h3>
 <p>我们已经搞定一小部分了，现在可以考虑全面的测试 <strong>was_published_recently()</strong> 这个方法以确定它的安全性，然后就可以把这个方法稳定下来了。事实上，在修复一个 Bug 时不小心引入另一个 Bug 会是非常令人尴尬的。</p>
 <p>我们在上次写的类里再增加两个测试，来更全面的测试这个方法：</p>
-<pre><code class="python"># polls/tests.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/tests.py</span>
 
-def test_was_published_recently_with_old_question(self):
-    &quot;&quot;&quot;
-    对于 pub_date 在一天以前的 Question，was_published_recently() 应该返回 False。
-    &quot;&quot;&quot;
-    time = timezone.now() - datetime.timedelta(days=1, seconds=1)
-    old_question = Question(pub_date=time)
-    self.assertIs(old_question.was_published_recently(), False)
+<span class="k">def</span> <span class="nf">test_was_published_recently_with_old_question</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    对于 pub_date 在一天以前的 Question，was_published_recently() 应该返回 False。</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">seconds</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">old_question</span> <span class="o">=</span> <span class="n">Question</span><span class="p">(</span><span class="n">pub_date</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">old_question</span><span class="o">.</span><span class="n">was_published_recently</span><span class="p">(),</span> <span class="bp">False</span><span class="p">)</span>
 
-def test_was_published_recently_with_recent_question(self):
-    &quot;&quot;&quot;
-    对于 pub_date 在一天之内的 Question，was_published_recently() 应该返回 True。
-    &quot;&quot;&quot;
-    time = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
-    recent_question = Question(pub_date=time)
-    self.assertIs(recent_question.was_published_recently(), True)
-</code></pre>
+<span class="k">def</span> <span class="nf">test_was_published_recently_with_recent_question</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    对于 pub_date 在一天之内的 Question，was_published_recently() 应该返回 True。</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mi">23</span><span class="p">,</span> <span class="n">minutes</span><span class="o">=</span><span class="mi">59</span><span class="p">,</span> <span class="n">seconds</span><span class="o">=</span><span class="mi">59</span><span class="p">)</span>
+    <span class="n">recent_question</span> <span class="o">=</span> <span class="n">Question</span><span class="p">(</span><span class="n">pub_date</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertIs</span><span class="p">(</span><span class="n">recent_question</span><span class="o">.</span><span class="n">was_published_recently</span><span class="p">(),</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
 
 <p>现在，我们有三个测试来确保 <strong>Question.was_published_recently()</strong> 方法对于过去，最近，和将来的三种情况都返回正确的值。</p>
 <p>再次申明，尽管 <strong>polls</strong> 现在是个非常简单的应用，但是无论它以后成长到多么复杂，要和其他代码进行怎样的交互，我们都能保证进行过测试的那些方法的行为永远是符合预期的。</p>
@@ -978,145 +985,153 @@ def test_was_published_recently_with_recent_question(self):
 <h3 id="django-client">Django 测试工具之 Client</h3>
 <p>Django 提供了一个供测试使用的 <a href="https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.Client"><strong>Client</strong></a> 来模拟用户和视图层代码的交互。我们能在 <strong>tests.py</strong> 甚至是 <a href="https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-shell"><strong>shell</strong></a> 中使用它。</p>
 <p>我们依照惯例从 <a href="https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-shell"><strong>shell</strong></a> 开始，首先我们要做一些在 <strong>tests.py</strong> 里并不需要的准备工作。第一步是在 <a href="https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-shell"><strong>shell</strong></a> 中配置测试环境：</p>
-<pre><code class="pycon">&gt;&gt;&gt; from django.test.utils import setup_test_environment
-&gt;&gt;&gt; setup_test_environment()
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">django.test.utils</span> <span class="kn">import</span> <span class="n">setup_test_environment</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">setup_test_environment</span><span class="p">()</span>
+</pre></div>
+
 
 <p><a href="https://docs.djangoproject.com/en/1.11/topics/testing/advanced/#django.test.utils.setup_test_environment"><strong>setup_test_environment()</strong></a> 安装了一个特殊的模板渲染器，它能让我们使用 response 的一些在正常情况下不可用的附加属性，比如 <strong>response.context</strong>。注意，这个方法并不会配置测试数据库，所以接下来的代码将会当前存在的数据库上运行，输出的内容可能由于数据库内容的不同而不同。如果你在 <strong>settings.py</strong> 中的 <strong>TIME_ZONE</strong> 设置不对，你还有可能得到意想不到的结果。如果你不记得之前是否设置过，那在继续下面的步骤之前先检查一下。</p>
 <p>然后我们需要导入 client 类（在后续 <strong>tests.py</strong> 的实例中我们将会使用 <a href="https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.TestCase"><strong>django.test.TestCase</strong></a> 类，这个类里包含了自己的 client 实例，所以不需要这一步）</p>
-<pre><code class="pycon">&gt;&gt;&gt; from django.test import Client
-&gt;&gt;&gt; # 创建一个 Client 实例
-&gt;&gt;&gt; client = Client()
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">Client</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 创建一个 Client 实例</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+</pre></div>
+
 
 <p>搞定了之后，我们可以要求 client 来为我们工作了：</p>
-<pre><code class="pycon">&gt;&gt;&gt; # 获取 '/' 的响应
-&gt;&gt;&gt; response = client.get('/')
-Not Found: /
-&gt;&gt;&gt; # 我们期望返回一个 404；
-如果你看到一个
-&gt;&gt;&gt; # “无效 HTTP_HOST_header” 错误 和 一个
-400 响应，那你可能
-&gt;&gt;&gt; # 忘记了这之前要调用的 setup_test_environment()
-&gt;&gt;&gt; response.status_code
-404
-&gt;&gt;&gt; # 访问 '/polls/' 的话，我们应该会得到一些有意义的响应
-&gt;&gt;&gt; # 我们使用 'reverse()' 方法而不是硬编码的 URL
-&gt;&gt;&gt; from django.urls import reverse
-&gt;&gt;&gt; response = client.get(reverse('polls:index'))
-&gt;&gt;&gt; response.status_code
-200
-&gt;&gt;&gt; response.content
-b'\n    &lt;ul&gt;\n    \n        &lt;li&gt;&lt;a href=&quot;/polls/1/&quot;&gt;What&amp;#39;s up?&lt;/a&gt;&lt;/li&gt;\n    \n    &lt;/ul&gt;\n\n'
-&gt;&gt;&gt; response.context['latest_question_list']
-&lt;QuerySet [&lt;Question: What's up?&gt;]&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 获取 &#39;/&#39; 的响应</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="go">Not Found: /</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 我们期望返回一个 404；</span>
+<span class="go">如果你看到一个</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># “无效 HTTP_HOST_header” 错误 和 一个</span>
+<span class="go">400 响应，那你可能</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 忘记了这之前要调用的 setup_test_environment()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span>
+<span class="go">404</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 访问 &#39;/polls/&#39; 的话，我们应该会得到一些有意义的响应</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># 我们使用 &#39;reverse()&#39; 方法而不是硬编码的 URL</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">reverse</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;polls:index&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span>
+<span class="go">200</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">content</span>
+<span class="go">b&#39;\n    &lt;ul&gt;\n    \n        &lt;li&gt;&lt;a href=&quot;/polls/1/&quot;&gt;What&amp;#39;s up?&lt;/a&gt;&lt;/li&gt;\n    \n    &lt;/ul&gt;\n\n&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">response</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s1">&#39;latest_question_list&#39;</span><span class="p">]</span>
+<span class="go">&lt;QuerySet [&lt;Question: What&#39;s up?&gt;]&gt;</span>
+</pre></div>
+
 
 <h3 id="_14">改善视图代码</h3>
 <p>现在的投票列表会显示将来的投票（<strong>pub_date</strong> 值是将来的那些）。我们来修复这个问题。</p>
 <p>在教程的 <a href="../part4/">第四部分（zh）</a>里，我们介绍了基于 <a href="https://docs.djangoproject.com/en/1.11/ref/class-based-views/generic-display/#django.views.generic.list.ListView"><strong>ListView</strong></a> 的视图类：</p>
-<pre><code class="python"># polls/views.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/views.py</span>
 
-class IndexView(generic.ListView):
-    template_name = 'polls/index.html'
-    context_object_name = 'latest_question_list'
+<span class="k">class</span> <span class="nc">IndexView</span><span class="p">(</span><span class="n">generic</span><span class="o">.</span><span class="n">ListView</span><span class="p">):</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;polls/index.html&#39;</span>
+    <span class="n">context_object_name</span> <span class="o">=</span> <span class="s1">&#39;latest_question_list&#39;</span>
 
-    def get_queryset(self):
-        &quot;&quot;&quot;返回最近发布的五个投票&quot;&quot;&quot;
-        return Question.objects.order_by('-pub_date')[:5]
-</code></pre>
+    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;返回最近发布的五个投票&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Question</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-pub_date&#39;</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
 
 <p>我们需要改进 <strong>get_queryset()</strong> 方法，让他它能通过将 Question 的 pub_data 属性与 <strong>timezone.now()</strong> 相比较来判断是否应该显示此 Question。首先我们需要一行 import 语句：</p>
-<pre><code class="python"># polls/views.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/views.py</span>
 
-from django.utils import timezone
-</code></pre>
+<span class="kn">from</span> <span class="nn">django.utils</span> <span class="kn">import</span> <span class="n">timezone</span>
+</pre></div>
+
 
 <p>然后我们把 <strong>get_queryset</strong> 方法改写成下面这样：</p>
-<pre><code class="python"># polls/views.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/views.py</span>
 
-def get_queryset(self):
-    &quot;&quot;&quot;返回最近发布的五个投票（不包括那些被设置为在将来发布的）&quot;&quot;&quot;
-    return Question.objects.filter(
-        pub_date__lte=timezone.now()
-    ).order_by('-pub_date')[:5]
-</code></pre>
+<span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;返回最近发布的五个投票（不包括那些被设置为在将来发布的）&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Question</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+        <span class="n">pub_date__lte</span><span class="o">=</span><span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-pub_date&#39;</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
 
 <p><strong>Question.objects.filter(pub_date__lte=timezone.now())</strong> 返回一个由 <strong>pub_date</strong> 小于或等于（也就是早于或等于） <strong>timezone.now</strong> 的 <strong>Question</strong> 组成的集合。</p>
 <h3 id="_15">测试新视图</h3>
 <p>现在你可以通过创建一个将来发布的投票问题，然后执行 runserver，再在浏览器中检查主页里的列表来判断代码是否符合预期。你绝对不会愿意每次修改代码后都这么来一次的，所以让我们创建一些自动化测试吧。</p>
 <p>在 <strong>polls/tests.py</strong> 里加入一句 import</p>
-<pre><code class="python"># polls/tests.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/tests.py</span>
 
-from django.urls import reverse
-</code></pre>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">reverse</span>
+</pre></div>
+
 
 <p>然后我们写一个公用的快捷函数用于创建投票问题，再为视图创建一个测试类：</p>
-<pre><code class="python"># polls/test.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/test.py</span>
 
-def create_question(question_text, days):
-    &quot;&quot;&quot;
-    创建一个以 question_text 为标题，pub_date 为 days 天之后的问题。
-    days 为正表示将来，为负表示过去。
-    &quot;&quot;&quot;
-    time = timezone.now() + datetime.timedelta(days=days)
-    return Question.objects.create(question_text=question_text, pub_date=time)
+<span class="k">def</span> <span class="nf">create_question</span><span class="p">(</span><span class="n">question_text</span><span class="p">,</span> <span class="n">days</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    创建一个以 question_text 为标题，pub_date 为 days 天之后的问题。</span>
+<span class="sd">    days 为正表示将来，为负表示过去。</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">days</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Question</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">question_text</span><span class="o">=</span><span class="n">question_text</span><span class="p">,</span> <span class="n">pub_date</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
 
 
-class QuestionIndexViewTests(TestCase):
-    def test_no_questions(self):
-        &quot;&quot;&quot;
-        如果数据库里没有保存问题，应该显示一个合适的提示信息。
-        &quot;&quot;&quot;
-        response = self.client.get(reverse('polls:index'))
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, &quot;No polls are available.&quot;)
-        self.assertQuerysetEqual(response.context['latest_question_list'], [])
+<span class="k">class</span> <span class="nc">QuestionIndexViewTests</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test_no_questions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        如果数据库里没有保存问题，应该显示一个合适的提示信息。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;polls:index&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertContains</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s2">&quot;No polls are available.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertQuerysetEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s1">&#39;latest_question_list&#39;</span><span class="p">],</span> <span class="p">[])</span>
 
-    def test_past_question(self):
-        &quot;&quot;&quot;
-        值 pub_date 是过去的，问题应该被显示在主页上。
-        &quot;&quot;&quot;
-        create_question(question_text=&quot;Past question.&quot;, days=-30)
-        response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(
-            response.context['latest_question_list'],
-            ['&lt;Question: Past question.&gt;']
-        )
+    <span class="k">def</span> <span class="nf">test_past_question</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        值 pub_date 是过去的，问题应该被显示在主页上。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">create_question</span><span class="p">(</span><span class="n">question_text</span><span class="o">=</span><span class="s2">&quot;Past question.&quot;</span><span class="p">,</span> <span class="n">days</span><span class="o">=-</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;polls:index&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertQuerysetEqual</span><span class="p">(</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s1">&#39;latest_question_list&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">&#39;&lt;Question: Past question.&gt;&#39;</span><span class="p">]</span>
+        <span class="p">)</span>
 
-    def test_future_question(self):
-        &quot;&quot;&quot;
-        值 pub_date 是将来的，问题不应该被显示在主页上。
-        &quot;&quot;&quot;
-        create_question(question_text=&quot;Future question.&quot;, days=30)
-        response = self.client.get(reverse('polls:index'))
-        self.assertContains(response, &quot;No polls are available.&quot;)
-        self.assertQuerysetEqual(response.context['latest_question_list'], [])
+    <span class="k">def</span> <span class="nf">test_future_question</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        值 pub_date 是将来的，问题不应该被显示在主页上。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">create_question</span><span class="p">(</span><span class="n">question_text</span><span class="o">=</span><span class="s2">&quot;Future question.&quot;</span><span class="p">,</span> <span class="n">days</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;polls:index&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertContains</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="s2">&quot;No polls are available.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertQuerysetEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s1">&#39;latest_question_list&#39;</span><span class="p">],</span> <span class="p">[])</span>
 
-    def test_future_question_and_past_question(self):
-        &quot;&quot;&quot;
-        如果数据库里同时存有过去和将来的投票，那么只应该显示过去那些。
-        &quot;&quot;&quot;
-        create_question(question_text=&quot;Past question.&quot;, days=-30)
-        create_question(question_text=&quot;Future question.&quot;, days=30)
-        response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(
-            response.context['latest_question_list'],
-            ['&lt;Question: Past question.&gt;']
-        )
+    <span class="k">def</span> <span class="nf">test_future_question_and_past_question</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        如果数据库里同时存有过去和将来的投票，那么只应该显示过去那些。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">create_question</span><span class="p">(</span><span class="n">question_text</span><span class="o">=</span><span class="s2">&quot;Past question.&quot;</span><span class="p">,</span> <span class="n">days</span><span class="o">=-</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">create_question</span><span class="p">(</span><span class="n">question_text</span><span class="o">=</span><span class="s2">&quot;Future question.&quot;</span><span class="p">,</span> <span class="n">days</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;polls:index&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertQuerysetEqual</span><span class="p">(</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s1">&#39;latest_question_list&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">&#39;&lt;Question: Past question.&gt;&#39;</span><span class="p">]</span>
+        <span class="p">)</span>
 
-    def test_two_past_questions(self):
-        &quot;&quot;&quot;
-        问题索引页应该可以显示多个问题。
-        &quot;&quot;&quot;
-        create_question(question_text=&quot;Past question 1.&quot;, days=-30)
-        create_question(question_text=&quot;Past question 2.&quot;, days=-5)
-        response = self.client.get(reverse('polls:index'))
-        self.assertQuerysetEqual(
-            response.context['latest_question_list'],
-            ['&lt;Question: Past question 2.&gt;', '&lt;Question: Past question 1.&gt;']
-        )
-</code></pre>
+    <span class="k">def</span> <span class="nf">test_two_past_questions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        问题索引页应该可以显示多个问题。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">create_question</span><span class="p">(</span><span class="n">question_text</span><span class="o">=</span><span class="s2">&quot;Past question 1.&quot;</span><span class="p">,</span> <span class="n">days</span><span class="o">=-</span><span class="mi">30</span><span class="p">)</span>
+        <span class="n">create_question</span><span class="p">(</span><span class="n">question_text</span><span class="o">=</span><span class="s2">&quot;Past question 2.&quot;</span><span class="p">,</span> <span class="n">days</span><span class="o">=-</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;polls:index&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertQuerysetEqual</span><span class="p">(</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">context</span><span class="p">[</span><span class="s1">&#39;latest_question_list&#39;</span><span class="p">],</span>
+            <span class="p">[</span><span class="s1">&#39;&lt;Question: Past question 2.&gt;&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;Question: Past question 1.&gt;&#39;</span><span class="p">]</span>
+        <span class="p">)</span>
+</pre></div>
+
 
 <p>我们仔细分析一下上面的代码。</p>
 <p>首先是一个快捷函数 <strong>create_question</strong>，它封装了创建问题（questions）的流程，减少了重复代码。</p>
@@ -1126,39 +1141,41 @@ class QuestionIndexViewTests(TestCase):
 <p>剩下的那些也都差不多。实际上，测试就是假装一些管理员的输入，然后通过用户端的表现是否符合预期来判断新加入的改变是否破坏了原有的系统状态。</p>
 <h3 id="detailview">测试 DetailView</h3>
 <p>我们的工作似乎已经很完美了？不，还有一个问题：就算在将来发布的那些投票不会在目录页里出现，但是用户还是能够通过猜测 URL 的方式访问到他们。所以我们得在 DetailView 里增加一些约束：</p>
-<pre><code class="python"># polls/views.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/views.py</span>
 
-class DetailView(generic.DetailView):
-    ...
-    def get_queryset(self):
-        &quot;&quot;&quot;
-        过滤掉现在不应该被发布的投票。
-        &quot;&quot;&quot;
-        return Question.objects.filter(pub_date__lte=timezone.now())
-</code></pre>
+<span class="k">class</span> <span class="nc">DetailView</span><span class="p">(</span><span class="n">generic</span><span class="o">.</span><span class="n">DetailView</span><span class="p">):</span>
+    <span class="o">...</span>
+    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        过滤掉现在不应该被发布的投票。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">Question</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pub_date__lte</span><span class="o">=</span><span class="n">timezone</span><span class="o">.</span><span class="n">now</span><span class="p">())</span>
+</pre></div>
+
 
 <p>当然，我们还要增加一些测试，用于确认过去的 <strong>问题（Question ）</strong>能被用户访问，而将来的则不能：</p>
-<pre><code class="python"># polls/tests.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/tests.py</span>
 
-class QuestionDetailViewTests(TestCase):
-    def test_future_question(self):
-        &quot;&quot;&quot;
-        访问将来发布的问题详情页应该会收到一个 404 错误。
-        &quot;&quot;&quot;
-        future_question = create_question(question_text='Future question.', days=5)
-        url = reverse('polls:detail', args=(future_question.id,))
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 404)
+<span class="k">class</span> <span class="nc">QuestionDetailViewTests</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test_future_question</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        访问将来发布的问题详情页应该会收到一个 404 错误。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">future_question</span> <span class="o">=</span> <span class="n">create_question</span><span class="p">(</span><span class="n">question_text</span><span class="o">=</span><span class="s1">&#39;Future question.&#39;</span><span class="p">,</span> <span class="n">days</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;polls:detail&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">future_question</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">,</span> <span class="mi">404</span><span class="p">)</span>
 
-    def test_past_question(self):
-        &quot;&quot;&quot;
-        访问过去发布的问题详情页，页面上应该显示问题描述。
-        &quot;&quot;&quot;
-        past_question = create_question(question_text='Past Question.', days=-5)
-        url = reverse('polls:detail', args=(past_question.id,))
-        response = self.client.get(url)
-        self.assertContains(response, past_question.question_text)
-</code></pre>
+    <span class="k">def</span> <span class="nf">test_past_question</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        访问过去发布的问题详情页，页面上应该显示问题描述。</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">past_question</span> <span class="o">=</span> <span class="n">create_question</span><span class="p">(</span><span class="n">question_text</span><span class="o">=</span><span class="s1">&#39;Past Question.&#39;</span><span class="p">,</span> <span class="n">days</span><span class="o">=-</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;polls:detail&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">past_question</span><span class="o">.</span><span class="n">id</span><span class="p">,))</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertContains</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">past_question</span><span class="o">.</span><span class="n">question_text</span><span class="p">)</span>
+</pre></div>
+
 
 <h3 id="_16">更多的测试</h3>
 <p>我们应该给 <strong>ResultsView</strong> 也增加一个类似的 <strong>get_queryset</strong> 方法，并且为它创建测试。这和我们之前干的差不多，事实上，基本就是重复一遍。</p>

@@ -474,32 +474,35 @@
 <p>和模板一样，虽然我们可以直接把样式表放在 <strong>polls/static</strong> 目录下（而不是再创建一个 <strong>polls</strong> 子目录），但是这并不是个好主意。Django 将会使用它找到的第一个和名称项匹配文件，当你在另一个应用里也有一个同名的文件的话，Django 将无法区分它们。我们想让 Django 能够找到正确的文件，最简单的方法就是使用命名空间。也就是把静态文件放到一个和应用同名的子目录中。</p>
 </blockquote>
 <p>将以下代码写入样式表（<strong>polls/static/polls/style.css</strong>）中：</p>
-<pre><code class="css">/* polls/static/polls/style.css */
+<div class="codehilite"><pre><span></span><span class="c">/* polls/static/polls/style.css */</span>
 
-li a {
-    color: green;
-}
-</code></pre>
+<span class="nt">li</span> <span class="nt">a</span> <span class="p">{</span>
+    <span class="k">color</span><span class="p">:</span> <span class="kc">green</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
 
 <p>下一步，在 <strong>polls/templates/polls/index.html</strong> 的顶部加入以下内容：</p>
-<pre><code class="html">&lt;!-- polls/templates/polls/index.html --&gt;
+<div class="codehilite"><pre><span></span><span class="c">&lt;!-- polls/templates/polls/index.html --&gt;</span>
 
 {% load static %}
 
-&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;{% static 'polls/style.css' %}&quot; /&gt;
-</code></pre>
+<span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% static &#39;polls/style.css&#39; %}&quot;</span> <span class="p">/&gt;</span>
+</pre></div>
+
 
 <p><strong>{% static %}</strong> 语句会把对静态文件的引用转化为绝对地址。</p>
 <p>这就是你需要做的所有工作了。现在重新载入 <strong>http://localhost:8000/polls/</strong>，你会看到问题链接变成了绿色（Django 使用的样式），这说明样式表已经正常工作了。</p>
 <h2 id="_2">添加背景图片</h2>
 <p>接下来，我们要为图片新建一个子目录。在 <strong>polls/static/polls</strong> 目录下创建 <strong>images</strong> 目录。然后在其中放入背景图片 <strong>background.gif</strong>。也就是说，背景图片路径为 <strong>polls/static/polls/images/background.gif</strong>。</p>
 <p>然后，在样式表文件（<strong>polls/static/polls/style.css</strong>）中加入：</p>
-<pre><code class="css">/* polls/static/polls/style.css */
+<div class="codehilite"><pre><span></span><span class="c">/* polls/static/polls/style.css */</span>
 
-body {
-    background: white url(&quot;images/background.gif&quot;) no-repeat right bottom;
-}
-</code></pre>
+<span class="nt">body</span> <span class="p">{</span>
+    <span class="k">background</span><span class="p">:</span> <span class="kc">white</span> <span class="nb">url</span><span class="p">(</span><span class="s2">&quot;images/background.gif&quot;</span><span class="p">)</span> <span class="kc">no-repeat</span> <span class="kc">right</span> <span class="kc">bottom</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+
 
 <p>重新加载 <strong>http://localhost:8000/polls/</strong> 你将会看到背景图片被放置在了页面的右下角。</p>
 <blockquote>

@@ -585,48 +585,52 @@
 <p>本教程只会介绍 URLconf 的基础内容，你可以查看 <a href="https://docs.djangoproject.com/en/1.11/ref/urlresolvers/#module-django.urls"><strong>django.core.urlresolvers</strong></a> 以获取更多内容。</p>
 <h2 id="_2">编写更多的视图</h2>
 <p>现在让我们添加更多的视图进 <strong>polls/view.py</strong>，这些视图都有点不一样，因为它们都接受一个参数：</p>
-<pre><code class="python"># polls/views.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/views.py</span>
 
-def detail(request, question_id):
-    return HttpResponse(&quot;You're looking at question %s.&quot; % question_id)
+<span class="k">def</span> <span class="nf">detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;You&#39;re looking at question </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">question_id</span><span class="p">)</span>
 
-def results(request, question_id):
-    response = &quot;You're looking at the results of question %s.&quot;
-    return HttpResponse(response % question_id)
+<span class="k">def</span> <span class="nf">results</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="s2">&quot;You&#39;re looking at the results of question </span><span class="si">%s</span><span class="s2">.&quot;</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">response</span> <span class="o">%</span> <span class="n">question_id</span><span class="p">)</span>
 
-def vote(request, question_id):
-    return HttpResponse(&quot;You're voting on question %s.&quot; % question_id)
-</code></pre>
+<span class="k">def</span> <span class="nf">vote</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&quot;You&#39;re voting on question </span><span class="si">%s</span><span class="s2">.&quot;</span> <span class="o">%</span> <span class="n">question_id</span><span class="p">)</span>
+</pre></div>
+
 
 <p>要把这些新视图添加进 <strong>polls.urls</strong> 模块里，只需添加几个 <strong>url()</strong> 函数调用：</p>
-<pre><code class="python"># polls/urls.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/urls.py</span>
 
-from django.conf.urls import url
+<span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
 
-from . import views
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
 
-urlpatterns = [
-    # ex: /polls/
-    url(r'^$', views.index, name='index'),
-    # ex: /polls/5/
-    url(r'^(?P&lt;question_id&gt;[0-9]+)/$', views.detail, name='detail'),
-    # ex: /polls/5/results/
-    url(r'^(?P&lt;question_id&gt;[0-9]+)/results/$', views.results, name='results'),
-    # ex: /polls/5/vote/
-    url(r'^(?P&lt;question_id&gt;[0-9]+)/vote/$', views.vote, name='vote'),
-]
-</code></pre>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># ex: /polls/</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">),</span>
+    <span class="c1"># ex: /polls/5/</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^(?P&lt;question_id&gt;[0-9]+)/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">detail</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;detail&#39;</span><span class="p">),</span>
+    <span class="c1"># ex: /polls/5/results/</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^(?P&lt;question_id&gt;[0-9]+)/results/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">results</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;results&#39;</span><span class="p">),</span>
+    <span class="c1"># ex: /polls/5/vote/</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^(?P&lt;question_id&gt;[0-9]+)/vote/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">vote</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;vote&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+
 
 <p>然后在你的浏览器里转到 “/polls/34/”，Django 将会运行 <strong>detail()</strong> 方法并展示你在 URL 里提供的问题 ID。再试试 “/polls/34/results” 和 “/polls/34/vote/” —— 你将会看到暂时用于占位的结果和投票页。</p>
 <p>当某人请求你网站的某一页面时——比如说，“/polls/34/”，Django 将会载入 <strong>mysite.urls</strong> 模块，因为配置项 <a href="https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-ROOT_URLCONF"><strong>ROOT_URLCONF</strong></a> 说要载入它。然后 Django 寻找名为 <strong>urlpatterns</strong> 变量并且按序遍历正则表达式。Django 找到匹配的正则表达式 <strong>'^polls/'</strong> 
 然后 Django 将会去除被匹配的部分（<strong>polls/</strong>）,然后发送剩下的文本 —— <strong>“34/”</strong> —— 给 “polls.urls” 这个 URLconf 做进一步处理。然后找到匹配的正则表达式 <strong>r'^(?P<question_id>[0-9]+)/$'</strong>，随后用以下方式调用 <strong>detail()</strong> 函数：</p>
-<pre><code class="python">detail(request=&lt;HttpRequest object&gt;, question_id='34')
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">detail</span><span class="p">(</span><span class="n">request</span><span class="o">=&lt;</span><span class="n">HttpRequest</span> <span class="nb">object</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">question_id</span><span class="o">=</span><span class="s1">&#39;34&#39;</span><span class="p">)</span>
+</pre></div>
+
 
 <p><strong>question_id='34'</strong> 这一部分是由 <strong>(?P<question_id>[0-9+])</strong> 产生的。使用括号来包围一部分模式，就可以“捕获”这部分所匹配到的文本，随后作为参数被传递给视图函数；<strong>?P<question_id></strong> 用于定义匹配部分的名字；<strong>[0-9]+</strong> 是用于匹配一连串数字（也就是所有整数）的正则表达式。</p>
 <p>因为 URL 模式本质上是正则表达式，所以不会有规定限制你如何使用它们。还有，没必要为每个 URL 加上不必要的东西，例如 <strong>.html</strong>。不过如果你非要加的话，也是可以的：</p>
-<pre><code class="python">url(r'^polls/latest\.html$', views.index),
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^polls/latest\.html$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">index</span><span class="p">),</span>
+</pre></div>
+
 
 <p>但是，别这样做，这太傻了。</p>
 <h2 id="_3">写一个真正有用的视图</h2>
@@ -634,20 +638,21 @@ urlpatterns = [
 <p>你的视图可以从数据库里读取记录，可以使用一个模板引擎（比如 Django 自带的，或者其他第三方的），可以生成一个 PDF 文件，可以输出一个 XML，创建一个 ZIP 文件，你可以做任何你想做的事，使用任何你想用的 Python 库。</p>
 <p>Django 只是需要一个 <a href="https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpResponse"><strong>HttpResponse</strong></a>，或者一个异常。</p>
 <p>因为 Django 自带的数据库 API 很方便（我们在 <a href="../part2/">在第二部分（zh）</a>里介绍过），所以我们试试在视图里使用它。我们在 <strong>index()</strong> 函数里插入了一些新内容，让它能展示数据库里按发布日期倒序的最近五个投票问题，以逗号分割：</p>
-<pre><code class="python"># polls/views.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/views.py</span>
 
-from django.http import HttpResponse
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
 
-from .models import Question
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Question</span>
 
 
-def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    output = ', '.join([q.question_text for q in latest_question_list])
-    return HttpResponse(output)
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">latest_question_list</span> <span class="o">=</span> <span class="n">Question</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-pub_date&#39;</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">q</span><span class="o">.</span><span class="n">question_text</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">latest_question_list</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
 
-# 暂时不管剩下的视图 (detail, results, vote)
-</code></pre>
+<span class="c1"># 暂时不管剩下的视图 (detail, results, vote)</span>
+</pre></div>
+
 
 <p>这里有个问题：页面的设计是硬编码在视图函数的代码里的。如果你想改变页面的样子，你就要编辑 Python 代码。所以让我们使用 Django 的模板系统，只要创建一个视图，就可以将页面的设计从代码中分离出来。</p>
 <p>首先，在你的 <strong>polls</strong> 目录里创建一个 <strong>templates</strong> 目录。Django 将会在这个目录里查找模板文件。</p>
@@ -658,93 +663,99 @@ def index(request):
 <p>虽然我们现在可以将模板文件直接放在 <strong>polls/templates</strong> 文件夹中（而不是再建立一个 <strong>polls</strong> 子文件夹），但这不是个好办法。Django 将会选择第一个匹配的模板文件，如果你有一个模板文件正好和另一个应用中的某个模板文件重名，Django 没有办法区分它们。我们需要 Django 选择正确的模板，最简单的方法就是把他们放入各自的命名空间中，也就是把这些模板放入一个和自身应用重名的子文件夹里。</p>
 </blockquote>
 <p>将下面的代码输入到刚刚创建的模板文件中：</p>
-<pre><code class="html">&lt;!-- polls/templates/polls/index.html --&gt;
+<div class="codehilite"><pre><span></span><span class="c">&lt;!-- polls/templates/polls/index.html --&gt;</span>
 
 {% if latest_question_list %}
-    &lt;ul&gt;
+    <span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
     {% for question in latest_question_list %}
-        &lt;li&gt;&lt;a href=&quot;/polls/{{ question.id }}/&quot;&gt;{{ question.question_text }}&lt;/a&gt;&lt;/li&gt;
+        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/polls/{{ question.id }}/&quot;</span><span class="p">&gt;</span>{{ question.question_text }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
     {% endfor %}
-    &lt;/ul&gt;
+    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
 {% else %}
-    &lt;p&gt;No polls are available.&lt;/p&gt;
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>No polls are available.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 {% endif %}
-</code></pre>
+</pre></div>
+
 
 <p>为了使用这个模版，让我们更新一下在 <strong>polls/views.py</strong> 里的 <strong>index</strong> 视图：</p>
-<pre><code class="python"># polls/views.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/views.py</span>
 
-from django.http import HttpResponse
-from django.template import loader
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+<span class="kn">from</span> <span class="nn">django.template</span> <span class="kn">import</span> <span class="n">loader</span>
 
-from .models import Question
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Question</span>
 
 
-def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    template = loader.get_template('polls/index.html')
-    context = {
-        'latest_question_list': latest_question_list,
-    }
-    return HttpResponse(template.render(context, request))
-</code></pre>
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">latest_question_list</span> <span class="o">=</span> <span class="n">Question</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-pub_date&#39;</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s1">&#39;polls/index.html&#39;</span><span class="p">)</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;latest_question_list&#39;</span><span class="p">:</span> <span class="n">latest_question_list</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">))</span>
+</pre></div>
+
 
 <p>上述代码的作用是，加载 <strong>polls/index.html</strong> 模板，并且向它传递一个上下文环境（context）。这个上下文是一个字典，它将模板内的变量映射为 Python 对象。</p>
 <p>在你的浏览器访问 “/polls/”，你将会看见一个无序列表，列出了我们在 <a href="../part2/">教程二（zh）</a>中添加的 “What's up” 投票问题，它链接到这个问题的详情页。</p>
 <h2 id="render">一个快捷函数：<a href="https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.render">render()</a></h2>
 <p>「载入模板，填充上下文，再返回由它生成的 HttpResponse 对象」是一个如此常用的操作流程。于是 Django 提供了一个快捷函数，我们用它来重写 <strong>index()</strong> 视图：</p>
-<pre><code class="python"># polls/views.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/views.py</span>
 
-from django.shortcuts import render
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
 
-from .models import Question
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Question</span>
 
 
-def index(request):
-    latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    context = {'latest_question_list': latest_question_list}
-    return render(request, 'polls/index.html', context)
-</code></pre>
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">latest_question_list</span> <span class="o">=</span> <span class="n">Question</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-pub_date&#39;</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;latest_question_list&#39;</span><span class="p">:</span> <span class="n">latest_question_list</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;polls/index.html&#39;</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+</pre></div>
+
 
 <p>注意，我们不再需要导入 <strong>loader</strong> 和 <strong>HttpResponse</strong>。不过如果你还有其他函数（比如说 <strong>detail</strong>，<strong>results</strong> 和 <strong>vote</strong>）需要用到它的话，就需要保持 HttpResponse 的导入。</p>
 <p><a href="https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.render"><strong>render()</strong></a> 函数把请求(HttpRequest)对象作为第一个参数，加载的模版名字作为第二个参数，用于渲染模板的上下文字典作为可选的第三个参数。函数返回一个 <a href="https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpResponse"><strong>HttpResponse</strong></a> 对象，内容为指定模板用指定上下文渲染后的结果。</p>
 <h2 id="404">抛出 404 错误</h2>
 <p>现在，让我们来处理下投票详情视图 —— 它会显示指定投票的问题标题。下面是这个视图的代码：</p>
-<pre><code class="python"># polls/views.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/views.py</span>
 
-from django.http import Http404
-from django.shortcuts import render
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">Http404</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span>
 
-from .models import Question
-# ...
-def detail(request, question_id):
-    try:
-        question = Question.objects.get(pk=question_id)
-    except Question.DoesNotExist:
-        raise Http404(&quot;Question does not exist&quot;)
-    return render(request, 'polls/detail.html', {'question': question})
-</code></pre>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Question</span>
+<span class="c1"># ...</span>
+<span class="k">def</span> <span class="nf">detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">question</span> <span class="o">=</span> <span class="n">Question</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">question_id</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">Question</span><span class="o">.</span><span class="n">DoesNotExist</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">Http404</span><span class="p">(</span><span class="s2">&quot;Question does not exist&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;polls/detail.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;question&#39;</span><span class="p">:</span> <span class="n">question</span><span class="p">})</span>
+</pre></div>
+
 
 <p>这里有个新概念：如果指定问题 ID 所对应的问题不存在，这个视图就会抛出一个 <a href="https://docs.djangoproject.com/en/1.11/topics/http/views/#django.http.Http404"><strong>Http404</strong></a> 异常。</p>
 <p>我们稍后再讨论你需要在 <strong>polls/details.html</strong> 里输入什么，但是如果你想试试上面这段代码是否正常工作的话，你可以暂时把下面这段输进去：</p>
-<pre><code class="html">&lt;!-- polls/templates/polls/details.html --&gt;
+<div class="codehilite"><pre><span></span><span class="c">&lt;!-- polls/templates/polls/details.html --&gt;</span>
 
 {{ question }}
-</code></pre>
+</pre></div>
+
 
 <p>这样你就能测试了。</p>
 <h2 id="get_object_of_404">一个快捷函数：<a href="https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.get_object_or_404">get_object_of_404()</a></h2>
 <p>「用 <a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.get"><strong>get()</strong></a> 函数获取对象，抛出 <a href="https://docs.djangoproject.com/en/1.11/topics/http/views/#django.http.Http404"><strong>Http404</strong></a>错误」也是一个常用流程。Django 也提供了一个快捷函数，下面是重写的 <strong>detail()</strong> 视图：</p>
-<pre><code class="python"># polls/views.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/views.py</span>
 
-from django.shortcuts import get_object_or_404, render
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">get_object_or_404</span><span class="p">,</span> <span class="n">render</span>
 
-from .models import Question
-# ...
-def detail(request, question_id):
-    question = get_object_or_404(Question, pk=question_id)
-    return render(request, 'polls/detail.html', {'question': question})
-</code></pre>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">Question</span>
+<span class="c1"># ...</span>
+<span class="k">def</span> <span class="nf">detail</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">question_id</span><span class="p">):</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">Question</span><span class="p">,</span> <span class="n">pk</span><span class="o">=</span><span class="n">question_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;polls/detail.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;question&#39;</span><span class="p">:</span> <span class="n">question</span><span class="p">})</span>
+</pre></div>
+
 
 <p><a href="https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.get_object_or_404"><strong>get_object_of_404()</strong></a> 函数的第一个参数是一个 Django 模型。在此之后可以有任意个的关键字参数，他们会被直接传递给模型的 <a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.get"><strong>get()</strong></a> 函数。如果对象并不存在，此快捷函数将会抛出一个 <a href="https://docs.djangoproject.com/en/1.11/topics/http/views/#django.http.Http404"><strong>Http404</strong></a> 异常。</p>
 <blockquote>
@@ -755,15 +766,16 @@ def detail(request, question_id):
 <p>也有 <a href="https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.get_object_or_404"><strong>get_list_of_404()</strong></a> 函数，工作原理和 <a href="https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.get_object_or_404"><strong>get_object_of_404()</strong></a> 一样，除了 <a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.get"><strong>get()</strong></a> 函数被换成了 <a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.filter"><strong>filter()</strong></a> 函数。如果列表为空的话会抛出 <a href="https://docs.djangoproject.com/en/1.11/topics/http/views/#django.http.Http404"><strong>Http404</strong></a> 异常。</p>
 <h2 id="_4">使用模板系统</h2>
 <p>回过头去看看我们的 <strong>detail()</strong> 视图。它向模板传递了上下文变量 <strong>question</strong>。下面是 <strong>polls/detail.html</strong> 模板里的代码：</p>
-<pre><code class="html">&lt;!--- polls/templates/polls/detail.html --&gt;
+<div class="codehilite"><pre><span></span><span class="c">&lt;!--- polls/templates/polls/detail.html --&gt;</span>
 
-&lt;h1&gt;{{ question.question_text }}&lt;/h1&gt;
-&lt;ul&gt;
+<span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>{{ question.question_text }}<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
 {% for choice in question.choice_set.all %}
-    &lt;li&gt;{{ choice.choice_text }}&lt;/li&gt;
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>{{ choice.choice_text }}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
 {% endfor %}
-&lt;/ul&gt;
-</code></pre>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</pre></div>
+
 
 <p>模板系统统一使用「点」符号来访问变量的属性。在示例 <strong>{{ question.question_text }}</strong> 中，首先 Django 尝试对 <strong>Question</strong> 对象使用字典查找（也就是使用obj.get(str)操作），如果失败了就尝试属性查找（也就是obj.str操作），结果是成功了。如果这一操作也失败的话，将会尝试列表查找（也就是obj[int]操作）。</p>
 <p>在 <a href="https://docs.djangoproject.com/en/1.11/ref/templates/builtins/#std:templatetag-for"><strong>{% for %}</strong></a> 循环中发生的函数调用：
@@ -771,56 +783,63 @@ def detail(request, question_id):
 <p>查看 <a href="https://docs.djangoproject.com/en/1.11/topics/templates/">模板指南</a> 可以了解关于模板的更多信息。</p>
 <h2 id="url">去除模板中的硬编码 URL</h2>
 <p>还记得吗，我们在 <strong>polls/index.html</strong> 里编写投票链接时，链接是硬编码的：</p>
-<pre><code class="html">&lt;li&gt;&lt;a href=&quot;/polls/{{ question.id }}/&quot;&gt;{{ question.question_text }}&lt;/a&gt;&lt;/li&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/polls/{{ question.id }}/&quot;</span><span class="p">&gt;</span>{{ question.question_text }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</pre></div>
+
 
 <p>问题在于，硬编码和强耦合的链接，对于一个包含很多应用的项目来说，修改起来是十分困难的。然而，因为你在 <strong>polls.urls</strong> 的 <strong>urls()</strong> 函数中通过 name 参数为 URL 定义了名字，你可以使用 <strong>{% url %}</strong> 标签代替它：</p>
-<pre><code class="html">&lt;li&gt;&lt;a href=&quot;{% url 'detail' question.id %}&quot;&gt;{{ question.question_text }}&lt;/a&gt;&lt;/li&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;detail&#39; question.id %}&quot;</span><span class="p">&gt;</span>{{ question.question_text }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</pre></div>
+
 
 <p>这个标签的工作方式是在 <strong>polls.urls</strong> 模块的 URL 定义中寻具有指定名字的条目。你可以回忆一下，具有名字 “detail” 的 URL 是这样被定义的：</p>
-<pre><code class="python">...
-# name 变量被 {% url %} 标签调用
-url(r'^(?P&lt;question_id&gt;[0-9]+)/$', views.detail, name='detail'),
-...
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="o">...</span>
+<span class="c1"># name 变量被 {% url %} 标签调用</span>
+<span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^(?P&lt;question_id&gt;[0-9]+)/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">detail</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;detail&#39;</span><span class="p">),</span>
+<span class="o">...</span>
+</pre></div>
+
 
 <p>如果你想改变投票详情视图的 URL，比如想改成 <strong>polls/specifics/12/</strong>，你不用在模板里修改任何东西，只要在 <strong>polls/urls.py</strong> 里稍微修改一下就行：</p>
-<pre><code class="python">...
-# 增加 specifics
-url(r'^specifics/(?P&lt;question_id&gt;[0-9]+)/$', views.detail, name='detail'),
-...
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="o">...</span>
+<span class="c1"># 增加 specifics</span>
+<span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^specifics/(?P&lt;question_id&gt;[0-9]+)/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">detail</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;detail&#39;</span><span class="p">),</span>
+<span class="o">...</span>
+</pre></div>
+
 
 <h2 id="url_1">为 URL 名称添加命名空间</h2>
 <p>本教程的项目只有一个应用，<strong>polls</strong>。在一个真实的 Django 项目中，可能会有五个，十个，二十个甚至更多应用。Django 如何分辨重名的 URL 呢？举个例子，<strong>polls</strong> 应用有 <strong>detail</strong> 视图，可能另一个博客应用也有同名的视图。Django 如何知道 <strong>{% url %}</strong> 标签到底对应哪一个应用的 URL 呢？</p>
 <p>答案是：在 URLconf 中添加命名空间。在 <strong>polls/urls.py</strong> 文件中添加 <strong>app_name</strong> 变量作为应用的命名空间：</p>
-<pre><code class="python"># polls/urls.py
+<div class="codehilite"><pre><span></span><span class="c1"># polls/urls.py</span>
 
-from django.conf.urls import url
+<span class="kn">from</span> <span class="nn">django.conf.urls</span> <span class="kn">import</span> <span class="n">url</span>
 
-from . import views
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
 
-app_name = 'polls'
-urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^(?P&lt;question_id&gt;[0-9]+)/$', views.detail, name='detail'),
-    url(r'^(?P&lt;question_id&gt;[0-9]+)/results/$', views.results, name='results'),
-    url(r'^(?P&lt;question_id&gt;[0-9]+)/vote/$', views.vote, name='vote'),
-]
-</code></pre>
+<span class="n">app_name</span> <span class="o">=</span> <span class="s1">&#39;polls&#39;</span>
+<span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^(?P&lt;question_id&gt;[0-9]+)/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">detail</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;detail&#39;</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^(?P&lt;question_id&gt;[0-9]+)/results/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">results</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;results&#39;</span><span class="p">),</span>
+    <span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^(?P&lt;question_id&gt;[0-9]+)/vote/$&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">vote</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;vote&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+</pre></div>
+
 
 <p>现在，修改 <strong>polls/index.html</strong> 模版文件，从：</p>
-<pre><code class="html">&lt;!--- polls/templates/polls/index.html --&gt;
+<div class="codehilite"><pre><span></span><span class="c">&lt;!--- polls/templates/polls/index.html --&gt;</span>
 
-&lt;li&gt;&lt;a href=&quot;{% url 'detail' question.id %}&quot;&gt;{{ question.question_text }}&lt;/a&gt;&lt;/li&gt;
-</code></pre>
+<span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;detail&#39; question.id %}&quot;</span><span class="p">&gt;</span>{{ question.question_text }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</pre></div>
+
 
 <p>修改成：</p>
-<pre><code class="html">&lt;!--- polls/templates/polls/index.html --&gt;
+<div class="codehilite"><pre><span></span><span class="c">&lt;!--- polls/templates/polls/index.html --&gt;</span>
 
-&lt;li&gt;&lt;a href=&quot;{% url 'polls:detail' question.id %}&quot;&gt;{{ question.question_text }}&lt;/a&gt;&lt;/li&gt;
-</code></pre>
+<span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;{% url &#39;polls:detail&#39; question.id %}&quot;</span><span class="p">&gt;</span>{{ question.question_text }}<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</pre></div>
+
 
 <p>当你弄懂如何编写视图之后，就可以去看教程的 <a href="../part4/">教程第四部分（zh）</a>，来学习关于表单处理和视图类的相关内容。</p>
                 

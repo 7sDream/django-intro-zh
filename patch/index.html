@@ -564,17 +564,20 @@
 <h2 id="django_1">下载 Django 开发版的拷贝</h2>
 <p>第一步就是得到 Django 源码的拷贝。首先<a href="https://github.com/django/django/fork">在 GitHub 里 fork Django项目</a>。然后在命令行里，使用 <strong>cd</strong> 切换到你想放 Django 本地拷贝的目录里。</p>
 <p>使用下面的命令下载 Django 源码仓库：</p>
-<pre><code class="bash">$ git clone git@github.com:YourGitHubName/django.git
-</code></pre>
+<div class="codehilite"><pre><span></span>$ git clone git@github.com:YourGitHubName/django.git
+</pre></div>
+
 
 <p>现在你有了一份 Django 的本地拷贝，你可以安装它，就像使用 <strong>pip</strong> 安装其他包那样。最方便的方式是使用 <em>虚拟环境（virtual environment）</em>（或者 virtualenv），这是 Python 内置的功能，允许您为每个项目单独设立已安装软件包的目录，让它们不会相互干扰。</p>
 <p>最好是把你所以的虚拟环境（virtualenvs）都放在一个目录下，比如在你的 home 目录下的 <strong>.virtualenvs/</strong> 目录。如果还没创建：</p>
-<pre><code class="bash">$ mkdir ~/.virtualenvs
-</code></pre>
+<div class="codehilite"><pre><span></span>$ mkdir ~/.virtualenvs
+</pre></div>
+
 
 <p>现在，运行以下命令创建新的虚拟环境（virtualenvs）：</p>
-<pre><code class="bash">$ python3 -m venv ~/.virtualenvs/djangodev
-</code></pre>
+<div class="codehilite"><pre><span></span>$ python3 -m venv ~/.virtualenvs/djangodev
+</pre></div>
+
 
 <p>路径就是新的虚拟环境，而它会被保存在你的电脑里。</p>
 <blockquote>
@@ -594,12 +597,14 @@ $ virtualenv --python=<code>which python3</code> ~/.virtualenvs/djangodev
 ```</p>
 </blockquote>
 <p>最后一步就是让你的虚拟环境（virtualenvs）生效：</p>
-<pre><code class="bash">$ source ~/.virtualenvs/djangodev/bin/activate
-</code></pre>
+<div class="codehilite"><pre><span></span>$ <span class="nb">source</span> ~/.virtualenvs/djangodev/bin/activate
+</pre></div>
+
 
 <p>如果 <strong>source</strong> 命令无效，你可以试试用一个 “点” 代替：</p>
-<pre><code class="bash">$ . ~/.virtualenvs/djangodev/bin/activate
-</code></pre>
+<div class="codehilite"><pre><span></span>$ . ~/.virtualenvs/djangodev/bin/activate
+</pre></div>
+
 
 <blockquote>
 <p><strong>给 Windows 用户</strong></p>
@@ -610,8 +615,9 @@ $ source ~/virtualenvs/djangodev/Scripts/activate</code></p>
 <p>无论什么时候，当你打开一个新的终端窗口时都要激活一下虚拟环境（virtualenvs）。为了方便这种情况，<a href="https://virtualenvwrapper.readthedocs.io/en/latest/">virtualenvwrapper</a> 是很有用的工具。</p>
 <p>从现在开始，你用 <strong>pip</strong> 安装的任何东西都会被安装进你新的的虚拟环境（virtualenvs），这会隔绝其他环境和系统包。同样，当前激活的虚拟环境（virtualenvs）的名字会在命令行前面显示，这可以让你知道使用的是哪个虚拟环境。</p>
 <p>继续，安装之前克隆（clone）下来的 Django 拷贝：</p>
-<pre><code class="bash">$ pip install -e /path/to/your/local/clone/django/
-</code></pre>
+<div class="codehilite"><pre><span></span>$ pip install -e /path/to/your/local/clone/django/
+</pre></div>
+
 
 <p>安装的 Django 现在指向了你的本地拷贝。你将马上看到你做的任何修改，这对你编写第一个补丁很有帮助。</p>
 <h2 id="django_2">回滚到先前的 Django 版本</h2>
@@ -622,19 +628,22 @@ $ source ~/virtualenvs/djangodev/Scripts/activate</code></p>
 <p>这个任务（ticket）的补丁已经由 Paweł Marczewski 编写了，也已经被应用到了 Django 中，<a href="https://github.com/django/django/commit/4df7e8483b2679fc1cba3410f08960bac6f51115">commit 4df7e8483b2679fc1cba3410f08960bac6f51115</a>。因此，我们将使用的是 Django 先前的版本，<a href="https://github.com/django/django/commit/4ccfc4439a7add24f8db4ef3960d02ef8ae09887">commit 4ccfc4439a7add24f8db4ef3960d02ef8ae09887</a>。</p>
 </blockquote>
 <p>切换到 Django 的根目录（那里有 <strong>django，docs，tests，AUTHORS</strong> 等），你可以检查下这个旧版本 Django：</p>
-<pre><code class="bash">$ git checkout 4ccfc4439a7add24f8db4ef3960d02ef8ae09887
-</code></pre>
+<div class="codehilite"><pre><span></span>$ git checkout 4ccfc4439a7add24f8db4ef3960d02ef8ae09887
+</pre></div>
+
 
 <h2 id="django_3">第一次运行 Django 的测试套件</h2>
 <p>这非常重要：当向 Django 贡献时，你修改的代码不会将 bug 引到 Django 的其他地方。一个检查 Django 还可以工作的方法就是在你修改之后运行 Django 的测试套件。如果所有的测试都通过了，你就有理由确认你的修改不会完全破坏 Django。如果你之前没有运行过测试套件，最好在这之前运行熟悉下它的输出大概是什么样的。</p>
 <p>在运行之前，<strong>cd</strong> 切换到 Django 的 <strong>tests/</strong> 目录，安装它的依赖关系：</p>
-<pre><code class="bash">$ pip install -r requirements/py3.txt
-</code></pre>
+<div class="codehilite"><pre><span></span>$ pip install -r requirements/py3.txt
+</pre></div>
+
 
 <p>如果你在安装过程中遇到错误，你的系统可能有一些 Python 包的依赖关系缺失。查询一下安装失败的包的文档，或者在网上搜索一下你遇到的这个错误信息。</p>
 <p>现在我们准备好运行测试套件了。如果你用的是 GNU/Linux，macOS 或者其他 Unix 风格的系统，运行：</p>
-<pre><code class="bash">$ ./runtests.py
-</code></pre>
+<div class="codehilite"><pre><span></span>$ ./runtests.py
+</pre></div>
+
 
 <p>现在坐下来歇会。Django 整个测试套件有超过 9,600 个不同的测试，所以需要 5 到 15 分钟的时间运行，这取决于你电脑的运算速度。</p>
 <p>当 Django 测试套件运行的时候，你可以看到一段显示着每个正在运行的测试的状态的字符流。<strong>E</strong> 表示在测试期间抛出了一个错误，<strong>F</strong> 表示一个测试的断言（assertions）失败。这两者都可以被认为测试失败了。同时，<strong>x</strong> 和 <strong>s</strong> 分别表示预期失败和跳过测试。“点” 表示通过测试。</p>
@@ -647,8 +656,9 @@ $ source ~/virtualenvs/djangodev/Scripts/activate</code></p>
 </blockquote>
 <h2 id="_4">为你的补丁创建一个分支</h2>
 <p>在修改之前，先为任务（ticket）创建一个新的分支：</p>
-<pre><code class="bash">$ git checkout -b ticket_24788
-</code></pre>
+<div class="codehilite"><pre><span></span>$ git checkout -b ticket_24788
+</pre></div>
+
 
 <p>你可以为这个分支选择任何你想要的名字，例如 “ticket_24788”。在这个分支做的所有修改都是特别针对这个任务的，并不会影响到我们先前克隆下来的主要代码。</p>
 <h2 id="_5">为你的任务编写一些测试</h2>
@@ -657,27 +667,29 @@ $ source ~/virtualenvs/djangodev/Scripts/activate</code></p>
 <p>现在让我们动手做下实例。</p>
 <h2 id="24788">为任务 #24788 编写一些测试</h2>
 <p>任务 #24788 推荐加点小功能：给 Form 类指定类级别（class level）属性加 <strong>前缀（prefix）</strong> 的功能：</p>
-<pre><code class="text">[…] forms which ship with apps could effectively namespace themselves such
+<div class="codehilite"><pre><span></span>[…] forms which ship with apps could effectively namespace themselves such
 that N overlapping form fields could be POSTed at once and resolved to the
 correct form.
-</code></pre>
+</pre></div>
+
 
 <p>为了解决这个任务，我们将会为 <strong>BaseForm</strong> 类添加前缀属性。当实例化这个类时，传递一个前缀给 <strong>__init__()</strong> 方法也将会给被创建的实例设置这个前缀。但如果不传递一个前缀（或者传递 <strong>None</strong>）将会使用类级别的前缀。在我们修改之前，我们准备编写一些测试来验证我们的修改函数没有问题，在将来也没有问题。</p>
 <p>切换到 Django 的 <strong>tests/forms_tests/tests/</strong> 文件夹里，打开 <strong>test_forms.py</strong> 文件。在第 1674 行 <strong>test_forms_with_null_boolean</strong> 函数之前添加以下代码：</p>
-<pre><code class="python"># tests/forms_tests/tests/test_forms.py
+<div class="codehilite"><pre><span></span><span class="c1"># tests/forms_tests/tests/test_forms.py</span>
 
-def test_class_prefix(self):
-    # 前缀也可以在类级别指定
-    class Person(Form):
-        first_name = CharField()
-        prefix = 'foo'
+<span class="k">def</span> <span class="nf">test_class_prefix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="c1"># 前缀也可以在类级别指定</span>
+    <span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">Form</span><span class="p">):</span>
+        <span class="n">first_name</span> <span class="o">=</span> <span class="n">CharField</span><span class="p">()</span>
+        <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;foo&#39;</span>
 
-    p = Person()
-    self.assertEqual(p.prefix, 'foo')
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Person</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">prefix</span><span class="p">,</span> <span class="s1">&#39;foo&#39;</span><span class="p">)</span>
 
-    p = Person(prefix='bar')
-    self.assertEqual(p.prefix, 'bar')
-</code></pre>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="n">prefix</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">p</span><span class="o">.</span><span class="n">prefix</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+</pre></div>
+
 
 <p>这个新的测试：检查 [设置一个类级别前缀] 是否如预期一样地工作；并且在创建实例时传递一个 <strong>前缀（prefix）</strong> 参数，看是否也工作。</p>
 <blockquote>
@@ -689,163 +701,176 @@ def test_class_prefix(self):
 </blockquote>
 <h2 id="_6">运行你写的新测试</h2>
 <p>请记住，我们实际上没有对 <strong>BaseForm</strong> 做任何修改，所以我们的测试应该会失败。为了确保失败真的出现了，让我们在 <strong>forms_tests</strong> 文件夹运行一下所有的测试。从命令行里， <strong>cd</strong> 切换进 Django 的 <strong>tests/</strong> 目录里，然后运行：</p>
-<pre><code class="bash">$ ./runtests.py forms_tests
-</code></pre>
+<div class="codehilite"><pre><span></span>$ ./runtests.py forms_tests
+</pre></div>
+
 
 <p>如果测试运行正常，你应该看到和我们添加的测试方法相对应的一个失败。如果所有的测试都通过了，那么你要确认一下你已经将新测试添加到了上面合适的文件夹和类里。</p>
 <h2 id="_7">为你的任务编写代码</h2>
 <p>下一步我们将给任务（ticket）<a href="https://code.djangoproject.com/ticket/24788">#24788</a> 添加函数描述。</p>
 <h3 id="24788_1"><strong>为任务 #24788 编写代码</strong></h3>
 <p>切换到 <strong>django/django/forms/</strong> 文件夹里，然后打开 <strong>forms.py</strong>。在第 72 行找到 <strong>BaseForm</strong> 类，然后在 <strong>field_order</strong> 属性之后添加 <strong>前缀（prefix）</strong> 类属性：</p>
-<pre><code class="python">class BaseForm(object):
-    # This is the main implementation of all the Form logic. Note that this
-    # class is different than Form. See the comments by the Form class for
-    # more information. Any improvements to the form API should be made to
-    # *this* class, not to the Form class.
-    field_order = None
-    prefix = None
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">class</span> <span class="nc">BaseForm</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="c1"># This is the main implementation of all the Form logic. Note that this</span>
+    <span class="c1"># class is different than Form. See the comments by the Form class for</span>
+    <span class="c1"># more information. Any improvements to the form API should be made to</span>
+    <span class="c1"># *this* class, not to the Form class.</span>
+    <span class="n">field_order</span> <span class="o">=</span> <span class="bp">None</span>
+    <span class="n">prefix</span> <span class="o">=</span> <span class="bp">None</span>
+</pre></div>
+
 
 <h3 id="_8"><strong>现在验证并通过你的测试</strong></h3>
 <p>一旦你修改完了 Django，我们就需要确保之前写的测试都能通过，这样我们才能看到我们上面写的代码正确工作。为了在 <strong>forms_tests</strong> 文件夹运行测试， <strong>cd</strong> 切换到 Django 的 <strong>tests/</strong> 目录里，然后运行：</p>
-<pre><code class="bash">$ ./runtests.py forms_tests
-</code></pre>
+<div class="codehilite"><pre><span></span>$ ./runtests.py forms_tests
+</pre></div>
+
 
 <p>噢，我们写的那些测试好了！您应该仍然会看到一个例外失败：</p>
-<pre><code class="bash">AssertionError: None != 'foo'
-</code></pre>
+<div class="codehilite"><pre><span></span>AssertionError: None !<span class="o">=</span> <span class="s1">&#39;foo&#39;</span>
+</pre></div>
+
 
 <p>我们忘记在 <strong>__init__()</strong> 方法里添加条件语句了。在 <strong>django/forms/forms.py</strong> 现在的第  87 行修改 <strong>self.prefix = prefix</strong>，添加一个条件语句：</p>
-<pre><code class="python">if prefix is not None:
-    self.prefix = prefix
-</code></pre>
+<div class="codehilite"><pre><span></span><span class="k">if</span> <span class="n">prefix</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">=</span> <span class="n">prefix</span>
+</pre></div>
+
 
 <p>重新运行测试，所有都应该是通过的。如果不是，请确认你像上面那样正确修改了 <strong>BaseForm</strong> 类，然后正确复制了新的测试。</p>
 <h2 id="django_4">第二次运行 Django 的测试套件</h2>
 <p>一旦你验证了你的补丁，你的测试都是正常工作的，运行整个测试套件是个好主意，去验证你的修改没有将 bug 引入到 Django 的其他地方。整个测试套件成功通过并不保证你的代码是没有 bug 的，尽管它确实有助于识别很多可能被忽视的错误和回退。</p>
 <p>为了运行整个 Django 测试套件， <strong>cd</strong> 切换到 Django 的 <strong>tests/</strong> 目录里，然后运行：</p>
-<pre><code class="bash">$ ./runtests.py
-</code></pre>
+<div class="codehilite"><pre><span></span>$ ./runtests.py
+</pre></div>
+
 
 <p>只要你没看到任何失败，你就可以继续了。</p>
 <h2 id="_9">写文档</h2>
 <p>这是个新功能，所以应该被记录到文档里。在 <strong>django/docs/ref/forms/api.txt</strong> 的第 1068 行（文件结尾）添加：</p>
-<pre><code class="text">The prefix can also be specified on the form class::
+<div class="codehilite"><pre><span></span>The prefix can also be specified on the form class::
 
     &gt;&gt;&gt; class PersonForm(forms.Form):
     ...     ...
-    ...     prefix = 'person'
+    ...     prefix = &#39;person&#39;
 
 .. versionadded:: 1.9
 
     The ability to specify ``prefix`` on the form class was added.
-</code></pre>
+</pre></div>
+
 
 <p>由于这个新功能将被添加到还没发布的 Django 1.9 版本的发行说明中，在 <strong>docs/releases/1.9.txt</strong> 文件的 164 行的 “Forms” 部分：</p>
-<pre><code class="text">* A form prefix can be specified inside a form class, not only when
+<div class="codehilite"><pre><span></span>* A form prefix can be specified inside a form class, not only when
   instantiating a form. See :ref:`form-prefix` for details.
-</code></pre>
+</pre></div>
+
 
 <p>有关编写文档的更多信息，包括有关 <strong>versionadded</strong> 的说明，可以查看<a href="https://docs.djangoproject.com/en/1.11/internals/contributing/writing-documentation/">文档编写</a>。文章还包括了一篇关于怎样在本地建立文档副本的说明，好让你可以预览将被生成的 HTML。</p>
 <h2 id="_10">预览你的修改</h2>
 <p>现在是时候看看我们的补丁做的所有修改了。为了显示你当前的 Django 副本（有你的修改）和你最初的版本：</p>
-<pre><code class="bash">$ git diff
-</code></pre>
+<div class="codehilite"><pre><span></span>$ git diff
+</pre></div>
+
 
 <p>使用箭头键上下移动。</p>
-<pre><code class="git">diff --git a/django/forms/forms.py b/django/forms/forms.py
-index 509709f..d1370de 100644
---- a/django/forms/forms.py
-+++ b/django/forms/forms.py
-@@ -75,6 +75,7 @@ class BaseForm(object):
+<div class="codehilite"><pre><span></span><span class="gh">diff --git a/django/forms/forms.py b/django/forms/forms.py</span>
+<span class="gh">index 509709f..d1370de 100644</span>
+<span class="gd">--- a/django/forms/forms.py</span>
+<span class="gi">+++ b/django/forms/forms.py</span>
+<span class="gu">@@ -75,6 +75,7 @@ class BaseForm(object):</span>
      # information. Any improvements to the form API should be made to *this*
      # class, not to the Form class.
      field_order = None
-+    prefix = None
+<span class="gi">+    prefix = None</span>
 
-     def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None,
+     def __init__(self, data=None, files=None, auto_id=&#39;id_%s&#39;, prefix=None,
                   initial=None, error_class=ErrorList, label_suffix=None,
-@@ -83,7 +84,8 @@ class BaseForm(object):
+<span class="gu">@@ -83,7 +84,8 @@ class BaseForm(object):</span>
          self.data = data or {}
          self.files = files or {}
          self.auto_id = auto_id
--        self.prefix = prefix
-+        if prefix is not None:
-+            self.prefix = prefix
+<span class="gd">-        self.prefix = prefix</span>
+<span class="gi">+        if prefix is not None:</span>
+<span class="gi">+            self.prefix = prefix</span>
          self.initial = initial or {}
          self.error_class = error_class
          # Translators: This is the default suffix added to form field labels
-diff --git a/docs/ref/forms/api.txt b/docs/ref/forms/api.txt
-index 3bc39cd..008170d 100644
---- a/docs/ref/forms/api.txt
-+++ b/docs/ref/forms/api.txt
-@@ -1065,3 +1065,13 @@ You can put several Django forms inside one ``&lt;form&gt;`` tag. To give each
+<span class="gh">diff --git a/docs/ref/forms/api.txt b/docs/ref/forms/api.txt</span>
+<span class="gh">index 3bc39cd..008170d 100644</span>
+<span class="gd">--- a/docs/ref/forms/api.txt</span>
+<span class="gi">+++ b/docs/ref/forms/api.txt</span>
+<span class="gu">@@ -1065,3 +1065,13 @@ You can put several Django forms inside one ``&lt;form&gt;`` tag. To give each</span>
      &gt;&gt;&gt; print(father.as_ul())
      &lt;li&gt;&lt;label for=&quot;id_father-first_name&quot;&gt;First name:&lt;/label&gt; &lt;input type=&quot;text&quot; name=&quot;father-first_name&quot; id=&quot;id_father-first_name&quot; /&gt;&lt;/li&gt;
      &lt;li&gt;&lt;label for=&quot;id_father-last_name&quot;&gt;Last name:&lt;/label&gt; &lt;input type=&quot;text&quot; name=&quot;father-last_name&quot; id=&quot;id_father-last_name&quot; /&gt;&lt;/li&gt;
-+
-+The prefix can also be specified on the form class::
-+
-+    &gt;&gt;&gt; class PersonForm(forms.Form):
-+    ...     ...
-+    ...     prefix = 'person'
-+
-+.. versionadded:: 1.9
-+
-+    The ability to specify ``prefix`` on the form class was added.
-diff --git a/docs/releases/1.9.txt b/docs/releases/1.9.txt
-index 5b58f79..f9bb9de 100644
---- a/docs/releases/1.9.txt
-+++ b/docs/releases/1.9.txt
-@@ -161,6 +161,9 @@ Forms
+<span class="gi">+</span>
+<span class="gi">+The prefix can also be specified on the form class::</span>
+<span class="gi">+</span>
+<span class="gi">+    &gt;&gt;&gt; class PersonForm(forms.Form):</span>
+<span class="gi">+    ...     ...</span>
+<span class="gi">+    ...     prefix = &#39;person&#39;</span>
+<span class="gi">+</span>
+<span class="gi">+.. versionadded:: 1.9</span>
+<span class="gi">+</span>
+<span class="gi">+    The ability to specify ``prefix`` on the form class was added.</span>
+<span class="gh">diff --git a/docs/releases/1.9.txt b/docs/releases/1.9.txt</span>
+<span class="gh">index 5b58f79..f9bb9de 100644</span>
+<span class="gd">--- a/docs/releases/1.9.txt</span>
+<span class="gi">+++ b/docs/releases/1.9.txt</span>
+<span class="gu">@@ -161,6 +161,9 @@ Forms</span>
    :attr:`~django.forms.Form.field_order` attribute, the ``field_order``
    constructor argument , or the :meth:`~django.forms.Form.order_fields` method.
 
-+* A form prefix can be specified inside a form class, not only when
-+  instantiating a form. See :ref:`form-prefix` for details.
-+
+<span class="gi">+* A form prefix can be specified inside a form class, not only when</span>
+<span class="gi">+  instantiating a form. See :ref:`form-prefix` for details.</span>
+<span class="gi">+</span>
  Generic Views
  ^^^^^^^^^^^^^
 
-diff --git a/tests/forms_tests/tests/test_forms.py b/tests/forms_tests/tests/test_forms.py
-index 690f205..e07fae2 100644
---- a/tests/forms_tests/tests/test_forms.py
-+++ b/tests/forms_tests/tests/test_forms.py
-@@ -1671,6 +1671,18 @@ class FormsTestCase(SimpleTestCase):
-         self.assertEqual(p.cleaned_data['last_name'], 'Lennon')
-         self.assertEqual(p.cleaned_data['birthday'], datetime.date(1940, 10, 9))
+<span class="gh">diff --git a/tests/forms_tests/tests/test_forms.py b/tests/forms_tests/tests/test_forms.py</span>
+<span class="gh">index 690f205..e07fae2 100644</span>
+<span class="gd">--- a/tests/forms_tests/tests/test_forms.py</span>
+<span class="gi">+++ b/tests/forms_tests/tests/test_forms.py</span>
+<span class="gu">@@ -1671,6 +1671,18 @@ class FormsTestCase(SimpleTestCase):</span>
+         self.assertEqual(p.cleaned_data[&#39;last_name&#39;], &#39;Lennon&#39;)
+         self.assertEqual(p.cleaned_data[&#39;birthday&#39;], datetime.date(1940, 10, 9))
 
-+    def test_class_prefix(self):
-+        # Prefix can be also specified at the class level.
-+        class Person(Form):
-+            first_name = CharField()
-+            prefix = 'foo'
-+
-+        p = Person()
-+        self.assertEqual(p.prefix, 'foo')
-+
-+        p = Person(prefix='bar')
-+        self.assertEqual(p.prefix, 'bar')
-+
+<span class="gi">+    def test_class_prefix(self):</span>
+<span class="gi">+        # Prefix can be also specified at the class level.</span>
+<span class="gi">+        class Person(Form):</span>
+<span class="gi">+            first_name = CharField()</span>
+<span class="gi">+            prefix = &#39;foo&#39;</span>
+<span class="gi">+</span>
+<span class="gi">+        p = Person()</span>
+<span class="gi">+        self.assertEqual(p.prefix, &#39;foo&#39;)</span>
+<span class="gi">+</span>
+<span class="gi">+        p = Person(prefix=&#39;bar&#39;)</span>
+<span class="gi">+        self.assertEqual(p.prefix, &#39;bar&#39;)</span>
+<span class="gi">+</span>
      def test_forms_with_null_boolean(self):
          # NullBooleanField is a bit of a special case because its presentation (widget)
          # is different than its data. This is handled transparently, though.
-</code></pre>
+</pre></div>
+
 
 <p>当你预览完了这个补丁，按下 <strong>q</strong> 键回到命令行。如果补丁的内容看起来是对的，那就是时候 提交（commit） 这些修改了。</p>
 <h2 id="_11">提交补丁中的修改</h2>
 <p>为了提交修改：</p>
-<pre><code class="bash">$ git commit -a
-</code></pre>
+<div class="codehilite"><pre><span></span>$ git commit -a
+</pre></div>
+
 
 <p>为了输入提交的信息，会打开一个文本编辑器。根据<a href="https://docs.djangoproject.com/en/1.11/internals/contributing/committing-code/#committing-guidelines">提交信息准则</a>，写下像这样的信息：</p>
-<pre><code class="text">Fixed #24788 -- Allowed Forms to specify a prefix at the class level.
-</code></pre>
+<div class="codehilite"><pre><span></span>Fixed #24788 -- Allowed Forms to specify a prefix at the class level.
+</pre></div>
+
 
 <h2 id="pull-request">推送提交和拉取请求（pull request）</h2>
 <p>在提交了补丁之后，把它发送到在 GitHub 上你 fork 下来的仓库（如果不一样，就把 “ticket_24788”替换为分支的名字）：</p>
-<pre><code class="bash">$ git push origin ticket_24788
-</code></pre>
+<div class="codehilite"><pre><span></span>$ git push origin ticket_24788
+</pre></div>
+
 
 <p>通过 <a href="https://github.com/django/django/">Django 的 GitHub 页面</a>，你可以创建一个拉取请求。你会看到你的分支在 “你最近推送的分支（Your recently pushed branches）” 里。点击旁边的 “对比和拉取请求（Compare &amp; pull request）”。</p>
 <p>但在本教程里，请别那么做，在下一页里显示预览补丁，你可以点击 “创建拉取请求（Create pull request）”</p>
