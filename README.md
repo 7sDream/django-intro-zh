@@ -25,7 +25,7 @@
 
 ## 中文版文档
 
-中文版文档请到 [ReadTheDocs][rtd-url] 或者 [github page][gh-url] 查看，下方目录在上述两个地方点击才有效。
+中文版文档请到 [github page][gh-url] 查看，下方目录在 github page 点击才有效。
 
 - [初识 Django](glance.md)
 - [快速安装指南](install.md)
@@ -70,19 +70,18 @@ Writing your first patch for Django           [==========] 100/100
 5. 可以开始翻译咯。
 6. PR。
 
- [django-intro]: https://docs.djangoproject.com/en/1.11/intro/
- [django-intro-glance]: https://docs.djangoproject.com/en/1.11/intro/overview/
- [django-intro-install]: https://docs.djangoproject.com/en/1.11/intro/install/
- [django-intro-wyfda-1]: https://docs.djangoproject.com/en/1.11/intro/tutorial01/
- [django-intro-wyfda-2]: https://docs.djangoproject.com/en/1.11/intro/tutorial02/
- [django-intro-wyfda-3]: https://docs.djangoproject.com/en/1.11/intro/tutorial03/
- [django-intro-wyfda-4]: https://docs.djangoproject.com/en/1.11/intro/tutorial04/
- [django-intro-wyfda-5]: https://docs.djangoproject.com/en/1.11/intro/tutorial05/
- [django-intro-wyfda-6]: https://docs.djangoproject.com/en/1.11/intro/tutorial06/
- [django-intro-wyfda-7]: https://docs.djangoproject.com/en/1.11/intro/tutorial07/
- [django-intro-reusableapp]: https://docs.djangoproject.com/en/1.11/intro/reusable-apps/
- [django-intro-whatsnext]: https://docs.djangoproject.com/en/1.11/intro/whatsnext/
- [django-intro-pathch]: https://docs.djangoproject.com/en/1.11/intro/contributing/
+[django-intro]: https://docs.djangoproject.com/en/1.11/intro/
+[django-intro-glance]: https://docs.djangoproject.com/en/1.11/intro/overview/
+[django-intro-install]: https://docs.djangoproject.com/en/1.11/intro/install/
+[django-intro-wyfda-1]: https://docs.djangoproject.com/en/1.11/intro/tutorial01/
+[django-intro-wyfda-2]: https://docs.djangoproject.com/en/1.11/intro/tutorial02/
+[django-intro-wyfda-3]: https://docs.djangoproject.com/en/1.11/intro/tutorial03/
+[django-intro-wyfda-4]: https://docs.djangoproject.com/en/1.11/intro/tutorial04/
+[django-intro-wyfda-5]: https://docs.djangoproject.com/en/1.11/intro/tutorial05/
+[django-intro-wyfda-6]: https://docs.djangoproject.com/en/1.11/intro/tutorial06/
+[django-intro-wyfda-7]: https://docs.djangoproject.com/en/1.11/intro/tutorial07/
+[django-intro-reusableapp]: https://docs.djangoproject.com/en/1.11/intro/reusable-apps/
+[django-intro-whatsnext]: https://docs.djangoproject.com/en/1.11/intro/whatsnext/
+[django-intro-pathch]: https://docs.djangoproject.com/en/1.11/intro/contributing/
 
-[rtd-url]: http://django-intro-zh.readthedocs.org/zh_CN/latest/
 [gh-url]: http://7sdream.github.io/django-intro-zh/
