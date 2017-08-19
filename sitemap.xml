@@ -3,8 +3,8 @@
 
     
     <url>
-     <loc>http://django-intro-zh.readthedocs.org/</loc>
-     <lastmod>2017-02-20</lastmod>
+     <loc>https://7sdream.github.io/django-intro-zh//</loc>
+     <lastmod>2017-08-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,68 +12,74 @@
     
         
     <url>
-     <loc>http://django-intro-zh.readthedocs.org/glance/</loc>
-     <lastmod>2017-02-20</lastmod>
+     <loc>https://7sdream.github.io/django-intro-zh//glance/</loc>
+     <lastmod>2017-08-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://django-intro-zh.readthedocs.org/install/</loc>
-     <lastmod>2017-02-20</lastmod>
+     <loc>https://7sdream.github.io/django-intro-zh//install/</loc>
+     <lastmod>2017-08-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://django-intro-zh.readthedocs.org/part1/</loc>
-     <lastmod>2017-02-20</lastmod>
+     <loc>https://7sdream.github.io/django-intro-zh//part1/</loc>
+     <lastmod>2017-08-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://django-intro-zh.readthedocs.org/part2/</loc>
-     <lastmod>2017-02-20</lastmod>
+     <loc>https://7sdream.github.io/django-intro-zh//part2/</loc>
+     <lastmod>2017-08-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://django-intro-zh.readthedocs.org/part3/</loc>
-     <lastmod>2017-02-20</lastmod>
+     <loc>https://7sdream.github.io/django-intro-zh//part3/</loc>
+     <lastmod>2017-08-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://django-intro-zh.readthedocs.org/part4/</loc>
-     <lastmod>2017-02-20</lastmod>
+     <loc>https://7sdream.github.io/django-intro-zh//part4/</loc>
+     <lastmod>2017-08-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://django-intro-zh.readthedocs.org/part5/</loc>
-     <lastmod>2017-02-20</lastmod>
+     <loc>https://7sdream.github.io/django-intro-zh//part5/</loc>
+     <lastmod>2017-08-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://django-intro-zh.readthedocs.org/part6/</loc>
-     <lastmod>2017-02-20</lastmod>
+     <loc>https://7sdream.github.io/django-intro-zh//part6/</loc>
+     <lastmod>2017-08-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://django-intro-zh.readthedocs.org/whats_next/</loc>
-     <lastmod>2017-02-20</lastmod>
+     <loc>https://7sdream.github.io/django-intro-zh//part7/</loc>
+     <lastmod>2017-08-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://django-intro-zh.readthedocs.org/reusable_app/</loc>
-     <lastmod>2017-02-20</lastmod>
+     <loc>https://7sdream.github.io/django-intro-zh//whats_next/</loc>
+     <lastmod>2017-08-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>http://django-intro-zh.readthedocs.org/patch/</loc>
-     <lastmod>2017-02-20</lastmod>
+     <loc>https://7sdream.github.io/django-intro-zh//reusable_app/</loc>
+     <lastmod>2017-08-19</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc>https://7sdream.github.io/django-intro-zh//patch/</loc>
+     <lastmod>2017-08-19</lastmod>
      <changefreq>daily</changefreq>
     </url>
         

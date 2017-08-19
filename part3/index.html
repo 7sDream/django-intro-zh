@@ -1,288 +1,590 @@
+
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Django 官方教程中文版">
+      
+      
+        <link rel="canonical" href="https://7sdream.github.io/django-intro-zh/part3/">
+      
+      
         <meta name="author" content="7sDream">
-        <link rel="canonical" href="http://django-intro-zh.readthedocs.org/part3/">
-        <link rel="shortcut icon" href="../img/favicon.ico">
-
-	<title>第一个 Django 项目 - 第三部分 - Django intro 中文版</title>
-
-        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link rel="stylesheet" href="../css/highlight.css">
-        <link href="../css/base.css" rel="stylesheet">
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-
+      
+      
+        <link rel="shortcut icon" href="../assets/images/favicon.png">
+      
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.8.1">
+    
+    
+      
+        <title>第一个 Django 项目 - 第三部分 - Django intro 中文版</title>
+      
+    
+    
+      <script src="../assets/javascripts/modernizr-1df76c4e58.js"></script>
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application-bfecc7305d.css">
+      
+    
+    
+      
         
-    </head>
-
+        
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+  
+  
+  
     <body>
-
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <!-- Main title -->
-            <a class="navbar-brand" href="..">Django intro 中文版</a>
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <a href="https://7sdream.github.io/django-intro-zh/" title="Django intro 中文版" class="md-icon md-icon--home md-header-nav__button">
+          </a>
+        
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <span class="md-flex__ellipsis md-header-nav__title">
+          
+            
+              
+                <span class="md-header-nav__parent">
+                  文档
+                </span>
+              
+            
+            第一个 Django 项目 - 第三部分
+          
+        </span>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result" data-md-lang-search="" data-md-lang-tokenizer="[\s\-]+">
+          <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
         </div>
-
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-            <!-- Main navigation -->
-            <ul class="nav navbar-nav">
-            
-            
-                <li >
-                    <a href="..">介绍</a>
-                </li>
-            
-            
-            
-                <li class="dropdown active">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">文档 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                    
-                        
-<li >
-    <a href="../glance/">初识 Django</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../install/">快速安装指南</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../part1/">第一个 Django 项目 - 第一部分</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../part2/">第一个 Django 项目 - 第二部分</a>
-</li>
-
-                    
-                        
-<li class="active">
-    <a href="./">第一个 Django 项目 - 第三部分</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../part4/">第一个 Django 项目 - 第四部分</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../part5/">第一个 Django 项目 - 第五部分</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../part6/">第一个 Django 项目 - 第六部分</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../whats_next/">下一步我该干什么</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../reusable_app/">编写可重用的应用</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../patch/">为 Django 贡献代码</a>
-</li>
-
-                    
-                    </ul>
-                </li>
-            
-            
-            </ul>
-
-            <!-- Search, Navigation and Repo links -->
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
-                <li >
-                    <a rel="next" href="../part2/">
-                        <i class="fa fa-arrow-left"></i> Previous
-                    </a>
-                </li>
-                <li >
-                    <a rel="prev" href="../part4/">
-                        Next <i class="fa fa-arrow-right"></i>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="https://github.com/7sDream/django-intro-zh">
-                        
-                        django-intro-zh
-                    </a>
-                </li>
-                
-            </ul>
-        </div>
+      </div>
     </div>
+  </div>
 </div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
 
-        <div class="container">
-            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
+
+  
+
+
+  <a href="https://github.com/7sDream/django-intro-zh" title="Go to repository" class="md-source" data-md-source="github">
     
-        <li class="main active"><a href="#django">创建你的第一个 Django 项目， 第三部分</a></li>
-        
-            <li><a href="#_1">设计哲学</a></li>
-        
-            <li><a href="#_2">编写第一个视图</a></li>
-        
-            <li><a href="#_3">编写更多视图</a></li>
-        
-            <li><a href="#_4">写一个真正有用的视图</a></li>
-        
-            <li><a href="#render">一个快捷函数：render()</a></li>
-        
-            <li><a href="#404">抛出 404 错误</a></li>
-        
-            <li><a href="#get_object_of_404">一个快捷函数：get_object_of_404()</a></li>
-        
-            <li><a href="#_5">使用模板系统</a></li>
-        
-            <li><a href="#url">去除模板中的硬编码 URL</a></li>
-        
-            <li><a href="#url_1">为 URL 名称添加命名空间</a></li>
-        
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
     
+    <div class="md-source__repository">
+      django-intro-zh
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    
+      <i class="md-icon md-icon--home md-nav__button"></i>
+    
+    Django intro 中文版
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/7sDream/django-intro-zh" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      django-intro-zh
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="介绍" class="md-nav__link">
+      介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      文档
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        文档
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../glance/" title="初识 Django" class="md-nav__link">
+      初识 Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../install/" title="快速安装指南" class="md-nav__link">
+      快速安装指南
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part1/" title="第一个 Django 项目 - 第一部分" class="md-nav__link">
+      第一个 Django 项目 - 第一部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part2/" title="第一个 Django 项目 - 第二部分" class="md-nav__link">
+      第一个 Django 项目 - 第二部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        第一个 Django 项目 - 第三部分
+      </label>
+    
+    <a href="./" title="第一个 Django 项目 - 第三部分" class="md-nav__link md-nav__link--active">
+      第一个 Django 项目 - 第三部分
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="总概" class="md-nav__link">
+    总概
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="编写更多的视图" class="md-nav__link">
+    编写更多的视图
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="写一个真正有用的视图" class="md-nav__link">
+    写一个真正有用的视图
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#render" title="一个快捷函数：render()" class="md-nav__link">
+    一个快捷函数：render()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#404" title="抛出 404 错误" class="md-nav__link">
+    抛出 404 错误
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get_object_of_404" title="一个快捷函数：get_object_of_404()" class="md-nav__link">
+    一个快捷函数：get_object_of_404()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="使用模板系统" class="md-nav__link">
+    使用模板系统
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#url" title="去除模板中的硬编码 URL" class="md-nav__link">
+    去除模板中的硬编码 URL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#url_1" title="为 URL 名称添加命名空间" class="md-nav__link">
+    为 URL 名称添加命名空间
+  </a>
+  
+</li>
+      
+      
+      
     </ul>
-</div></div>
-            <div class="col-md-9" role="main">
+  
+</nav>
+    
+  </li>
 
-<h1 id="django">创建你的第一个 Django 项目， 第三部分</h1>
-<p>这一篇从<a href="../part2/">第二部分（zh）</a>结尾的地方继续讲起。我们将继续编写投票应用，并且聚焦于如何创建公用界面——也被称为“视图”。</p>
-<h2 id="_1">设计哲学</h2>
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part4/" title="第一个 Django 项目 - 第四部分" class="md-nav__link">
+      第一个 Django 项目 - 第四部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part5/" title="第一个 Django 项目 - 第五部分" class="md-nav__link">
+      第一个 Django 项目 - 第五部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part6/" title="第一个 Django 项目 - 第六部分" class="md-nav__link">
+      第一个 Django 项目 - 第六部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part7/" title="第一个 Django 项目 - 第七部分" class="md-nav__link">
+      第一个 Django 项目 - 第七部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../whats_next/" title="下一步我该干什么" class="md-nav__link">
+      下一步我该干什么
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../reusable_app/" title="编写可重用的应用" class="md-nav__link">
+      编写可重用的应用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../patch/" title="为 Django 贡献代码" class="md-nav__link">
+      为 Django 贡献代码
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" title="总概" class="md-nav__link">
+    总概
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="编写更多的视图" class="md-nav__link">
+    编写更多的视图
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="写一个真正有用的视图" class="md-nav__link">
+    写一个真正有用的视图
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#render" title="一个快捷函数：render()" class="md-nav__link">
+    一个快捷函数：render()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#404" title="抛出 404 错误" class="md-nav__link">
+    抛出 404 错误
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get_object_of_404" title="一个快捷函数：get_object_of_404()" class="md-nav__link">
+    一个快捷函数：get_object_of_404()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="使用模板系统" class="md-nav__link">
+    使用模板系统
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#url" title="去除模板中的硬编码 URL" class="md-nav__link">
+    去除模板中的硬编码 URL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#url_1" title="为 URL 名称添加命名空间" class="md-nav__link">
+    为 URL 名称添加命名空间
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="django">创建你的第一个 Django 项目， 第三部分</h1>
+<p>这一篇从 <a href="../part2/">第二部分（zh）</a>结尾的地方继续。我们将继续编写投票应用，并且着力于如何创建公用接口 —— “视图”。</p>
+<h2 id="_1">总概</h2>
 <p>Django 中的视图的概念是「一类具有相同功能和模板的网页的集合」。比如，在一个博客应用中，你可能会创建如下几个视图：</p>
 <ul>
-<li>博客首页——展示最近的几项内容。</li>
-<li>内容“详情”页——详细展示某项内容。</li>
-<li>以年为单位的归档页——展示选中的年份里各个月份创建的内容。</li>
-<li>以月为单位的归档页——展示选中的月份里各天创建的内容。</li>
-<li>以天为单位的归档页——展示选中天里创建的所有内容。</li>
-<li>评论处理器——用于响应为一项内容添加评论的操作。</li>
+<li>博客首页 —— 展示最近的一些记录。</li>
+<li>内容详情页 —— 详细展示某项内容。</li>
+<li>以年为单位的归档页 —— 展示选中的年份里各个月份创建的内容。</li>
+<li>以月为单位的归档页 —— 展示选中的月份里各天创建的内容。</li>
+<li>以天为单位的归档页 —— 展示选中天里创建的所有内容。</li>
+<li>评论页 —— 用于响应为一项内容添加评论的操作。</li>
 </ul>
 <p>而在投票应用中，我们需要下列几个视图：</p>
 <ul>
-<li>问题索引页——展示最近的几个投票问题。</li>
-<li>问题详情页——展示某个投票的问题和不带结果的选项列表。</li>
-<li>问题结果页——展示某个投票的结果。</li>
-<li>投票处理器——用于响应用户为某个问题的特定选项投票的操作。</li>
+<li>问题索引页 —— 展示最近的几个投票问题。</li>
+<li>问题详情页 —— 展示某个投票的问题和不带结果的选项列表。</li>
+<li>问题结果页 —— 展示某个投票的结果。</li>
+<li>投票页 —— 用于响应用户为某个问题的特定选项投票的操作。</li>
 </ul>
 <p>在 Django 中，网页和其他内容都是从视图派生而来。每一个视图表现为一个简单的 Python 函数（或者说方法，如果是在基于类的视图里的话）。Django 将会根据用户请求的 URL 来选择使用哪个视图（更准确的说，是根据 URL 中域名之后的部分）。</p>
 <p>在你上网的过程中，很可能看见过像这样美丽的 URL：“ME2/Sites/dirmod.asp?sid=&amp;type=gen&amp;mod=Core+Pages&amp;gid=A6CD4967199A42D9B65B1B”。别担心，Django 里的 URL 要比这优雅的多！</p>
-<p>一个 URL 模式定义了某种 URL 的基本格式——举个例子：</p>
+<p>一个 URL 模式定义了某种 URL 的基本格式 —— 举个例子：</p>
 <p><strong>/newsarchive/&lt;year&gt;/&lt;month&gt;/</strong></p>
 <p>为了将 URL 和视图关联起来，Django 使用了 “URLconfs” 来配置。URLconf 将 URL 模式（表现为一个正则表达式）映射到视图。</p>
-<p>本教程只会介绍 URLconf 的基础内容，你可以看看 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/urlresolvers/#module-django.core.urlresolvers">django.core.urlresolvers</a></strong> 以获取更多内容。</p>
-<h2 id="_2">编写第一个视图</h2>
-<p>让我们开始编写第一个视图吧。打开 <strong>polls/view.py</strong>，把下面这些 Python 代码输入进去：</p>
-<pre><code class="python"># polls/views.py
-
-from django.http import HttpResponse
-
-
-def index(request):
-    return HttpResponse(&quot;Hello, world. You're at the polls index.&quot;)
-</code></pre>
-
-<p>这是 Django 中最简单的视图。如果想看见效果，我们需要将一个 URL 映射到它——这就是我们需要 URLconf 的原因了。</p>
-<p>为了创建 URLconf，请在 polls 目录里新建一个 <strong>url.py</strong> 文件。你的应用目录现在看起来应该是这样：</p>
-<pre><code class="text">polls/
-    __init__.py
-    admin.py
-    models.py
-    tests.py
-    urls.py
-    views.py
-</code></pre>
-
-<p>在 <strong>polls/urls.py</strong> 中，输入如下代码：</p>
-<pre><code class="python"># polls/urls.py
-
-from django.conf.urls import url
-
-from . import views
-
-urlpatterns = [
-    url(r'^$', views.index, name='index'),
-]
-</code></pre>
-
-<p>下一步是要在根 URLconf 文件中指定我们创建的 <strong>polls.urls</strong> 模块。在 <strong>mysite/urls.py</strong> 文件里插入一个 <strong><a href="../include">include()</a></strong>， 如下：</p>
-<pre><code class="python"># mysite/urls.py
-
-from django.conf.urls import include, url
-from django.contrib import admin
-
-urlpatterns = [
-    url(r'^polls/', include('polls.urls')),
-    url(r'^admin/', include(admin.site.urls)),
-]
-</code></pre>
-
-<blockquote>
-<p><strong>和你看到的不一样？</strong></p>
-<p>如果拟在 <strong>urlpatterns</strong> 的定义前面看到了 <strong>admin.autodiscover()</strong> 语句，你可能使用了和教程不匹配的 Django 版本。你可以切换到旧版本的教程或者升级 Django。</p>
-</blockquote>
-<p>你现在把 <strong>index</strong> 视图添加进了 URLconf。用你的浏览器访问 <a href="http://localhost:8000/polls/">http://localhost:8000/polls/</a>，你应该能够看见 “Hello, world. You're at the polls index.”，这是你在 <strong>index</strong> 视图中定义的。</p>
-<p><strong>url()</strong> 函数接收四个参数，两个是必需的： <strong>regex</strong> 和 <strong>view</strong>，还有两个是可选的：<strong>kwargs</strong> 和 <strong>name</strong>。现在，我们花点时间来讲讲这些参数的作用。</p>
-<h3 id="url-regex">url() 参数之 regex</h3>
-<p>术语 “regex” 通常作为 正则表达式（regular expression）的简写出现，它是一种用于匹配字符串的语法，我们用它来编写 URL 模式。Django 从第一个开始，按顺序依次使用列表里的正则表达式来尝试匹配请求的 URL，直到遇到一个可以匹配的表达式。</p>
-<p>请注意这些正则式并不尝试匹配 GET 或 POST 的参数。也不匹配域名部分。举例说明，在用户请求 <strong>http://www.example.com/myapp/</strong> 时,URLconf 将会尝试匹配 <strong>myapp/</strong>。在请求 <strong>http://www.example.com/myapp/?page=3</strong> 时，也只会尝试匹配 <strong>myapp/</strong>。</p>
-<p>如果你需要一些关于正则表达式的帮助，看看<a href="https://en.wikipedia.org/wiki/Regular_expression">维基百科的条目</a>或者 <a href="https://docs.python.org/3/library/re.html#module-re">Python 的 re 模块的文档</a>。另外，Jeffrey Friedl 的《Mastering Regular Expressions》这本书也很值得推荐。然而，在我们的实际使用中，你不不需要非常精通正则表达式，你只需要了解如何捕获简单的模式就够了。事实上，复杂的正则表达式的查找性能会更低，所以，最好不要过度依赖正则表达式的强大功能。</p>
-<p>最后，做一些性能方面的说明：在 URLconf 第一次被加载的时候，那些正则表达式都会被自动编译。编译过后的正则表达式相当的快（只要他们不像上面提到的那样非常复杂的话）。</p>
-<h3 id="url-view">url() 参数之 view</h3>
-<p>当 Django 找到匹配的正则表达式时，就会调用这个视图函数。调用时传递的第一个参数是一个 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/request-response/#django.http.HttpRequest">HttpRequest</a></strong> 对象，后续的参数是所有被正则表达数捕捉的部分。如果正则式使用简单捕获，捕获结果会作为位置参数传递；如果使用名字捕获，捕获结果会作为关键字参数传递。我们稍后会给出例子。</p>
-<h3 id="url-kwargs">url() 参数之 kwargs</h3>
-<p>任意个关键字参数可以作为一个字典传递给目标视图函数。在我们的教程中不会使用这一特性。</p>
-<h3 id="url-name">url() 参数之 name</h3>
-<p>给你的 URL 起个名字，让你能在 Django 的模板里无二义性的引用到它。这个非常有用的特性允许你只用更改一个文件就能全局性的改变某个 URL。</p>
-<h2 id="_3">编写更多视图</h2>
-<p>现在让我们向 <strong>polls/views.py</strong> 里添加更多视图。这些视图有一些不同，因为他们接收参数：</p>
+<p>本教程只会介绍 URLconf 的基础内容，你可以查看 <a href="https://docs.djangoproject.com/en/1.11/ref/urlresolvers/#module-django.urls"><strong>django.core.urlresolvers</strong></a> 以获取更多内容。</p>
+<h2 id="_2">编写更多的视图</h2>
+<p>现在让我们添加更多的视图进 <strong>polls/view.py</strong>，这些视图都有点不一样，因为它们都接受一个参数：</p>
 <pre><code class="python"># polls/views.py
 
 def detail(request, question_id):
@@ -296,8 +598,10 @@ def vote(request, question_id):
     return HttpResponse(&quot;You're voting on question %s.&quot; % question_id)
 </code></pre>
 
-<p>把这些新视图添加进 <strong>polls.urls</strong> 模块里，只要添加几个 url() 函数调用就行：</p>
+<p>要把这些新视图添加进 <strong>polls.urls</strong> 模块里，只需添加几个 <strong>url()</strong> 函数调用：</p>
 <pre><code class="python"># polls/urls.py
+
+from django.conf.urls import url
 
 from . import views
 
@@ -313,28 +617,23 @@ urlpatterns = [
 ]
 </code></pre>
 
-<p>然后看看你的浏览器，如果你转到“/polls/34/”，Django 将会运行 <strong>detail()</strong> 方法并且展示你在 URL 里提供的问题 ID。再试试“/polls/34/results”和“/polls/34/vote/”——你将会看到暂时用于占位的结果和投票页。</p>
-<p>当某人请求你网站的某一页面时——比如说，“/polls/34/”，Django 将会载入 <strong>mysite.urls</strong> 模块，因为配置项 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-ROOT_URLCONF">ROOT_URLCONF</a></strong> 说要载入它。然后 Django 寻找名为 <strong>urlpatterns</strong> 变量并且按序遍历正则表达式。我们使用的 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/urls/#django.conf.urls.include">include()</a></strong> 函数只是简单的引用其他的 URLconf 文件。请注意 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/urls/#django.conf.urls.include">include()</a></strong> 函数的正则表达式不包含 <strong>$</strong> 符号（匹配字符串结尾）但是结尾有斜线。当 Django 遇到一个 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/urls/#django.conf.urls.include">include()</a></strong>，它砍掉被正则表达式匹配上的部分，并把剩余的字符串发送个作为参数的 URLconf 做进一步处理。</p>
-<p>我们设计 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/urls/#django.conf.urls.include">include()</a></strong> 函数是为了让 URLconf 也能轻松的「即插即用」。因为 polls 应用有他自己的 URLconf（<strong>polls/url.py</strong>)，他们能够被放在“/polls/”下、“/fun_polls/”下、“/comment/polls/”下，或者其他任何路径下，这个应用都能够正常工作。</p>
-<p>下面的流程介绍了当用户访问“/polls/34/”时，系统里依次发生了什么：</p>
-<ul>
-<li>Django 找到匹配的正则表达式 '^polls/'</li>
-<li>然后。Django 将会去除被匹配的部分（<strong>polls/</strong>）,然后发送剩下的文本——<strong>“34/”</strong>——给“polls.url”这个 URLconf 做进一步处理。然后找到匹配的正则表达式 <strong>r'^(?P<question_id>[0-9]+)/$'</strong>，随后用以下方式调用 <strong>detail()</strong> 函数：</li>
-</ul>
+<p>然后在你的浏览器里转到 “/polls/34/”，Django 将会运行 <strong>detail()</strong> 方法并展示你在 URL 里提供的问题 ID。再试试 “/polls/34/results” 和 “/polls/34/vote/” —— 你将会看到暂时用于占位的结果和投票页。</p>
+<p>当某人请求你网站的某一页面时——比如说，“/polls/34/”，Django 将会载入 <strong>mysite.urls</strong> 模块，因为配置项 <a href="https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-ROOT_URLCONF"><strong>ROOT_URLCONF</strong></a> 说要载入它。然后 Django 寻找名为 <strong>urlpatterns</strong> 变量并且按序遍历正则表达式。Django 找到匹配的正则表达式 <strong>'^polls/'</strong> 
+然后 Django 将会去除被匹配的部分（<strong>polls/</strong>）,然后发送剩下的文本 —— <strong>“34/”</strong> —— 给 “polls.urls” 这个 URLconf 做进一步处理。然后找到匹配的正则表达式 <strong>r'^(?P<question_id>[0-9]+)/$'</strong>，随后用以下方式调用 <strong>detail()</strong> 函数：</p>
 <pre><code class="python">detail(request=&lt;HttpRequest object&gt;, question_id='34')
 </code></pre>
 
 <p><strong>question_id='34'</strong> 这一部分是由 <strong>(?P<question_id>[0-9+])</strong> 产生的。使用括号来包围一部分模式，就可以“捕获”这部分所匹配到的文本，随后作为参数被传递给视图函数；<strong>?P<question_id></strong> 用于定义匹配部分的名字；<strong>[0-9]+</strong> 是用于匹配一连串数字（也就是所有整数）的正则表达式。</p>
-<p>因为 URL 模式本质上是正则表达式，所以不会有规定限制你如何使用它。对了，为每个 URL 加上不必要的东西，例如 <strong>.html</strong>，是没有必要的。不过如果你非要加的话，也是可以的：</p>
+<p>因为 URL 模式本质上是正则表达式，所以不会有规定限制你如何使用它们。还有，没必要为每个 URL 加上不必要的东西，例如 <strong>.html</strong>。不过如果你非要加的话，也是可以的：</p>
 <pre><code class="python">url(r'^polls/latest\.html$', views.index),
 </code></pre>
 
 <p>但是，别这样做，这太傻了。</p>
-<h2 id="_4">写一个真正有用的视图</h2>
-<p>每个视图必须要做的只有两件事：返回一个包含被请求页面内容的 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/request-response/#django.http.HttpResponse">HttpResponse</a></strong> 对象，或者抛出一个异常，比如 <strong><a href="https://docs.djangoproject.com/en/1.8/topics/http/views/#django.http.Http404">Http404</a></strong>。至于你还想干些什么，都随你。</p>
+<h2 id="_3">写一个真正有用的视图</h2>
+<p>每个视图必须要做的只有两件事：返回一个包含被请求页面内容的 <a href="https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpResponse"><strong>HttpResponse</strong></a> 对象，或者抛出一个异常，比如 <a href="https://docs.djangoproject.com/en/1.11/topics/http/views/#django.http.Http404"><strong>Http404</strong></a>。至于你还想干些什么，都随你。</p>
 <p>你的视图可以从数据库里读取记录，可以使用一个模板引擎（比如 Django 自带的，或者其他第三方的），可以生成一个 PDF 文件，可以输出一个 XML，创建一个 ZIP 文件，你可以做任何你想做的事，使用任何你想用的 Python 库。</p>
-<p>Django 只是需要一个 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/request-response/#django.http.HttpResponse">HttpResponse</a></strong>，或者一个异常。</p>
-<p>因为 Django 自带的数据库 API 很方便（我们在<a href="../part1/">在第一部分(zh)</a>里介绍过），所以我们试试在视图里使用它。我们在 <strong>index()</strong> 函数里插入了一些新内容，让它能展示数据库里以发布日期排序的最近五个投票问题，以空格分割：</p>
+<p>Django 只是需要一个 <a href="https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpResponse"><strong>HttpResponse</strong></a>，或者一个异常。</p>
+<p>因为 Django 自带的数据库 API 很方便（我们在 <a href="../part2/">在第二部分（zh）</a>里介绍过），所以我们试试在视图里使用它。我们在 <strong>index()</strong> 函数里插入了一些新内容，让它能展示数据库里按发布日期倒序的最近五个投票问题，以逗号分割：</p>
 <pre><code class="python"># polls/views.py
 
 from django.http import HttpResponse
@@ -344,23 +643,19 @@ from .models import Question
 
 def index(request):
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
-    output = ', '.join([p.question_text for p in latest_question_list])
+    output = ', '.join([q.question_text for q in latest_question_list])
     return HttpResponse(output)
 
-# Leave the rest of the views (detail, results, vote) unchanged
+# 暂时不管剩下的视图 (detail, results, vote)
 </code></pre>
 
-<p>这里有个问题：页面的设计是硬编码在视图函数的代码里的。如果你想改变页面的样子，你需要编辑 Python 代码。所以让我们使用 Django 的模板系统，只要创建一个视图，就可以将页面的设计从代码中分离出来。</p>
+<p>这里有个问题：页面的设计是硬编码在视图函数的代码里的。如果你想改变页面的样子，你就要编辑 Python 代码。所以让我们使用 Django 的模板系统，只要创建一个视图，就可以将页面的设计从代码中分离出来。</p>
 <p>首先，在你的 <strong>polls</strong> 目录里创建一个 <strong>templates</strong> 目录。Django 将会在这个目录里查找模板文件。</p>
-<p>你项目的 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-TEMPLATES">TEMPLATES</a></strong> 配置项描述了 Django 如何载入和渲染模板。默认的设置文件设置了 <strong>DjangoTemplates</strong> 后端，并将 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-TEMPLATES-APP_DIRS">APP_DIRS</a></strong> 设置成了 True。这一选项将会让 <strong>DjangoTemplates</strong> 在每个 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-INSTALLED_APPS">INSTALLED_APPS</a></strong> 文件夹中寻找“templates”子目录。这就是为什么尽管我们没有像在<a href="../part2/">第二部分(zh)</a>中那样修改 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/settings/#std:setting-TEMPLATES-DIRS">DIRS</a></strong> 设置，Django 也能正确找到 polls 的模板位置的原因。</p>
-<blockquote>
-<p>组织模板</p>
-<p>我们<em>可以</em>把所有的模板都放在一个大的模板目录里，并且它也将完美运行。然而，有些模板是专属于 polls 应用的，所以，不像我们在之前的教程中创建的管理界面模板。我们将这些模板放在应用的模板文件夹（<strong>polls/templates</strong>）中，而不放在项目的模板文件夹（<strong>templates</strong>)中。我们将在教程的<a href="../reusable_app/">可重用的应用(zh)</a>这一节中详细讨论为什么要这样做。</p>
-</blockquote>
-<p>在你刚刚创建的 <strong>templates</strong> 目录里，再创建一个目录 <strong>polls</strong>，然后在其中新建一个文件 <strong>index.html</strong>。换句话说，你的模板文件的路径应该是 <strong>polls/templates/polls/index.html</strong>。因为 Django 会寻找到对应的 <strong>app_directiories</strong>，所以你只需要使用 <strong>polls/index.html</strong> 就可以引用到这一模板了。</p>
+<p>你项目的 <a href="https://docs.djangoproject.com/en/1.11/topics/templates/"><strong>TEMPLATES</strong></a> 配置项描述了 Django 如何加载和渲染模板。默认的设置文件设置了 <strong>DjangoTemplates</strong> 后端，并将 <a href="https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TEMPLATES-APP_DIRS"><strong>APP_DIRS</strong></a> 设置成了 <strong>True</strong>。这一选项将会让 <strong>DjangoTemplates</strong> 在每个 <a href="https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS"><strong>INSTALLED_APPS</strong></a> 中激活的应用文件夹中寻找 “templates” 子目录。</p>
+<p><strong>templates</strong> 目录建好后，在里面再创建一个目录 <strong>polls</strong>，在这个 <strong>polls</strong> 的目录里再建立一个文件 <strong>index.html</strong>。换句话说，你的模版路径应该是 <strong>polls/templates/polls/index.html</strong>。由于 <strong>app_directories</strong> 模版加载器的工作原理如上所述，所以你使用简单的 <strong>polls/index.html</strong> 就能引用这模版了。</p>
 <blockquote>
 <p>模板命名空间</p>
-<p>虽然我们现在可以将模板文件直接放在 <strong>polls/templates</strong> 文件夹中（而不是再建立一个 <strong>polls</strong> 子文件夹），但是这样做不太好。Django 将会选择第一个匹配的模板文件，如果你有一个模板文件正好和另一个应用中的某个模板文件重名，Django 没有办法区分它们。我们需要帮助 Django 选择正确的模板，最简单的方法就是把他们放入各自的命名空间中，也就是把这些模板放入一个和自身应用重名的子文件夹里。</p>
+<p>虽然我们现在可以将模板文件直接放在 <strong>polls/templates</strong> 文件夹中（而不是再建立一个 <strong>polls</strong> 子文件夹），但这不是个好办法。Django 将会选择第一个匹配的模板文件，如果你有一个模板文件正好和另一个应用中的某个模板文件重名，Django 没有办法区分它们。我们需要 Django 选择正确的模板，最简单的方法就是把他们放入各自的命名空间中，也就是把这些模板放入一个和自身应用重名的子文件夹里。</p>
 </blockquote>
 <p>将下面的代码输入到刚刚创建的模板文件中：</p>
 <pre><code class="html">&lt;!-- polls/templates/polls/index.html --&gt;
@@ -376,7 +671,7 @@ def index(request):
 {% endif %}
 </code></pre>
 
-<p>然后，让我们更新一下 <strong>polls/views.py</strong> 里的 <strong>index</strong> 视图：</p>
+<p>为了使用这个模版，让我们更新一下在 <strong>polls/views.py</strong> 里的 <strong>index</strong> 视图：</p>
 <pre><code class="python"># polls/views.py
 
 from django.http import HttpResponse
@@ -394,9 +689,9 @@ def index(request):
     return HttpResponse(template.render(context, request))
 </code></pre>
 
-<p>上述代码的作用是，载入 <strong>polls/index.html</strong> 模板文件，并且向它传递一个上下文环境（context）。这个上下文是一个字典，它将模板内的变量映射为 Python 对象。</p>
-<p>用你的浏览器访问“/polls/”，你将会看见一个无序列表，列出了我们在教程以中添加的 “What's up” 投票问题，它链接到这个投票的详情页。</p>
-<h2 id="render">一个快捷函数：render()</h2>
+<p>上述代码的作用是，加载 <strong>polls/index.html</strong> 模板，并且向它传递一个上下文环境（context）。这个上下文是一个字典，它将模板内的变量映射为 Python 对象。</p>
+<p>在你的浏览器访问 “/polls/”，你将会看见一个无序列表，列出了我们在 <a href="../part2/">教程二（zh）</a>中添加的 “What's up” 投票问题，它链接到这个问题的详情页。</p>
+<h2 id="render">一个快捷函数：<a href="https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.render">render()</a></h2>
 <p>「载入模板，填充上下文，再返回由它生成的 HttpResponse 对象」是一个如此常用的操作流程。于是 Django 提供了一个快捷函数，我们用它来重写 <strong>index()</strong> 视图：</p>
 <pre><code class="python"># polls/views.py
 
@@ -411,10 +706,10 @@ def index(request):
     return render(request, 'polls/index.html', context)
 </code></pre>
 
-<p>注意到，我们不再需要导入 <strong>loader</strong> 和 <strong>HttpResponse</strong>。不过如果你还有其他函数（比如说 <strong>detail</strong>，<strong>results</strong> 和 <strong>vote</strong>）需要用到它的话，就需要保持 HttpResponse 的导入。</p>
-<p><strong><a href="https://docs.djangoproject.com/en/1.8/topics/http/shortcuts/#django.shortcuts.render">render()</a></strong> 函数的第一个参数是一个请求(HttpRequest)对象，第二个参数是需要载入的模板的名字。第三个参数是需要用于渲染模板的上下文字典，这个参数是可选的。函数返回一个 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/request-response/#django.http.HttpResponse">HttpResponse</a></strong> 对象，内容为指定模板用指定上下文渲染后的结果。</p>
+<p>注意，我们不再需要导入 <strong>loader</strong> 和 <strong>HttpResponse</strong>。不过如果你还有其他函数（比如说 <strong>detail</strong>，<strong>results</strong> 和 <strong>vote</strong>）需要用到它的话，就需要保持 HttpResponse 的导入。</p>
+<p><a href="https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.render"><strong>render()</strong></a> 函数把请求(HttpRequest)对象作为第一个参数，加载的模版名字作为第二个参数，用于渲染模板的上下文字典作为可选的第三个参数。函数返回一个 <a href="https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpResponse"><strong>HttpResponse</strong></a> 对象，内容为指定模板用指定上下文渲染后的结果。</p>
 <h2 id="404">抛出 404 错误</h2>
-<p>现在，我们来处理投票详情视图——它会显示指定投票的问题标题。下面是这个视图的代码：</p>
+<p>现在，让我们来处理下投票详情视图 —— 它会显示指定投票的问题标题。下面是这个视图的代码：</p>
 <pre><code class="python"># polls/views.py
 
 from django.http import Http404
@@ -430,14 +725,16 @@ def detail(request, question_id):
     return render(request, 'polls/detail.html', {'question': question})
 </code></pre>
 
-<p>这里有个新东西。如果指定问题 ID 所对应的问题不存在，这个视图就会抛出一个 <strong><a href="https://docs.djangoproject.com/en/1.8/topics/http/views/#django.http.Http404">Http404</a></strong> 异常。</p>
+<p>这里有个新概念：如果指定问题 ID 所对应的问题不存在，这个视图就会抛出一个 <a href="https://docs.djangoproject.com/en/1.11/topics/http/views/#django.http.Http404"><strong>Http404</strong></a> 异常。</p>
 <p>我们稍后再讨论你需要在 <strong>polls/details.html</strong> 里输入什么，但是如果你想试试上面这段代码是否正常工作的话，你可以暂时把下面这段输进去：</p>
-<pre><code class="html">{{ question }}
+<pre><code class="html">&lt;!-- polls/templates/polls/details.html --&gt;
+
+{{ question }}
 </code></pre>
 
 <p>这样你就能测试了。</p>
-<h2 id="get_object_of_404">一个快捷函数：get_object_of_404()</h2>
-<p>尝试用 <strong>get()</strong> 函数获取一个对象，如果不存在就抛出 <strong><a href="https://docs.djangoproject.com/en/1.8/topics/http/views/#django.http.Http404">Http404</a></strong> 错误也是一个普遍的流程。Django 也提供了一个快捷函数，下面是修改后的详情视图代码：</p>
+<h2 id="get_object_of_404">一个快捷函数：<a href="https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.get_object_or_404">get_object_of_404()</a></h2>
+<p>「用 <a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.get"><strong>get()</strong></a> 函数获取对象，抛出 <a href="https://docs.djangoproject.com/en/1.11/topics/http/views/#django.http.Http404"><strong>Http404</strong></a>错误」也是一个常用流程。Django 也提供了一个快捷函数，下面是重写的 <strong>detail()</strong> 视图：</p>
 <pre><code class="python"># polls/views.py
 
 from django.shortcuts import get_object_or_404, render
@@ -449,15 +746,15 @@ def detail(request, question_id):
     return render(request, 'polls/detail.html', {'question': question})
 </code></pre>
 
-<p><strong><a href="https://docs.djangoproject.com/en/1.8/topics/http/shortcuts/#django.shortcuts.get_object_or_404">get_object_or_404()</a></strong> 函数的第一个参数是一个 Django 模型。在此之后可以有任意数量的关键字参数，他们会被直接传递给模型的 <strong>get()</strong> 函数。如果符合要求的对象不存在，此快捷函数将会抛出一个 <strong><a href="https://docs.djangoproject.com/en/1.8/topics/http/views/#django.http.Http404">Http404</a></strong> 异常。</p>
+<p><a href="https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.get_object_or_404"><strong>get_object_of_404()</strong></a> 函数的第一个参数是一个 Django 模型。在此之后可以有任意个的关键字参数，他们会被直接传递给模型的 <a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.get"><strong>get()</strong></a> 函数。如果对象并不存在，此快捷函数将会抛出一个 <a href="https://docs.djangoproject.com/en/1.11/topics/http/views/#django.http.Http404"><strong>Http404</strong></a> 异常。</p>
 <blockquote>
 <p><strong>设计哲学</strong></p>
-<p>为什么我们使用辅助函数 <strong><a href="https://docs.djangoproject.com/en/1.8/topics/http/shortcuts/#django.shortcuts.get_object_or_404">get_object_or_404()</a></strong> 而不是自己捕获 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist">ObjectDoesNotExist</a></strong> 异常呢？还有，为什么模型 API 不直接抛出 <strong><a href="https://docs.djangoproject.com/en/1.8/topics/http/views/#django.http.Http404">Http404</a></strong> 而是抛出 <strong><a href="https://docs.djangoproject.com/en/1.8/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist">ObjectDoesNotExist</a></strong> 呢？</p>
-<p>因为这样做会增加模型层和视图层的耦合性。指导 Django 设计的最重要的思想之一就是要保证松散耦合。一些受控的耦合将会被包含在 <strong><a href="https://docs.djangoproject.com/en/1.8/topics/http/shortcuts/#module-django.shortcuts"> django.shortcuts</a></strong> 模块中。</p>
+<p>为什么我们使用辅助函数 <a href="https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.get_object_or_404"><strong>get_object_of_404()</strong></a> 而不是自己捕获 <a href="https://docs.djangoproject.com/en/1.11/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist"><strong>ObjectDoesNotExist</strong></a> 异常呢？或者，为什么模型 API 不直接抛出 <a href="https://docs.djangoproject.com/en/1.11/topics/http/views/#django.http.Http404"><strong>Http404</strong></a> 而是抛出 <a href="https://docs.djangoproject.com/en/1.11/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist"><strong>ObjectDoesNotExist</strong></a> 呢？</p>
+<p>因为这样做会增加模型层和视图层的耦合度。指导 Django 设计的最重要的思想之一就是要保证松散耦合。一些受控的耦合将会被包含在 <a href="https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#module-django.shortcuts"><strong>django.shortcuts</strong></a> 模块中。</p>
 </blockquote>
-<p>也有 <strong><a href="https://docs.djangoproject.com/en/1.8/topics/http/shortcuts/#django.shortcuts.get_list_or_404">get_list_or_404()</a></strong> 函数，工作原理和 <strong><a href="https://docs.djangoproject.com/en/1.8/topics/http/shortcuts/#django.shortcuts.get_object_or_404">get_object_or_404()</a></strong> 一样，除了 <strong>get()</strong> 函数被换成了 <strong>filter()</strong> 函数。如果列表为空的话会抛出 <strong><a href="https://docs.djangoproject.com/en/1.8/topics/http/views/#django.http.Http404">Http404</a></strong> 异常。</p>
-<h2 id="_5">使用模板系统</h2>
-<p>回过头去看看我们的 <strong>detail()</strong> 视图。它向模板传递了上下文变量 <strong>question</strong>。下面是 <strong>polls/detail.html</strong> 模板里正式的代码：</p>
+<p>也有 <a href="https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.get_object_or_404"><strong>get_list_of_404()</strong></a> 函数，工作原理和 <a href="https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.get_object_or_404"><strong>get_object_of_404()</strong></a> 一样，除了 <a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.get"><strong>get()</strong></a> 函数被换成了 <a href="https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.filter"><strong>filter()</strong></a> 函数。如果列表为空的话会抛出 <a href="https://docs.djangoproject.com/en/1.11/topics/http/views/#django.http.Http404"><strong>Http404</strong></a> 异常。</p>
+<h2 id="_4">使用模板系统</h2>
+<p>回过头去看看我们的 <strong>detail()</strong> 视图。它向模板传递了上下文变量 <strong>question</strong>。下面是 <strong>polls/detail.html</strong> 模板里的代码：</p>
 <pre><code class="html">&lt;!--- polls/templates/polls/detail.html --&gt;
 
 &lt;h1&gt;{{ question.question_text }}&lt;/h1&gt;
@@ -469,9 +766,9 @@ def detail(request, question_id):
 </code></pre>
 
 <p>模板系统统一使用「点」符号来访问变量的属性。在示例 <strong>{{ question.question_text }}</strong> 中，首先 Django 尝试对 <strong>Question</strong> 对象使用字典查找（也就是使用obj.get(str)操作），如果失败了就尝试属性查找（也就是obj.str操作），结果是成功了。如果这一操作也失败的话，将会尝试列表查找（也就是obj[int]操作）。</p>
-<p>在 <strong>{% for %}</strong> 循环中发生的函数调用：
-<strong>question.choice_set.all</strong> 被解释为 Python 代码 <strong>question.choice_set.all()</strong>，将会返回一个可迭代的 <strong>Choice</strong> 对象，这一对象可以在 <strong>{% for %}</strong> 标签内部使用。</p>
-<p>查看 <strong><a href="https://docs.djangoproject.com/en/1.8/topics/templates/">模板指南</a></strong> 可以了解关于模板的更多信息。</p>
+<p>在 <a href="https://docs.djangoproject.com/en/1.11/ref/templates/builtins/#std:templatetag-for"><strong>{% for %}</strong></a> 循环中发生的函数调用：
+<strong>question.choice_set.all</strong> 被解释为 Python 代码 <strong>question.choice_set.all()</strong>，将会返回一个可迭代的 <strong>Choice</strong> 对象，这一对象可以在<a href="https://docs.djangoproject.com/en/1.11/ref/templates/builtins/#std:templatetag-for"><strong>{% for %}</strong></a> 标签内部使用。</p>
+<p>查看 <a href="https://docs.djangoproject.com/en/1.11/topics/templates/">模板指南</a> 可以了解关于模板的更多信息。</p>
 <h2 id="url">去除模板中的硬编码 URL</h2>
 <p>还记得吗，我们在 <strong>polls/index.html</strong> 里编写投票链接时，链接是硬编码的：</p>
 <pre><code class="html">&lt;li&gt;&lt;a href=&quot;/polls/{{ question.id }}/&quot;&gt;{{ question.question_text }}&lt;/a&gt;&lt;/li&gt;
@@ -481,81 +778,128 @@ def detail(request, question_id):
 <pre><code class="html">&lt;li&gt;&lt;a href=&quot;{% url 'detail' question.id %}&quot;&gt;{{ question.question_text }}&lt;/a&gt;&lt;/li&gt;
 </code></pre>
 
-<p>这个标签的工作方式是在 <strong>polls.urls</strong> 模块的 URL 定义中寻具有指定名字的条目。你可以回忆一下，具有名字“detail”的 URL 是在如下语句中定义的：</p>
+<p>这个标签的工作方式是在 <strong>polls.urls</strong> 模块的 URL 定义中寻具有指定名字的条目。你可以回忆一下，具有名字 “detail” 的 URL 是这样被定义的：</p>
 <pre><code class="python">...
-# the 'name' value as called by the {% url %} template tag
+# name 变量被 {% url %} 标签调用
 url(r'^(?P&lt;question_id&gt;[0-9]+)/$', views.detail, name='detail'),
 ...
 </code></pre>
 
-<p>如果你想改变投票详情视图的 URL，比如想改成 <strong>polls/specifics/12</strong>，你不用在模板里修改任何东西，只要在 <strong>polls/url.py</strong> 里稍微修改一下就行：</p>
+<p>如果你想改变投票详情视图的 URL，比如想改成 <strong>polls/specifics/12/</strong>，你不用在模板里修改任何东西，只要在 <strong>polls/urls.py</strong> 里稍微修改一下就行：</p>
 <pre><code class="python">...
-# added the word 'specifics'
+# 增加 specifics
 url(r'^specifics/(?P&lt;question_id&gt;[0-9]+)/$', views.detail, name='detail'),
 ...
 </code></pre>
 
 <h2 id="url_1">为 URL 名称添加命名空间</h2>
-<p>教程项目只有一个应用，<strong>polls</strong>。在一个真实的 Django 项目中，可能会有五个，十个，二十个甚至更多应用。Django 如何分辨重名的 URL 呢？举个例子，<strong>polls</strong> 应用有 <strong>detail</strong> 视图，可能另一个博客应用也有同名的视图。Django 如何知道 <strong>{% url %}</strong> 标签到底对应哪一个应用的 URL 呢？</p>
-<p>答案是：在根 URLconf 中添加命名空间。在 <strong>mysite/urls.py</strong> 文件中稍作修改，加上命名空间：</p>
-<pre><code class="python"># mysite/urls.py
+<p>本教程的项目只有一个应用，<strong>polls</strong>。在一个真实的 Django 项目中，可能会有五个，十个，二十个甚至更多应用。Django 如何分辨重名的 URL 呢？举个例子，<strong>polls</strong> 应用有 <strong>detail</strong> 视图，可能另一个博客应用也有同名的视图。Django 如何知道 <strong>{% url %}</strong> 标签到底对应哪一个应用的 URL 呢？</p>
+<p>答案是：在 URLconf 中添加命名空间。在 <strong>polls/urls.py</strong> 文件中添加 <strong>app_name</strong> 变量作为应用的命名空间：</p>
+<pre><code class="python"># polls/urls.py
 
-from django.conf.urls import include, url
-from django.contrib import admin
+from django.conf.urls import url
 
+from . import views
+
+app_name = 'polls'
 urlpatterns = [
-    url(r'^polls/', include('polls.urls', namespace=&quot;polls&quot;)),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^$', views.index, name='index'),
+    url(r'^(?P&lt;question_id&gt;[0-9]+)/$', views.detail, name='detail'),
+    url(r'^(?P&lt;question_id&gt;[0-9]+)/results/$', views.results, name='results'),
+    url(r'^(?P&lt;question_id&gt;[0-9]+)/vote/$', views.vote, name='vote'),
 ]
 </code></pre>
 
-<p>现在，编辑 <strong>polls/index.html</strong> 文件，从：</p>
-<pre><code class="html">&lt;li&gt;&lt;a href=&quot;{% url 'detail' question.id %}&quot;&gt;{{ question.question_text }}&lt;/a&gt;&lt;/li&gt;
+<p>现在，修改 <strong>polls/index.html</strong> 模版文件，从：</p>
+<pre><code class="html">&lt;!--- polls/templates/polls/index.html --&gt;
+
+&lt;li&gt;&lt;a href=&quot;{% url 'detail' question.id %}&quot;&gt;{{ question.question_text }}&lt;/a&gt;&lt;/li&gt;
 </code></pre>
 
 <p>修改成：</p>
-<pre><code class="html">&lt;li&gt;&lt;a href=&quot;{% url 'polls:detail' question.id %}&quot;&gt;{{ question.question_text }}&lt;/a&gt;&lt;/li&gt;
+<pre><code class="html">&lt;!--- polls/templates/polls/index.html --&gt;
+
+&lt;li&gt;&lt;a href=&quot;{% url 'polls:detail' question.id %}&quot;&gt;{{ question.question_text }}&lt;/a&gt;&lt;/li&gt;
 </code></pre>
 
-<p>当你弄懂如何编写视图之后，就可以去看教程的<a href="../part4/">第四部分(en)</a>，来学习关于表单处理和视图类的相关内容。</p></div>
+<p>当你弄懂如何编写视图之后，就可以去看教程的 <a href="../part4/">教程第四部分（zh）</a>，来学习关于表单处理和视图类的相关内容。</p>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
         </div>
-
-        <footer class="col-md-12">
-            <hr>
-            
-            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
-        </footer>
-
-        <script src="../js/jquery-1.10.2.min.js"></script>
-        <script src="../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../js/highlight.pack.js"></script>
-        <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
-        <script src="../js/base.js"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            From here you can search these documents. Enter
-                            your search terms below.
-                        </p>
-                        <form role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                            </div>
-                        </form>
-                        <div id="mkdocs-search-results"></div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../part2/" title="第一个 Django 项目 - 第二部分" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
-        </div>
-    </body>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                第一个 Django 项目 - 第二部分
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../part4/" title="第一个 Django 项目 - 第四部分" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                第一个 Django 项目 - 第四部分
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+        and
+        <a href="http://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application-6940329b9f.js"></script>
+      
+      
+      <script>app.initialize({url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
 </html>

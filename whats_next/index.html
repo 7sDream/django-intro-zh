@@ -1,221 +1,594 @@
+
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Django 官方教程中文版">
+      
+      
+        <link rel="canonical" href="https://7sdream.github.io/django-intro-zh/whats_next/">
+      
+      
         <meta name="author" content="7sDream">
-        <link rel="canonical" href="http://django-intro-zh.readthedocs.org/whats_next/">
-        <link rel="shortcut icon" href="../img/favicon.ico">
-
-	<title>下一步我该干什么 - Django intro 中文版</title>
-
-        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
-        <link href="../css/font-awesome-4.0.3.css" rel="stylesheet">
-        <link rel="stylesheet" href="../css/highlight.css">
-        <link href="../css/base.css" rel="stylesheet">
-
-        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-
+      
+      
+        <link rel="shortcut icon" href="../assets/images/favicon.png">
+      
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.8.1">
+    
+    
+      
+        <title>下一步我该干什么 - Django intro 中文版</title>
+      
+    
+    
+      <script src="../assets/javascripts/modernizr-1df76c4e58.js"></script>
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application-bfecc7305d.css">
+      
+    
+    
+      
         
-    </head>
-
+        
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+  
+  
+  
     <body>
-
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container">
-
-        <!-- Collapsed navigation -->
-        <div class="navbar-header">
-            <!-- Expander button -->
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-
-            <!-- Main title -->
-            <a class="navbar-brand" href="..">Django intro 中文版</a>
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <a href="https://7sdream.github.io/django-intro-zh/" title="Django intro 中文版" class="md-icon md-icon--home md-header-nav__button">
+          </a>
+        
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <span class="md-flex__ellipsis md-header-nav__title">
+          
+            
+              
+                <span class="md-header-nav__parent">
+                  文档
+                </span>
+              
+            
+            下一步我该干什么
+          
+        </span>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result" data-md-lang-search="" data-md-lang-tokenizer="[\s\-]+">
+          <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
         </div>
-
-        <!-- Expanded navigation -->
-        <div class="navbar-collapse collapse">
-            <!-- Main navigation -->
-            <ul class="nav navbar-nav">
-            
-            
-                <li >
-                    <a href="..">介绍</a>
-                </li>
-            
-            
-            
-                <li class="dropdown active">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">文档 <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                    
-                        
-<li >
-    <a href="../glance/">初识 Django</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../install/">快速安装指南</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../part1/">第一个 Django 项目 - 第一部分</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../part2/">第一个 Django 项目 - 第二部分</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../part3/">第一个 Django 项目 - 第三部分</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../part4/">第一个 Django 项目 - 第四部分</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../part5/">第一个 Django 项目 - 第五部分</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../part6/">第一个 Django 项目 - 第六部分</a>
-</li>
-
-                    
-                        
-<li class="active">
-    <a href="./">下一步我该干什么</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../reusable_app/">编写可重用的应用</a>
-</li>
-
-                    
-                        
-<li >
-    <a href="../patch/">为 Django 贡献代码</a>
-</li>
-
-                    
-                    </ul>
-                </li>
-            
-            
-            </ul>
-
-            <!-- Search, Navigation and Repo links -->
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
-                        <i class="fa fa-search"></i> Search
-                    </a>
-                </li>
-                <li >
-                    <a rel="next" href="../part6/">
-                        <i class="fa fa-arrow-left"></i> Previous
-                    </a>
-                </li>
-                <li >
-                    <a rel="prev" href="../reusable_app/">
-                        Next <i class="fa fa-arrow-right"></i>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="https://github.com/7sDream/django-intro-zh">
-                        
-                        django-intro-zh
-                    </a>
-                </li>
-                
-            </ul>
-        </div>
+      </div>
     </div>
+  </div>
 </div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
 
-        <div class="container">
-            <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
+
+  
+
+
+  <a href="https://github.com/7sDream/django-intro-zh" title="Go to repository" class="md-source" data-md-source="github">
     
-        <li class="main active"><a href="#_1">接下来如何学习？</a></li>
-        
-            <li><a href="#_2">如何查询文档</a></li>
-        
-            <li><a href="#_3">文档是如何组织的</a></li>
-        
-            <li><a href="#_4">文档是如何更新的</a></li>
-        
-            <li><a href="#_5">哪里可以获取文档</a></li>
-        
-            <li><a href="#_9">版本之间的差异</a></li>
-        
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
     
+    <div class="md-source__repository">
+      django-intro-zh
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    
+      <i class="md-icon md-icon--home md-nav__button"></i>
+    
+    Django intro 中文版
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/7sDream/django-intro-zh" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      django-intro-zh
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="介绍" class="md-nav__link">
+      介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      文档
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        文档
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../glance/" title="初识 Django" class="md-nav__link">
+      初识 Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../install/" title="快速安装指南" class="md-nav__link">
+      快速安装指南
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part1/" title="第一个 Django 项目 - 第一部分" class="md-nav__link">
+      第一个 Django 项目 - 第一部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part2/" title="第一个 Django 项目 - 第二部分" class="md-nav__link">
+      第一个 Django 项目 - 第二部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part3/" title="第一个 Django 项目 - 第三部分" class="md-nav__link">
+      第一个 Django 项目 - 第三部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part4/" title="第一个 Django 项目 - 第四部分" class="md-nav__link">
+      第一个 Django 项目 - 第四部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part5/" title="第一个 Django 项目 - 第五部分" class="md-nav__link">
+      第一个 Django 项目 - 第五部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part6/" title="第一个 Django 项目 - 第六部分" class="md-nav__link">
+      第一个 Django 项目 - 第六部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part7/" title="第一个 Django 项目 - 第七部分" class="md-nav__link">
+      第一个 Django 项目 - 第七部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        下一步我该干什么
+      </label>
+    
+    <a href="./" title="下一步我该干什么" class="md-nav__link md-nav__link--active">
+      下一步我该干什么
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="如何查询文档" class="md-nav__link">
+    如何查询文档
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="文档是如何组织的" class="md-nav__link">
+    文档是如何组织的
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="文档是如何更新的" class="md-nav__link">
+    文档是如何更新的
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="哪里可以获取文档" class="md-nav__link">
+    哪里可以获取文档
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="在线获取" class="md-nav__link">
+    在线获取
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="纯文本" class="md-nav__link">
+    纯文本
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#html" title="下载为本地HTML文件" class="md-nav__link">
+    下载为本地HTML文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" title="版本之间的差异" class="md-nav__link">
+    版本之间的差异
+  </a>
+  
+</li>
+      
+      
+      
     </ul>
-</div></div>
-            <div class="col-md-9" role="main">
+  
+</nav>
+    
+  </li>
 
-<h1 id="_1">接下来如何学习？</h1>
-<p>看来您已经阅读完所有的<a href="https://docs.djangoproject.com/en/1.8/intro/">介绍文档</a>，并且决定继续使用 Django。但是我们前面只是进行了概括性的介绍（事实上，即使您全部浏览完，也只是涉及了所有文档 5% 左右的内容）。</p>
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../reusable_app/" title="编写可重用的应用" class="md-nav__link">
+      编写可重用的应用
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../patch/" title="为 Django 贡献代码" class="md-nav__link">
+      为 Django 贡献代码
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="如何查询文档" class="md-nav__link">
+    如何查询文档
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="文档是如何组织的" class="md-nav__link">
+    文档是如何组织的
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="文档是如何更新的" class="md-nav__link">
+    文档是如何更新的
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="哪里可以获取文档" class="md-nav__link">
+    哪里可以获取文档
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" title="在线获取" class="md-nav__link">
+    在线获取
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" title="纯文本" class="md-nav__link">
+    纯文本
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#html" title="下载为本地HTML文件" class="md-nav__link">
+    下载为本地HTML文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" title="版本之间的差异" class="md-nav__link">
+    版本之间的差异
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="_1">接下来如何学习？</h1>
+<p>看来您已经阅读完所有的<a href="..">介绍文档</a>，并且决定继续使用 Django。但是我们前面只是进行了概括性的介绍（事实上，即使您全部浏览完，也只是涉及了所有文档 5% 左右的内容）。</p>
 <p>所以接下来是？</p>
 <p>没错，我们一直专注于通过实践来提升自身能力。基于这一点考虑，您应该已经掌握足够的知识，可以直接开始自己的个人项目。当您需要相关帮助时，届时再查询文档。</p>
 <p>我们倾注了大量精力来使 Django 官方文档更加实用，易于阅读和尽可能地完备。本文其他部分更多的是关于 Django 官方文档的使用方法，这样您可以最有效地利用它。</p>
 <p>是的，这篇文档是关于如何使用 Django 官方文档的。不过请放心，我们不会再撰写一份新文档来介绍如何使用这篇文档 ：）</p>
 <h2 id="_2">如何查询文档</h2>
-<p>Django 拥有着大量的文档 – 大概在 450,000 单词左右 – 因此有时候查询您所需要的内容并非易事。一些查看文档的好地方是<a href="https://docs.djangoproject.com/en/1.8/search/">搜索页面</a>和<a href="https://docs.djangoproject.com/en/1.8/genindex/">目录</a>。</p>
+<p>Django 拥有着大量的文档 – 大概在 450,000 单词左右 – 因此有时候查询您所需要的内容并非易事。一些查看文档的好地方是<a href="https://docs.djangoproject.com/en/1.11/search/">搜索页面</a>和<a href="https://docs.djangoproject.com/en/1.11/genindex/">索引页</a>。</p>
 <p>或者您可以完整浏览！</p>
 <h2 id="_3">文档是如何组织的</h2>
 <p>Django 官方文档的主体内容可以根据满足不同的需要分解成不同的部分：</p>
 <ul>
 <li>
-<p><a href="https://docs.djangoproject.com/en/1.8/intro/">介绍文档</a>通常是为刚接触 Djang 或者 Web 开发的人所设计的。它并不涉及太多高深的内容，但相对地提供了一个宏观的概览视角帮助培养如何使用 Django 进行开发的“感觉”。</p>
+<p><a href="https://docs.djangoproject.com/en/1.11/intro/">介绍文档</a>通常是为刚接触 Djang 或者 Web 开发的人所设计的。它并不涉及太多高深的内容，但相对地提供了一个宏观的概览视角帮助培养如何使用 Django 进行开发的“感觉”。</p>
 </li>
 <li>
-<p>另一方面，<a href="https://docs.djangoproject.com/en/1.8/topics/">主题指南</a>对 Django 的每一块进行了深入讲解。主题指南包括了对于 Django 的<a href="https://docs.djangoproject.com/en/1.8/topics/db/">模型系统</a>, <a href="https://docs.djangoproject.com/en/1.8/topics/templates/">模板引擎</a>, <a href="https://docs.djangoproject.com/en/1.8/topics/forms/">表单框架</a>以及更多内容的完整指导。</p>
+<p>另一方面，<a href="https://docs.djangoproject.com/en/1.11/topics/">主题指南</a>对 Django 的每一块进行了深入讲解。主题指南包括了对于 Django 的<a href="https://docs.djangoproject.com/en/1.11/topics/db/">模型系统</a>, <a href="https://docs.djangoproject.com/en/1.11/topics/templates/">模板引擎</a>, <a href="https://docs.djangoproject.com/en/1.11/topics/forms/">表单框架</a>以及更多内容的完整指导。</p>
 </li>
 </ul>
 <p>这里可能是您花费时间最多的地方；如果您动手实践了这些指导文档包含的内容，那么您应该对 Django 非常熟悉了。</p>
 <ul>
-<li>Web 开发涉猎范围广，但是并不深入——遇到的问题可能跨越了不同的领域，为此我们撰写了一系列 <a href="https://docs.djangoproject.com/en/1.8/howto/">how-to guides</a>文档来回答常见诸如 “How do I..?”（我该如何）这类的问题。在这部分的文档里，您可以找到关于<a href="https://docs.djangoproject.com/en/1.8/howto/outputting-pdf/">使用 Django 生成 PDF</a>，<a href="https://docs.djangoproject.com/en/1.8/howto/custom-template-tags/">如何编写自定义的模板标签</a>等等的内容。</li>
+<li>Web 开发涉猎范围广，但是并不深入——遇到的问题可能跨越了不同的领域，为此我们撰写了一系列 <a href="https://docs.djangoproject.com/en/1.11/howto/">how-to guides</a>文档来回答常见诸如 “How do I..?”（我该如何）这类的问题。在这部分的文档里，您可以找到关于<a href="https://docs.djangoproject.com/en/1.11/howto/outputting-pdf/">使用 Django 生成 PDF</a>，<a href="https://docs.djangoproject.com/en/1.11/howto/custom-template-tags/">如何编写自定义的模板标签</a>等等的内容。</li>
 </ul>
-<p>对于常见问题的答案可以在 <a href="https://docs.djangoproject.com/en/1.8/faq">FAQ</a> 找到。</p>
+<p>对于常见问题的答案可以在 <a href="https://docs.djangoproject.com/en/1.11/faq/">FAQ</a> 找到。</p>
 <ul>
 <li>
-<p>指导文档和 How-To 文档并没有完全覆盖到 Django 中的每一个类、函数、方法，那样的话内容会太多，不利于学习。实际上，每个类、函数、方法还有模块的实现细节都记录在<a href="https://docs.djangoproject.com/en/1.8/ref/">参考部分</a>中。那里才是当你需要查找函数细节或是其他具体细节的地方。</p>
+<p>指导文档和 How-To 文档并没有完全覆盖到 Django 中的每一个类、函数、方法，那样的话内容会太多，不利于学习。实际上，每个类、函数、方法还有模块的实现细节都记录在<a href="https://docs.djangoproject.com/en/1.11/ref/">参考部分</a>中。那里才是当你需要查找函数细节或是其他具体细节的地方。</p>
 </li>
 <li>
-<p>如果您对于部署 Django 项目到公共网络感兴趣的话，我们文档也提供了一些关于各种部署设置的<a href="https://docs.djangoproject.com/en/1.8/howto/deployment/">指导</a>，包括您所需要关注的<a href="https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/">部署清单</a>。</p>
+<p>如果您对于部署 Django 项目到公共网络感兴趣的话，我们文档也提供了一些关于各种部署设置的<a href="https://docs.djangoproject.com/en/1.11/howto/deployment/">指导</a>，包括您所需要关注的<a href="https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/">部署清单</a>。</p>
 </li>
 <li>
-<p>最后，有一些"特殊"的文档通常与大多数开发者无关，比如<a href="https://docs.djangoproject.com/en/1.8/releases/">发行记录</a>以及针对于那些想为 Django 项目贡献力量的开发人员的<a href="https://docs.djangoproject.com/en/1.8/internals/">内部文档</a>，此外还包括了一些<a href="https://docs.djangoproject.com/en/1.8/misc/">不好分类的杂散文档</a>。</p>
+<p>最后，有一些"特殊"的文档通常与大多数开发者无关，比如<a href="https://docs.djangoproject.com/en/1.11/releases/">发行记录</a>以及针对于那些想为 Django 项目贡献力量的开发人员的<a href="https://docs.djangoproject.com/en/1.11/internals/">内部文档</a>，此外还包括了一些<a href="https://docs.djangoproject.com/en/1.11/misc/">不好分类的杂散文档</a>。</p>
 </li>
 </ul>
 <h2 id="_4">文档是如何更新的</h2>
@@ -231,14 +604,14 @@
 <p>您可以通过多种方式阅读 Django 文档，根据优先级顺序排列如下：</p>
 <h3 id="_6">在线获取</h3>
 <p>最新版本的 Django 官方文档位于 <a href="https://docs.djangoproject.com/en/dev/">https://docs.djangoproject.com/en/dev/</a>。这些HTML页面是通过源代码控制的文本文件自动生成的。这就意味着它们涉及了 Django “最新和最好”的方面——包括了最新的修正和新添加的内容，以及对于只面向使用 Django 最新版本的用户开放的新特性讨论。（参考下文“版本之间的差异”）</p>
-<p>我们鼓励您通过<a href="https://code.djangoproject.com/newticket?component=Documentation">反馈系统</a> 提交更新，修正和建议以促进文档质量的改善。Django的开发人员会积极地关注反馈系统，并根据您的反馈来改善文档。</p>
-<p>请注意，无论如何，提交的反馈应该和文档密切相关，而不是涉及技术支持的问题。如果您需要额外的技术支持，请试试 <a href="https://docs.djangoproject.com/en/1.8/internals/mailing-lists/#django-users-mailing-list">django user</a> 邮件列表或者 <a href="irc://irc.freenode.net/django">#django IRC channel</a>。</p>
+<p>我们鼓励您通过<a href="https://code.djangoproject.com">反馈系统</a> 提交更新，修正和建议以促进文档质量的改善。Django的开发人员会积极地关注反馈系统，并根据您的反馈来改善文档。</p>
+<p>请注意，无论如何，提交的反馈应该和文档密切相关，而不是涉及技术支持的问题。如果您需要额外的技术支持，请试试 <a href="https://docs.djangoproject.com/en/1.11/internals/mailing-lists/#django-users-mailing-list">django user</a> 邮件列表或者 <a href="irc://irc.freenode.net/django">#django IRC channel</a>。</p>
 <h3 id="_7">纯文本</h3>
 <p>如果是想离线阅读或者仅仅只是为了方便，您可以直接阅读 Django 的纯文本文档。</p>
 <p>如果您正在使用 Django 的官方发行版本，请注意对应发行版的说明文档都包含在了代码压缩包（tarball）的 <strong><code>docs/</code></strong> 的目录下。</p>
 <p>如果您正在使用开发版本的 Django (又名"trunk 版本")，请注意 <strong><code>docs/</code></strong> 目录包含了所有的文档。您可以通过 <strong><code>git checkout</code></strong> 来获取最新更新。</p>
 <p>一个稍微有点技术含量的查看文档的方法是通过 Unix 系统的 <strong><code>grep</code></strong> 命令来查找关键字搜索文档。例如，这将会展示 Django 文档中每一处提及"<strong><code>max_length</code></strong>"的地方：</p>
-<pre><code>$ grep -r max_length /path/to/django/docs/
+<pre><code class="bash">$ grep -r max_length /path/to/django/docs/
 </code></pre>
 
 <h3 id="html">下载为本地HTML文件</h3>
@@ -246,28 +619,26 @@
 <ul>
 <li>Django 的文档使用了 <a href="http://sphinx-doc.org/">Sphinx</a> 文档系统来进行从纯文本到 HTML 的转换。您需要通过 Sphinx 官网下载安装包，或者通过 <strong><code>pip</code></strong> 方式进行安装：</li>
 </ul>
-<pre><code>$ pip install Sphinx
+<pre><code class="bash">$ pip install Sphinx
 </code></pre>
 
 <ul>
 <li>然后使用文档目录下的 <strong><code>Makefile</code></strong> 进行纯文本到 HTML 格式的转换：</li>
 </ul>
-<pre><code>cd path/to/django/docs
+<pre><code class="bash">cd path/to/django/docs
 $ make html
 </code></pre>
 
-<p>进行此操作，您需要安装 <a href="http://www.gnu.org/software/make/">GUN Make</a>。</p>
+<p>进行此操作，您需要安装 <a href="https://www.gnu.org/software/make/">GUN Make</a>。</p>
 <p>如果您是在 Windows 系统的环境下，也可以选择使用目录中的批处理文件：</p>
-<pre><code>cd path\to\django\docs
+<pre><code class="bash">cd path\to\django\docs
 make.bat html
 </code></pre>
 
 <ul>
 <li>最后生成的 HTML 格式的文档会位于 <strong><code>docs/_build/html</code></strong> 中。</li>
 </ul>
-<h4 id="_8">注意</h4>
-<p>Django 文档的生成需要 Sphinx 版本大于 0.6 或者更新的版本，但我们更建议直接使用 Sphinx 1.0.2 或者更新的版本。</p>
-<h2 id="_9">版本之间的差异</h2>
+<h2 id="_8">版本之间的差异</h2>
 <p>正如前面提及的那样，我们 Git 仓库中的文档包含了许多“最新最好”的改变。这些改变通常包括了 Django 开发版本新增的一些特性。因此出于以上理由，有必要说明我们在处理不同 Django 版本文档时所遵循的准则。</p>
 <p>我们遵循着如下准则：</p>
 <ul>
@@ -281,50 +652,89 @@ make.bat html
 <p>为了在文档中区分特性的更改或者添加，我们使用了如下说明文字：“<code>New in version X.Y</code>”，意思是将出现在接下来的发行版本中（因此，还处在开发的阶段中）。</p>
 </li>
 <li>
-<p>在某些情况下，文档的修复和改进可能会在开发人员的同意下回迁到最后的发行分支。然而，一旦某个版本的 Django 不再被支持，那么对应版本的文档也会停止进一步的更新。</p>
+<p>在某些情况下，文档的修复和改进可能会在开发人员的同意下回迁到最后的发行分支。然而，一旦某个版本的 Django <a href="https://docs.djangoproject.com/en/1.11/internals/release-process/#backwards-compatibility-policy">不再被支持</a>，那么对应版本的文档也会停止进一步的更新。</p>
 </li>
 <li>
 <p><a href="https://docs.djangoproject.com/en/dev/">文档主页面</a> 包含着所有旧版本的文档。请务必确保您阅读的文档版本对应着您正在使用的 Django！</p>
 </li>
-</ul></div>
+</ul>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
         </div>
-
-        <footer class="col-md-12">
-            <hr>
-            
-            <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
-        </footer>
-
-        <script src="../js/jquery-1.10.2.min.js"></script>
-        <script src="../js/bootstrap-3.0.3.min.js"></script>
-        <script src="../js/highlight.pack.js"></script>
-        <script>var base_url = '..';</script>
-        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
-        <script src="../js/base.js"></script>
-
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            From here you can search these documents. Enter
-                            your search terms below.
-                        </p>
-                        <form role="form">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
-                            </div>
-                        </form>
-                        <div id="mkdocs-search-results"></div>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../part7/" title="第一个 Django 项目 - 第七部分" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
-        </div>
-    </body>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                第一个 Django 项目 - 第七部分
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../reusable_app/" title="编写可重用的应用" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                编写可重用的应用
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+        and
+        <a href="http://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application-6940329b9f.js"></script>
+      
+      
+      <script>app.initialize({url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
 </html>
