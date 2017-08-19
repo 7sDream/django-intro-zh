@@ -1,0 +1,800 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="Django 官方教程中文版">
+      
+      
+        <link rel="canonical" href="https://7sdream.github.io/django-intro-zh/reusable_app/">
+      
+      
+        <meta name="author" content="7sDream">
+      
+      
+        <link rel="shortcut icon" href="../assets/images/favicon.png">
+      
+      <meta name="generator" content="mkdocs-0.16.3, mkdocs-material-1.8.1">
+    
+    
+      
+        <title>编写可重用的应用 - Django intro 中文版</title>
+      
+    
+    
+      <script src="../assets/javascripts/modernizr-1df76c4e58.js"></script>
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/application-bfecc7305d.css">
+      
+    
+    
+      
+        
+        
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+  
+  
+  
+    <body>
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <a href="https://7sdream.github.io/django-intro-zh/" title="Django intro 中文版" class="md-icon md-icon--home md-header-nav__button">
+          </a>
+        
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <span class="md-flex__ellipsis md-header-nav__title">
+          
+            
+              
+                <span class="md-header-nav__parent">
+                  文档
+                </span>
+              
+            
+            编写可重用的应用
+          
+        </span>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">close</button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result" data-md-lang-search="" data-md-lang-tokenizer="[\s\-]+">
+          <div class="md-search-result__meta" data-md-lang-result-none="No matching documents" data-md-lang-result-one="1 matching document" data-md-lang-result-other="# matching documents">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/7sDream/django-intro-zh" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      django-intro-zh
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    
+      <i class="md-icon md-icon--home md-nav__button"></i>
+    
+    Django intro 中文版
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/7sDream/django-intro-zh" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      django-intro-zh
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="介绍" class="md-nav__link">
+      介绍
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      文档
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        文档
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../glance/" title="初识 Django" class="md-nav__link">
+      初识 Django
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../install/" title="快速安装指南" class="md-nav__link">
+      快速安装指南
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part1/" title="第一个 Django 项目 - 第一部分" class="md-nav__link">
+      第一个 Django 项目 - 第一部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part2/" title="第一个 Django 项目 - 第二部分" class="md-nav__link">
+      第一个 Django 项目 - 第二部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part3/" title="第一个 Django 项目 - 第三部分" class="md-nav__link">
+      第一个 Django 项目 - 第三部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part4/" title="第一个 Django 项目 - 第四部分" class="md-nav__link">
+      第一个 Django 项目 - 第四部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part5/" title="第一个 Django 项目 - 第五部分" class="md-nav__link">
+      第一个 Django 项目 - 第五部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part6/" title="第一个 Django 项目 - 第六部分" class="md-nav__link">
+      第一个 Django 项目 - 第六部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../part7/" title="第一个 Django 项目 - 第七部分" class="md-nav__link">
+      第一个 Django 项目 - 第七部分
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../whats_next/" title="下一步我该干什么" class="md-nav__link">
+      下一步我该干什么
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        编写可重用的应用
+      </label>
+    
+    <a href="./" title="编写可重用的应用" class="md-nav__link md-nav__link--active">
+      编写可重用的应用
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="可重用性问题" class="md-nav__link">
+    可重用性问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="你的项目和你可重用的应用" class="md-nav__link">
+    你的项目和你可重用的应用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="安装一些必备工具" class="md-nav__link">
+    安装一些必备工具
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="打包你的应用" class="md-nav__link">
+    打包你的应用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="使用你的包" class="md-nav__link">
+    使用你的包
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" title="发布你的应用" class="md-nav__link">
+    发布你的应用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtualenv-python" title="用 virtualenv 安装 Python 包" class="md-nav__link">
+    用 virtualenv 安装 Python 包
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../patch/" title="为 Django 贡献代码" class="md-nav__link">
+      为 Django 贡献代码
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" title="可重用性问题" class="md-nav__link">
+    可重用性问题
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" title="你的项目和你可重用的应用" class="md-nav__link">
+    你的项目和你可重用的应用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" title="安装一些必备工具" class="md-nav__link">
+    安装一些必备工具
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" title="打包你的应用" class="md-nav__link">
+    打包你的应用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" title="使用你的包" class="md-nav__link">
+    使用你的包
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" title="发布你的应用" class="md-nav__link">
+    发布你的应用
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtualenv-python" title="用 virtualenv 安装 Python 包" class="md-nav__link">
+    用 virtualenv 安装 Python 包
+  </a>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="_1">进阶内容：如何编写可重用的应用</h1>
+<p>本篇从 <a href="../part7/">教程第七部分（zh）</a>结束的地方开始。我们将把之前写的调查应用转化为一个可在新项目中重复使用，和能分享给其他人的独立 Python 包。</p>
+<p>如果您还没有完成教程 1-7，我们鼓励你把它们完成一遍，以便使你的项目和下面的教程相匹配。</p>
+<h2 id="_2">可重用性问题</h2>
+<p>设计，构建，测试和维护 Web 应用程序需要大量的工作。许多 Python 和 Django 的项目都会面临这个问题。如果我们能节省一些重复工作的话，那一定会很棒。</p>
+<p>可重用性深入 Python 的设计理念中。<a href="https://pypi.python.org/pypi">Python 包索引（PyPI）</a>里有大量可以在你自己的程序中使用的包。查看<a href="https://www.djangopackages.com/">用于 Django 的包</a>这个分类，里面包含着现有的可重用应用程序，你可以在自己的项目里使用它们。Django 本身也只是一个 Python 包。这意味着，你可以充分利用现有的 Python 包或者 Django 应用程序来帮助完成自己的 Web 项目。你只需要编写一些特殊的部分即可。</p>
+<p>假设，你的新项目需要一个类似我们之前写过的那样的投票应用。如何使这个应用可重用呢？幸运的是，你已经在正确的路上了。在 <a href="../part3/">教程第三部分（zh）</a>中，我们了解了如何从通过在项目级别的 URL 配置文件中使用 <strong>include</strong> 来使投票应用和主项目分离。在本教程中，我们将采取进一步的措施，使应用能很容易在新项目中使用，并发布给别人安装和使用。</p>
+<blockquote>
+<p><strong>包？应用？</strong></p>
+<p>Python 包（<a href="https://docs.python.org/3/glossary.html#term-package">package</a>）提供了将 Python 代码按相关性分组的组织方式，这一方式提高了可重用性。包中包含一个或多个 Python 代码文件（也被称为“模块”）。</p>
+<p>包可以通过 <strong>import foo.bar</strong> 或 <strong>from foo import bar</strong> 的方式被导入。对于由一个目录（如 <strong>polls</strong>）组织起来的包，目录里必须有一个特殊的文件 <strong>__init__.py</strong>，即使这个文件是空的。</p>
+<p>Django 应用也只是一个 Python 包，不过是专门用于 Django 项目的。应用一般遵循常见的 Django 的公约，例如会包含 <strong>models（模型）</strong>，<strong>tests（测试）</strong>，<strong>urls（网址）</strong> 和 <strong>views（视图）</strong> 等子模块。</p>
+<p>之后我们使用术语 <strong>打包</strong> 来描述”制作一个能被其他人使用的 Python 包“的过程。这可能会有点令人迷糊。（译注：原文中这句的意思是后文将会把 package 同时作为动词和名词，可能造成阅读困难，但翻译成中文后并不会，因为我们有<strong>打包</strong>这个词 ^_^。）</p>
+</blockquote>
+<h2 id="_3">你的项目和你可重用的应用</h2>
+<p>在跟着做完前面的教程后，我们的项目应该是这样的：</p>
+<div class="codehilite"><pre><span></span>mysite/
+    manage.py
+    mysite/
+        __init__.py
+        settings.py
+        urls.py
+        wsgi.py
+    polls/
+        __init__.py
+        admin.py
+        migrations/
+            __init__.py
+            0001_initial.py
+        models.py
+        static/
+            polls/
+                images/
+                    background.gif
+                style.css
+        templates/
+            polls/
+                detail.html
+                index.html
+                results.html
+        tests.py
+        urls.py
+        views.py
+    templates/
+        admin/
+            base_site.html
+</pre></div>
+
+
+<p>你在 <a href="../part7/">教程第七部分（zh）</a>中创建了 <strong>mysite/templates</strong>，在 <a href="../part3/">教程第三部分（zh）</a>中创建了 <strong>polls/templates</strong>。现在你也许能更清楚的了解为什么我们选择了将项目和应用的模板目录分开：所有投票应用所用到的东西都在应用里。这使应用完全包含自身，更容易被新的项目所使用。</p>
+<p><strong>polls</strong> 目录现在可以被复制到一个新的 Django 项目，并可以立即被重用。但是对发布来说，还有一些地方需要准备。我们需要打包的应用程序，以方便他人进行安装。</p>
+<h2 id="_4">安装一些必备工具</h2>
+<p>Python 打包的解决方案目前有点混乱，因为有各种不同的工具。在本教程中，我们将使用 <a href="https://pypi.python.org/pypi/setuptools">setuptools</a> 建立我们的包。这是推荐的打包工具（与<strong>distribute</strong>分支合并后）。可是使用 pip 来安装和卸载它。你现在应该安装这两个软件包。如果需要帮助，你可以参考<a href="https://docs.djangoproject.com/en/1.11/topics/install/#installing-official-release">如何使用 pip 安装 Django</a>。您可以用相同的方式安装 <strong>setuptools</strong>。</p>
+<h2 id="_5">打包你的应用</h2>
+<p>Python 的 <em>打包</em> 是指将你的应用制作成特定的格式，以便能被很方便地安装和使用。Django 本身就是按照这个规定打包的。对于一个小应用，比如我们的投票应用，这个过程不会太困难。</p>
+<p>1.首先，在你的 Django 项目外为 <strong>polls</strong> 目录创建一个父目录， 命名为 <strong>django-polls</strong>。</p>
+<blockquote>
+<p><strong>选择你应用的名字</strong></p>
+<p>当为你的包选择名称时，记得检查 PyPI 上的内容以避免与现有的包产生冲突。以 <strong>django-</strong> 作为模块名称前缀是很实用的，这将有助于想寻找 Django 应用的人来识别哪些包是用于 Django 的。</p>
+<p>应用标签（即，以点分隔的模块路径的最后一部分）<em>必须</em> 在 <a href="https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS"><strong>INSTALLED_APPS</strong></a> 里是独一无二的。避免和 Django <a href="https://docs.djangoproject.com/en/1.11/ref/contrib/">contrib package</a> 使用相同的标签，例如 <strong>auth</strong>，<strong>admin</strong>，或 <strong>message</strong>。</p>
+</blockquote>
+<p>2.移动 <strong>polls</strong> 目录到 <strong>django-polls</strong>目录下</p>
+<p>3.创建文件 <strong>django-polls/README.rst</strong>，写入下面的内容。</p>
+<div class="codehilite"><pre><span></span># django-polls/README.rst
+
+<span class="gh">=====</span>
+<span class="gh">Polls</span>
+<span class="gh">=====</span>
+
+Polls is a simple Django app to conduct Web-based polls. For each
+question, visitors can choose between a fixed number of answers.
+
+Detailed documentation is in the &quot;docs&quot; directory.
+
+<span class="gh">Quick start</span>
+<span class="gh">-----------</span>
+
+<span class="m">1.</span> Add &quot;polls&quot; to your INSTALLED_APPS setting like this::
+
+    INSTALLED_APPS = [
+<span class="cp">        ...</span>
+<span class="cp">        &#39;polls&#39;,</span>
+<span class="cp">    ]</span>
+
+<span class="m">2.</span> Include the polls URLconf in your project urls.py like this::
+
+    url(r&#39;^polls/&#39;, include(&#39;polls.urls&#39;)),
+
+<span class="m">3.</span> Run <span class="nv">`python manage.py migrate`</span> to create the polls models.
+
+<span class="m">4.</span> Start the development server and visit http://127.0.0.1:8000/admin/
+   to create a poll (you&#39;ll need the Admin app enabled).
+
+<span class="m">5.</span> Visit http://127.0.0.1:8000/polls/ to participate in the poll.
+</pre></div>
+
+
+<p>4.创建 <strong>django-polls/LICENSE</strong> 文件。选择许可证超出了本指南的范围，但可以说，没有许可证的公开发布的代码是 <em>没有用的</em>。Django 和许多 Django 兼容的应用程序是在 BSD 许可下发布的；然而，你可以自由选择你自己的许可证。只是要注意你的许可选择会影响到谁能使用你的代码。</p>
+<p>5.接下来我们将创建一个 <strong>setup.py</strong> 文件，这个文件提供了有关如何创建和安装应用的细节。对此文件的完整的解释已经超出了本文的范围，但 <a href="http://pythonhosted.org/setuptools/setuptools.html">setuptools docs</a> 文档对它有很棒的解释。创建包含以下内容的 <strong>django-polls/setup.py</strong> 文件：</p>
+<div class="codehilite"><pre><span></span><span class="c1"># django-polls/setup.py</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">find_packages</span><span class="p">,</span> <span class="n">setup</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;README.rst&#39;</span><span class="p">))</span> <span class="k">as</span> <span class="n">readme</span><span class="p">:</span>
+    <span class="n">README</span> <span class="o">=</span> <span class="n">readme</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="c1"># 使 setup.py 能在任何地方运行</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">)))</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;django-polls&#39;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s1">&#39;0.1&#39;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="n">find_packages</span><span class="p">(),</span>
+    <span class="n">include_package_data</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">license</span><span class="o">=</span><span class="s1">&#39;BSD License&#39;</span><span class="p">,</span>  <span class="c1"># example license</span>
+    <span class="n">description</span><span class="o">=</span><span class="s1">&#39;A simple Django app to conduct Web-based polls.&#39;</span><span class="p">,</span>
+    <span class="n">long_description</span><span class="o">=</span><span class="n">README</span><span class="p">,</span>
+    <span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://www.example.com/&#39;</span><span class="p">,</span>
+    <span class="n">author</span><span class="o">=</span><span class="s1">&#39;Your Name&#39;</span><span class="p">,</span>
+    <span class="n">author_email</span><span class="o">=</span><span class="s1">&#39;yourname@example.com&#39;</span><span class="p">,</span>
+    <span class="n">classifiers</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">&#39;Environment :: Web Environment&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Framework :: Django&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Framework :: Django :: X.Y&#39;</span><span class="p">,</span>  <span class="c1"># replace &quot;X.Y&quot; as appropriate</span>
+        <span class="s1">&#39;Intended Audience :: Developers&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;License :: OSI Approved :: BSD License&#39;</span><span class="p">,</span>  <span class="c1"># example license</span>
+        <span class="s1">&#39;Operating System :: OS Independent&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Programming Language :: Python&#39;</span><span class="p">,</span>
+        <span class="c1"># Replace these appropriately if you are stuck on Python 2.</span>
+        <span class="s1">&#39;Programming Language :: Python :: 3&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Programming Language :: Python :: 3.4&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Programming Language :: Python :: 3.5&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Topic :: Internet :: WWW/HTTP&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Topic :: Internet :: WWW/HTTP :: Dynamic Content&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>6.生成的打包文件中默认只包含 Python 模块和包。如果想包括额外的文件，我们需要创建一个 <strong>MANIFEST.in</strong> 文件。上一步骤中提到的 setuptools 文档里有更多的细节介绍。为了包含<strong>模板</strong>、我们的 <strong>README.rst</strong> 和 <strong>LICENSE</strong> 文件，请创建包含以下内容的 <strong>django-polls/MANIFEST.in</strong> 文件：</p>
+<div class="codehilite"><pre><span></span># django-polls/MANIFEST.in
+
+include LICENSE
+include README.rst
+recursive-include polls/static *
+recursive-include polls/templates *
+</pre></div>
+
+
+<p>7.这是可选步骤，但是我们建议完成这个步骤。将应用的详细的文档一起打包进去。为以后的文档创建一个空目录 <strong>django-polls/docs</strong>，在 <strong>django-polls/MANIFEST.in</strong> 里添加一行：</p>
+<div class="codehilite"><pre><span></span>recursive-include docs *
+</pre></div>
+
+
+<p>注意，如果 <strong>docs</strong> 目录里没有文件，那么它是不会被打包的。很多 Django 应用还通过托管网站，如 <a href="https://readthedocs.org">readthedocs.org</a>，提供在线文档。</p>
+<p>8.尝试通过 <strong>python setup.py sdist</strong> 命令进行打包（在 <strong>django/polls</strong> 目录里运行）。这将创建一个名为 <strong>dist</strong> 的目录，并在其中创建打包文件 <strong>django-polls-0.1.tar.gz</strong>。</p>
+<p>关于打包的更多信息，参见 Python 教程：<a href="https://packaging.python.org/distributing/">Tutorial on Packaging and Distributing Projects</a>。</p>
+<h2 id="_6">使用你的包</h2>
+<p>自从我们把 <strong>polls</strong> 目录从项目中移走了，它就不再工作了。我们现在通过安装新的 <strong>django/polls</strong> 包解决这个问题。</p>
+<blockquote>
+<p><strong>作为用户库安装</strong></p>
+<p>以下步骤将把 <strong>django/polls</strong> 安装为用户库。和全局安装相比，单用户安装有很多好处，比如可以在没有管理员权限的系统中使用，以及防止安装的包影响系统服务或机器上的其他用户。</p>
+<p>请注意，单用户安装仍然可能影响到其他用户的系统的工具，所以<strong>virtualenv</strong> 是一个更强大的解决方案（见后文）。</p>
+</blockquote>
+<p>1.要安装这个包，得用到pip（你已经安装的了吧，对吗？）</p>
+<div class="codehilite"><pre><span></span>pip install --user django-polls/dist/django-polls-0.1.tar.gz
+</pre></div>
+
+
+<p>2.如果幸运的话，你的 Django 项目现在应该可以正常工作了。再次运行服务器以确认。</p>
+<p>3.想卸载这个包，用pip。</p>
+<div class="codehilite"><pre><span></span>pip uninstall django-polls
+</pre></div>
+
+
+<h2 id="_7">发布你的应用</h2>
+<p>现在，我们已经打包并测试了 <strong>django-polls</strong>，并准备与所有人共享它！如果这不是一个示例的话，你现在可以：</p>
+<ul>
+<li>将这个包通过电子邮件发给朋友。</li>
+<li>将包上传到你自己的网站上。</li>
+<li>在公共库，如 <a href="https://pypi.python.org/pypi">Python 包索引（PyPI）</a>，上发布你的包。<a href="https://packaging.python.org">packaging.python.org</a> 上有<a href="https://packaging.python.org/distributing/#uploading-your-project-to-pypi">很棒的教程</a>。</li>
+</ul>
+<h2 id="virtualenv-python">用 virtualenv 安装 Python 包</h2>
+<p>之前，我们将投票应用程序安装为用户库。这有一些缺点：
+- 修改用户库可能影响你系统中的其他 Python 软件。
+- 你将无法同时使用这个包的多个版本（或相同名字的其他包）。</p>
+<p>通常，这些情况仅出现在你同时管理 多个 Django 项目时。当出现这种情况时，最好的办法是使用 <a href="https://virtualenv.pypa.io">virtualenv</a>。这个工具允许你维护多个分离的 Python 环境，每一个复制了一份自己专用的库和包命名空间（package namespace）。</p>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../whats_next/" title="下一步我该干什么" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                下一步我该干什么
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../patch/" title="为 Django 贡献代码" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                为 Django 贡献代码
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org" title="MkDocs">MkDocs</a>
+        and
+        <a href="http://squidfunk.github.io/mkdocs-material/" title="Material for MkDocs">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/application-6940329b9f.js"></script>
+      
+      
+      <script>app.initialize({url:{base:".."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>
