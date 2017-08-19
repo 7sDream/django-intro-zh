@@ -25,3 +25,6 @@ pages:
     - '为 Django 贡献代码': patch.md
 
 theme: material
+
+markdown_extensions:
+  - codehilite
