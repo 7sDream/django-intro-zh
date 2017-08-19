@@ -91,7 +91,7 @@ True
 
 在 **polls** 应用的 **tests.py** 文件里输入以下代码：
 
-```python3
+```python
 # polls/tests.py
 
 import datetime
@@ -159,7 +159,7 @@ Destroying test database for alias 'default'...
 
 我们现在知道了，问题出在当 **pub_date** 为将来时， **Question.was_published_recently()** 应该返回 **False**。我们去修改 models.py 里的方法，让它只在日期是过去的时候才返回 **True**：
 
-```python3
+```python
 # polls/model.py
 
 def was_published_recently(self):
@@ -190,7 +190,7 @@ Destroying test database for alias 'default'...
 
 我们在上次写的类里再增加两个测试，来更全面的测试这个方法：
 
-```python3
+```python
 # polls/tests.py
 
 def test_was_published_recently_with_old_question(self):
@@ -278,7 +278,7 @@ b'\n    <ul>\n    \n        <li><a href="/polls/1/">What&#39;s up?</a></li>\n   
 
 在教程的 [第四部分（zh）](part4.md)里，我们介绍了基于 [**ListView**][ListView] 的视图类：
 
-```python3
+```python
 # polls/views.py
 
 class IndexView(generic.ListView):
@@ -292,7 +292,7 @@ class IndexView(generic.ListView):
 
 我们需要改进 **get_queryset()** 方法，让他它能通过将 Question 的 pub_data 属性与 **timezone.now()** 相比较来判断是否应该显示此 Question。首先我们需要一行 import 语句：
 
-```python3
+```python
 # polls/views.py
 
 from django.utils import timezone
@@ -300,7 +300,7 @@ from django.utils import timezone
 
 然后我们把 **get_queryset** 方法改写成下面这样：
 
-```python3
+```python
 # polls/views.py
 
 def get_queryset(self):
@@ -318,7 +318,7 @@ def get_queryset(self):
 
 在 **polls/tests.py** 里加入一句 import
 
-```python3
+```python
 # polls/tests.py
 
 from django.urls import reverse
@@ -326,7 +326,7 @@ from django.urls import reverse
 
 然后我们写一个公用的快捷函数用于创建投票问题，再为视图创建一个测试类：
 
-```python3
+```python
 # polls/test.py
 
 def create_question(question_text, days):
@@ -409,7 +409,7 @@ class QuestionIndexViewTests(TestCase):
 
 我们的工作似乎已经很完美了？不，还有一个问题：就算在将来发布的那些投票不会在目录页里出现，但是用户还是能够通过猜测 URL 的方式访问到他们。所以我们得在 DetailView 里增加一些约束：
 
-```python3
+```python
 # polls/views.py
 
 class DetailView(generic.DetailView):
@@ -423,7 +423,7 @@ class DetailView(generic.DetailView):
 
 当然，我们还要增加一些测试，用于确认过去的 **问题（Question ）**能被用户访问，而将来的则不能：
 
-```python3
+```python
 # polls/tests.py
 
 class QuestionDetailViewTests(TestCase):

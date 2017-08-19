@@ -8,7 +8,7 @@
 
 来看看如何改变表单中字段的顺序。把 **admin.site.register(Question)** 替换成下面的代码：
 
-```python3
+```python
 # polls/admin.py
 
 from django.contrib import admin
@@ -32,7 +32,7 @@ admin.site.register(Question, QuestionAdmin)
 
 如果真的有十几个字段的话，你可能想将它们分组，也即分为多个字段集（fieldsets）：
 
-```python3
+```python
 # polls/admin.py
 
 from django.contrib import admin
@@ -61,7 +61,7 @@ admin.site.register(Question, QuestionAdmin)
 
 有两个方法来解决这个问题。第一种是像注册 **问题（Question）** 一样去注册 **选项（Choices）**。这很简单：
 
-```python3
+```python
 # polls/admin.py
 
 from django.contrib import admin
@@ -83,7 +83,7 @@ admin.site.register(Choice)
 
 删掉 **选项（Choices）** 模型的 **register()** 语句，然后编辑 **问题（Question）** 的注册代码：
 
-```python3
+```python
 # polls/admin.py
 
 from django.contrib import admin
@@ -120,7 +120,7 @@ admin.site.register(Question, QuestionAdmin)
 
 还有个小问题。显示所有的相关的选项（Choices）单元实在是太占屏幕空间了。由于这个原因，Django 提供了表格式的视图；你只需要改一下 **ChoiceInline** 的定义就行了：
 
-```python3
+```python
 # polls/admin.py
 
 class ChoiceInline(admin.TabularInline):
@@ -143,7 +143,7 @@ class ChoiceInline(admin.TabularInline):
 
 默认情况下，Django 使用 **str()** 方法来显示对象。但有时如果我们显示一些其他的字段会很有用。为此，我们可以使用 [**list_display**][list_display] 选项，它是由需要被显示的字段名组成的元组，这些字段将会作为额外的列显示在列表中。
 
-```python3
+```python
 # polls/admin.py
 
 class QuestionAdmin(admin.ModelAdmin):
@@ -153,7 +153,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 为了方便检索，我们把在 [教程第二部分（zh）](part2.md)中自定义的 **was_published_recently** 方法也加入进来：
 
-```python3
+```python
 # polls/admin.py
 
 class QuestionAdmin(admin.ModelAdmin):
@@ -169,7 +169,7 @@ class QuestionAdmin(admin.ModelAdmin):
 
 你能够通过给方法（在 **polls/models.py** 里）增加属性来扩展功能，看下面的示例：
 
-```python3
+```python
 # polls/models.py
 
 class Question(models.Model):
@@ -186,7 +186,7 @@ class Question(models.Model):
 
 再次编辑 **polls/admin.py** 文件。我们要为问题（Question）的对象列表增加一个新功能：通过 [**list_filter**][list_filter] 过滤对象。向 **QuestionAdmin** 中添加以下内容：
 
-```python3
+```python
 list_filter = ['pub_date']
 ```
 
@@ -196,7 +196,7 @@ list_filter = ['pub_date']
 
 这个功能搞定了，让我们加一些搜索功能：
 
-```python3
+```python
 search_fields = ['question_text']
 ```
 
@@ -216,7 +216,7 @@ search_fields = ['question_text']
 
 打开设置文件（记住，是 **mysite/settings.py**），向 [**TEMPLATES**][TEMPLATES] 设置中添加 [**DIRS**][DIRS] 选项：
 
-```python3
+```python
 # mysite/settings.py
 
 TEMPLATES = [

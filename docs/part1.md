@@ -163,7 +163,7 @@ polls/
 
 创建并打开 **polls/views.py**，然后写进 Python 代码： 
 
-```python3
+```python
 # polls/views.py
 from django.http import HttpResponse
 
@@ -190,7 +190,7 @@ polls/
 
 **polls/urls.py** 文件里包含以下代码：
 
-```python3
+```python
 # polls/urls.py
 from django.conf.urls import url
 
@@ -203,7 +203,7 @@ urlpatterns = [
 
 下一步就是将根目录下的 URLconf 指向 **polls.urls** 模块。在 **mysite/urls.py** 中导入 **django.conf.urls.include**，并且在 **urlpatterns** 列表中插入 [**include()**][include]，像下面这样：
 
-```python3
+```python
 # mysite/urls.py
 from django.conf.urls import include, url
 from django.contrib import admin

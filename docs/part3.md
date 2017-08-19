@@ -36,7 +36,7 @@ Django 中的视图的概念是「一类具有相同功能和模板的网页的�
 
 现在让我们添加更多的视图进 **polls/view.py**，这些视图都有点不一样，因为它们都接受一个参数：
 
-```python3
+```python
 # polls/views.py
 
 def detail(request, question_id):
@@ -52,7 +52,7 @@ def vote(request, question_id):
 
 要把这些新视图添加进 **polls.urls** 模块里，只需添加几个 **url()** 函数调用：
 
-```python3
+```python
 # polls/urls.py
 
 from django.conf.urls import url
@@ -76,7 +76,7 @@ urlpatterns = [
  当某人请求你网站的某一页面时——比如说，“/polls/34/”，Django 将会载入 **mysite.urls** 模块，因为配置项 [**ROOT_URLCONF**][ROOT_URLCONF] 说要载入它。然后 Django 寻找名为 **urlpatterns** 变量并且按序遍历正则表达式。Django 找到匹配的正则表达式 **'^polls/'** 
 然后 Django 将会去除被匹配的部分（**polls/**）,然后发送剩下的文本 —— **“34/”** —— 给 “polls.urls” 这个 URLconf 做进一步处理。然后找到匹配的正则表达式 **r'^(?P<question_id>[0-9]+)/$'**，随后用以下方式调用 **detail()** 函数：
 
-```python3
+```python
 detail(request=<HttpRequest object>, question_id='34')
 ```
 
@@ -146,7 +146,7 @@ def index(request):
 
 为了使用这个模版，让我们更新一下在 **polls/views.py** 里的 **index** 视图：
 
-```python3
+```python
 # polls/views.py
 
 from django.http import HttpResponse
@@ -172,7 +172,7 @@ def index(request):
 
 「载入模板，填充上下文，再返回由它生成的 HttpResponse 对象」是一个如此常用的操作流程。于是 Django 提供了一个快捷函数，我们用它来重写 **index()** 视图：
 
-```python3
+```python
 # polls/views.py
 
 from django.shortcuts import render
@@ -194,7 +194,7 @@ def index(request):
 
 现在，让我们来处理下投票详情视图 —— 它会显示指定投票的问题标题。下面是这个视图的代码：
 
-```python3
+```python
 # polls/views.py
 
 from django.http import Http404
@@ -226,7 +226,7 @@ def detail(request, question_id):
 
  「用 [**get()**][get] 函数获取对象，抛出 [**Http404**][Http404]错误」也是一个常用流程。Django 也提供了一个快捷函数，下面是重写的 **detail()** 视图：
 
-```python3
+```python
 # polls/views.py
 
 from django.shortcuts import get_object_or_404, render
@@ -286,7 +286,7 @@ def detail(request, question_id):
 
 这个标签的工作方式是在 **polls.urls** 模块的 URL 定义中寻具有指定名字的条目。你可以回忆一下，具有名字 “detail” 的 URL 是这样被定义的：
 
-```python3
+```python
 ...
 # name 变量被 {% url %} 标签调用
 url(r'^(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
@@ -295,7 +295,7 @@ url(r'^(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
 
 如果你想改变投票详情视图的 URL，比如想改成 **polls/specifics/12/**，你不用在模板里修改任何东西，只要在 **polls/urls.py** 里稍微修改一下就行：
 
-```python3
+```python
 ...
 # 增加 specifics
 url(r'^specifics/(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
@@ -308,7 +308,7 @@ url(r'^specifics/(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
 
 答案是：在 URLconf 中添加命名空间。在 **polls/urls.py** 文件中添加 **app_name** 变量作为应用的命名空间：
 
-```python3
+```python
 # polls/urls.py
 
 from django.conf.urls import url

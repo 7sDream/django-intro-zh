@@ -66,7 +66,7 @@ $ python manage.py migrate
 
 这些概念可以通过一个简单的 Python 类来表示。像下面那样编辑 **polls/models.py** 文件：
 
-```python3
+```python
 # polls/models.py
 
 from django.db import models
@@ -110,7 +110,7 @@ class Choice(models.Model):
 
 要在项目中包含应用，我们需要在 **INSTALLED_APPS** 设置里添加这个应用的设置类。这个设置类 **PollsConfig** 在 **polls/apps.py** 文件里，它的点分路径是 **'polls.apps.PollsConfig'**。编辑 **mysite/settings.py**，然后在 **INSTALLED_APPS** 设置里添加这个点分路径，使其包含字符串 **polls**。看起来应该像这样：
 
-```python3
+```python
 # mysite/settings.py
 INSTALLED_APPS = [
     'polls.apps.PollsConfig',
@@ -288,7 +288,7 @@ datetime.datetime(2012, 2, 26, 13, 0, 0, 775217, tzinfo=<UTC>)
 
 等等。用 \<Question: Question object\> 表示这个对象没什么帮助信息，它无法告诉我们这个对象的详细信息。让我们通过编辑 **Question** 模型的代码（**polls/models.py** 文件），给 **Question** 和 **Choice** 增加 **\_\_str\_\_()** 方法来改善这个问题：
 
-```python3
+```python
 # polls/models.py
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible、
@@ -310,7 +310,7 @@ class Choice(models.Model):
 
 注意这些只是 Python 的普通方法。我们可以向模型里添加自定义方法，示范：
 
-```python3
+```python
 # polls/models.py
 
 import datetime
@@ -477,7 +477,7 @@ $ python manage.py runserver
 
 只需要做一件事：我们得告诉管理页面，**Question** 对象需要被管理。打开 **polls/admin.py** 文件，把它编辑成下面这样：
 
-```python3
+```python
 # polls/admin.py
 
 from django.contrib import admin

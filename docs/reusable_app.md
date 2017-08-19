@@ -121,7 +121,7 @@ Quick start
 
 5.接下来我们将创建一个 **setup.py** 文件，这个文件提供了有关如何创建和安装应用的细节。对此文件的完整的解释已经超出了本文的范围，但 [setuptools docs](http://pythonhosted.org/setuptools/setuptools.html) 文档对它有很棒的解释。创建包含以下内容的 **django-polls/setup.py** 文件：
 
-```python3
+```python
 # django-polls/setup.py
 
 import os

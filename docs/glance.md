@@ -10,7 +10,7 @@ Django 无需数据库就可以使用，它提供了[对象关系映射器（ORM
 
 [数据模型语法](https://docs.djangoproject.com/en/1.11/topics/db/models/)提供了很多方法来描述你的数据，这解决了多年来在数据库模式中的难题。以下是一个简明的例子：
 
-```python3
+```python
 # mysite/news/models.py
 
 from django.db import models
@@ -131,7 +131,7 @@ class Article(models.Model):
     reporter = models.ForeignKey(Reporter, on_delete=models.CASCADE)
 ```
 
-```python3
+```python
 # mysite/news/admin.py
 
 from django.contrib import admin
@@ -153,7 +153,7 @@ admin.site.register(models.Article)
 
 下面这个 URLconf 适用于前面 **Reporter/Article** 的例子：
 
-```python3
+```python
 # mysite/news/urls.py
 
 from django.conf.urls import url
@@ -179,7 +179,7 @@ urlpatterns = [
 
 通常来说，一个视图的工作就是：从参数获取数据，加载模板，然后模板进行带数据的渲染。下面是一个 **year_archive** 的视图例子：
 
-```python3
+```python
 # mysite/news/views.py
 
 from django.shortcuts import render

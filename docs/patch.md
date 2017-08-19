@@ -218,7 +218,7 @@ correct form.
 
 切换到 Django 的 **tests/forms_tests/tests/** 文件夹里，打开 **test_forms.py** 文件。在第 1674 行 **test_forms_with_null_boolean** 函数之前添加以下代码：
 
-```python3
+```python
 # tests/forms_tests/tests/test_forms.py
 
 def test_class_prefix(self):
@@ -261,7 +261,7 @@ $ ./runtests.py forms_tests
 
 切换到 **django/django/forms/** 文件夹里，然后打开 **forms.py**。在第 72 行找到 **BaseForm** 类，然后在 **field_order** 属性之后添加 **前缀（prefix）** 类属性：
 
-```python3
+```python
 class BaseForm(object):
     # This is the main implementation of all the Form logic. Note that this
     # class is different than Form. See the comments by the Form class for
@@ -287,7 +287,7 @@ AssertionError: None != 'foo'
 
 我们忘记在 **__init__()** 方法里添加条件语句了。在 **django/forms/forms.py** 现在的第  87 行修改 **self.prefix = prefix**，添加一个条件语句：
 
-```python3
+```python
 if prefix is not None:
     self.prefix = prefix
 ```
