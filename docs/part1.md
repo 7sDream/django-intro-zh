@@ -224,7 +224,7 @@ urlpatterns = [
 
 > **不符合你所想看到的？**
 >
-> 如果你看到的是 **include(admin.iste.urls)** 而不是 **admin.site.urls**，可能是你正在使用的 Django 版本和本教程的目标版本（1.11）不一致。那你就需要切换到旧版本的教程或者是安装较新的 Django。
+> 如果你看到的是 **include(admin.site.urls)** 而不是 **admin.site.urls**，可能是你正在使用的 Django 版本和本教程的目标版本（1.11）不一致。那你就需要切换到旧版本的教程或者是安装较新的 Django。
 
 现在你已经将 **index** 视图和 URLconf 连接在一起了。让我们验证下是不是生效了，运行以下命令：
 
