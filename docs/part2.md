@@ -229,21 +229,6 @@ $ python manage.py shell
 
 我们使用这个命令而不是简单的使用 “Python” 是因为 **manage.py** 会设置 **DJANGO_SETTINGS_MODULE** 环境变量，这个变量会让 Django 根据 **mysite/settings.py** 文件来设置 Python 包的导入路径。
 
-> **我就是不想用 manage.py**
->
-> 如果你不想使用 **manage.py** ，没问题，你只要手动将 [**DJANGO_SETTINGS_MODULE**][DJANGO_SETTINGS_MODULE] 环境变量设置为 **mysite.settings** 就行。打开一个普通的 Python 命令行，然后输入以下命令来配置 Django：
->
-```pycon
->>> import django
->>> django.setup()
-```
->
-> 如果抛出 [**AttributeError**](https://docs.python.org/3/library/exceptions.html#AttributeError) 错误，说明你使用的 Django 版本可能和本教程不一致。你可以切换到旧版本的教程或者把 Django 升级至最新版本。
->
-> 你必须在 **manage.py** 所在目录中运行 **python** 命令，或者确保这个目录在 Python path 里，因为只有这样 import mysite 才能被正确的执行。
->
-> 阅读 [Django-admin 文档][django-admin] 获取更多信息。
-
 当你成功进入命令行后，来试试 [数据库 API][queries] 吧：
 
 ```pycon
@@ -407,7 +392,7 @@ True
 >>> c.delete()
 ```
 
-阅读 [Accessing related objects](https://docs.djangoproject.com/en/1.11/ref/models/relations/) 文档可以获取关于数据库关系的更多内容。想知道关于双下划线的更多用法，参见 [Field Lookup][field-lookups-intro] 文档。数据库 API 的所有细节可以在 [数据库 API 参考][queries] 文档中找到。
+阅读 [Accessing related objects](https://docs.djangoproject.com/en/2.0/ref/models/relations/) 文档可以获取关于数据库关系的更多内容。想知道关于双下划线的更多用法，参见 [Field Lookup][field-lookups-intro] 文档。数据库 API 的所有细节可以在 [数据库 API 参考][queries] 文档中找到。
 
 ## 介绍下 Django 的管理站点
 
@@ -523,38 +508,38 @@ admin.site.register(Question)
 当你明白了模型的 API 和熟悉了你自己的管理站点后，你就可以开始阅读 [教程第三部分（zh）](part3.md) ，学习如何在投票应用中添加更多的视图。
 
 
-[utils.timezone]: https://docs.djangoproject.com/en/1.11/ref/utils/#module-django.utils.timezone
-[max_length]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.CharField.max_length
-[ForeignKey]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.ForeignKey
-[Model]:https://docs.djangoproject.com/en/1.11/ref/models/instances/#django.db.models.Model
-[django-admin]: https://docs.djangoproject.com/en/1.11/ref/django-admin/
-[DJANGO_SETTINGS_MODULE]: https://docs.djangoproject.com/en/1.11/topics/settings/#envvar-DJANGO_SETTINGS_MODULE
-[sqlmigrate]: https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-sqlmigrate
-[timezones]: https://docs.djangoproject.com/en/1.11/topics/i18n/timezones/
-[field-lookups-intro]: https://docs.djangoproject.com/en/1.11/topics/db/queries/#field-lookups-intro
-[django-admin-check]: https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-check
-[admin]: https://docs.djangoproject.com/en/1.11/ref/contrib/admin/#module-django.contrib.admin
-[third-party-notes]: https://docs.djangoproject.com/en/1.11/ref/databases/#third-party-notes
-[database-installation]: https://docs.djangoproject.com/en/1.11/topics/install/#database-installation
-[queries]: https://docs.djangoproject.com/en/1.11/topics/db/queries/
-[auth]: https://docs.djangoproject.com/en/1.11/topics/auth/#module-django.contrib.auth
-[the-test-database]: https://docs.djangoproject.com/en/1.11/topics/testing/overview/#the-test-database
-[TIME_ZONE]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TIME_ZONE
-[USER]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-USER
-[PASSWORD]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-PASSWORD
-[HOST]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-HOST
-[NAME]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-NAME
-[DATABASES]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASES
-[INSTALLED_APPS]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS
-[migrate]: https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate
-[Field]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field
-[CharField]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.CharField
-[DateTimeField]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.DateTimeField
-[default]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.Field.default
-[ENGINE]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-DATABASE-ENGINE
-[translation]: https://docs.djangoproject.com/en/1.11/topics/i18n/translation/
-[contenttypes]: https://docs.djangoproject.com/en/1.11/ref/contrib/contenttypes/#module-django.contrib.contenttypes
-[sessions]: https://docs.djangoproject.com/en/1.11/topics/http/sessions/#module-django.contrib.sessions
-[messages]: https://docs.djangoproject.com/en/1.11/ref/contrib/messages/#module-django.contrib.messages
-[staticfiles]: https://docs.djangoproject.com/en/1.11/ref/contrib/staticfiles/#module-django.contrib.staticfiles
-[dry]: https://docs.djangoproject.com/en/1.11/misc/design-philosophies/#dry
+[utils.timezone]: https://docs.djangoproject.com/en/2.0/ref/utils/#module-django.utils.timezone
+[max_length]: https://docs.djangoproject.com/en/2.0/ref/models/fields/#django.db.models.CharField.max_length
+[ForeignKey]: https://docs.djangoproject.com/en/2.0/ref/models/fields/#django.db.models.ForeignKey
+[Model]:https://docs.djangoproject.com/en/2.0/ref/models/instances/#django.db.models.Model
+[django-admin]: https://docs.djangoproject.com/en/2.0/ref/django-admin/
+[DJANGO_SETTINGS_MODULE]: https://docs.djangoproject.com/en/2.0/topics/settings/#envvar-DJANGO_SETTINGS_MODULE
+[sqlmigrate]: https://docs.djangoproject.com/en/2.0/ref/django-admin/#django-admin-sqlmigrate
+[timezones]: https://docs.djangoproject.com/en/2.0/topics/i18n/timezones/
+[field-lookups-intro]: https://docs.djangoproject.com/en/2.0/topics/db/queries/#field-lookups-intro
+[django-admin-check]: https://docs.djangoproject.com/en/2.0/ref/django-admin/#django-admin-check
+[admin]: https://docs.djangoproject.com/en/2.0/ref/contrib/admin/#module-django.contrib.admin
+[third-party-notes]: https://docs.djangoproject.com/en/2.0/ref/databases/#third-party-notes
+[database-installation]: https://docs.djangoproject.com/en/2.0/topics/install/#database-installation
+[queries]: https://docs.djangoproject.com/en/2.0/topics/db/queries/
+[auth]: https://docs.djangoproject.com/en/2.0/topics/auth/#module-django.contrib.auth
+[the-test-database]: https://docs.djangoproject.com/en/2.0/topics/testing/overview/#the-test-database
+[TIME_ZONE]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-TIME_ZONE
+[USER]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-USER
+[PASSWORD]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-PASSWORD
+[HOST]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-HOST
+[NAME]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-NAME
+[DATABASES]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-DATABASES
+[INSTALLED_APPS]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-INSTALLED_APPS
+[migrate]: https://docs.djangoproject.com/en/2.0/ref/django-admin/#django-admin-migrate
+[Field]: https://docs.djangoproject.com/en/2.0/ref/models/fields/#django.db.models.Field
+[CharField]: https://docs.djangoproject.com/en/2.0/ref/models/fields/#django.db.models.CharField
+[DateTimeField]: https://docs.djangoproject.com/en/2.0/ref/models/fields/#django.db.models.DateTimeField
+[default]: https://docs.djangoproject.com/en/2.0/ref/models/fields/#django.db.models.Field.default
+[ENGINE]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-DATABASE-ENGINE
+[translation]: https://docs.djangoproject.com/en/2.0/topics/i18n/translation/
+[contenttypes]: https://docs.djangoproject.com/en/2.0/ref/contrib/contenttypes/#module-django.contrib.contenttypes
+[sessions]: https://docs.djangoproject.com/en/2.0/topics/http/sessions/#module-django.contrib.sessions
+[messages]: https://docs.djangoproject.com/en/2.0/ref/contrib/messages/#module-django.contrib.messages
+[staticfiles]: https://docs.djangoproject.com/en/2.0/ref/contrib/staticfiles/#module-django.contrib.staticfiles
+[dry]: https://docs.djangoproject.com/en/2.0/misc/design-philosophies/#dry

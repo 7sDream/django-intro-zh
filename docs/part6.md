@@ -69,10 +69,10 @@ body {
 如果你明白静态文件，来阅读 [教程第七部分（zh）](part7.md) 学习如何自定义 Django 自动生成的管理站点吧！
 
 
-[STATICFILES_FINDERS]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-STATICFILES_FINDERS
-[INSTALLED_APPS]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS
-[static]: https://docs.djangoproject.com/en/1.11/ref/templates/builtins/#std:templatetag-static
-[STATIC_URL]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-STATIC_URL
-[static-files]: https://docs.djangoproject.com/en/1.11/howto/static-files/
-[staticfiles]: https://docs.djangoproject.com/en/1.11/ref/contrib/staticfiles/
-[deployment]: https://docs.djangoproject.com/en/1.11/howto/static-files/deployment/
+[STATICFILES_FINDERS]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-STATICFILES_FINDERS
+[INSTALLED_APPS]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-INSTALLED_APPS
+[static]: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#std:templatetag-static
+[STATIC_URL]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-STATIC_URL
+[static-files]: https://docs.djangoproject.com/en/2.0/howto/static-files/
+[staticfiles]: https://docs.djangoproject.com/en/2.0/ref/contrib/staticfiles/
+[deployment]: https://docs.djangoproject.com/en/2.0/howto/static-files/deployment/

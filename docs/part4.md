@@ -6,7 +6,7 @@
 
 ## 编写一个简单的表单
 
-让我们更新一下在上一个教程中编写的投票详细页面的模板（“polls/detail.html”），让它包含一个 HTML  &lt;**form**>元素：
+让我们更新一下在上一个教程中编写的投票详细页面的模板（“polls/detail.html”），让它包含一个 HTML **\<form\>**元素：
 
 
 
@@ -41,7 +41,7 @@
 ``` python3
 # polls/urls.py
 
-url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
+path('<int:question_id>/vote/', views.vote, name='vote'),
 ```
 
 我们还创建了一个 **vote()** 函数的虚拟实现。让我们来创建一个真实的版本。 将下面的代码添加到 **polls/views.py**：
@@ -75,19 +75,21 @@ def vote(request, question_id):
 以上代码中有些内容还未在本教程中提到过：
 
 - [**request.POST**][POST] 是一个类字典对象，让你可以通过关键字的名字获取提交的数据。 这个例子中，**request.POST['choice']** 以字符串形式返回选择的 Choice 的 ID。[**request.POST**][POST] 的值永远是字符串。
-注意，Django 还以同样的方式提供 [**request.GET**][GET] 用于访问 GET 数据 —— 但我们在代码中显式地使用 [**request.POST**][POST] ，以保证数据只能通过POST调用改动。
-  
+
+    注意，Django 还以同样的方式提供 [**request.GET**][GET] 用于访问 GET 数据 —— 但我们在代码中显式地使用 [**request.POST**][POST] ，以保证数据只能通过POST调用改动。
+
 - 如果在 POST 数据中没有提供 **choice**，**request.POST['choice']** 将引发一个 [**KeyError**][KeyError]。上面的代码检查 [**KeyError**][KeyError]，如果没有给出 **choice** 将重新显示Question表单和一个错误信息。
-  
+
 - 在增加Choice的得票数之后，代码返回一个 [**HttpResponseRedirect**][HttpResponseRedirect] 而不是常用的 [**HttpResponse**][HttpResponse]。[**HttpResponseRedirect**][HttpResponseRedirect] 只接收一个参数：用户将要被重定向的 URL（请继续看下去，我们将会解释如何构造这个例子中的 URL）。
-正如上面的Python注释指出的，你应该在成功处理 POST 数据后总是返回一个 [**HttpResponseRedirect**][HttpResponseRedirect]。 这不是 Django 的特定技巧；这是那些优秀网站在开发实践中形成的共识。
-  
+
+    正如上面的Python注释指出的，你应该在成功处理 POST 数据后总是返回一个 [**HttpResponseRedirect**][HttpResponseRedirect]。 这不是 Django 的特定技巧；这是那些优秀网站在开发实践中形成的共识。
+
 - 在这个例子中，我们在 [**HttpResponseRedirect**][HttpResponseRedirect] 的构造函数中使用 [**reverse()**][reverse] 函数。这个函数避免了我们在视图函数中硬编码 URL。它需要我们给出我们想要跳转的视图的名字和该视图所对应的URL模式中需要给该视图提供的参数。 在本例中，使用在 [第三部分（zh）](part3.md)中设定的URLconf， [**reverse()**][reverse] 调用将返回一个这样的字符串：
-  
+
   ```
   '/polls/3/results/'
   ```
-  
+
   其中 **3** 是 **question.id** 的值。重定向的 URL 将调用 **'results'** 视图来显示最终的页面。
 
 正如在 [第三部分（zh）](part3.md)中提到的，**request** 是一个 [**HttpRequest**][HttpRequest] 对象。更多关于 [**HttpRequest**][HttpRequest] 对象的内容，请参见 [*请求和响应的文档*][request-response]。
@@ -147,9 +149,9 @@ def results(request, question_id):
 请继续阅读来了解详细信息。
 
 > **为什么要重构代码？**
-> 
+>
 > 一般来说，当编写一个 Django 应用时，你应该先评估一下通用视图是否可以解决你的问题，你应该在一开始使用它，而不是进行到一半时重构代码。本教程目前为止是有意将重点放在以“艰难的方式”编写视图，这是为将重点放在核心概念上。
-> 
+>
 > 就像在使用计算器之前你需要知道基本的数学一样。
 
 ### **改良 URLconf**
@@ -159,20 +161,20 @@ def results(request, question_id):
 ``` python3
 # polls/urls.py
 
-from django.conf.urls import url
+from django.urls import path
 
 from . import views
 
 app_name = 'polls'
 urlpatterns = [
-    url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
-    url(r'^(?P<pk>[0-9]+)/results/$', views.ResultsView.as_view(), name='results'),
-    url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
+    path('', views.IndexView.as_view(), name='index'),
+    path('<int:pk>/', views.DetailView.as_view(), name='detail'),
+    path('<int:pk>/results/', views.ResultsView.as_view(), name='results'),
+    path('<int:question_id>/vote/', views.vote, name='vote'),
 ]
 ```
 
-注意在第二个和第三个模式的正则表达式中，匹配的模式的名字由 **&lt;question_id>**  变成 **&lt;pk>**。
+注意在第二个和第三个模式中，匹配的模式的名字由 **\<question_id\>**  变成 **\<pk\>**。
 
 ### **改良视图**
 
@@ -225,21 +227,21 @@ def vote(request, question_id):
 
 启动服务器，使用一下基于通用视图的新投票应用。
 
-更多关于通用视图的详细信息，请查看 [通用视图的文档](https://docs.djangoproject.com/en/1.11/topics/class-based-views/)。
+更多关于通用视图的详细信息，请查看 [通用视图的文档](https://docs.djangoproject.com/en/2.0/topics/class-based-views/)。
 
 当你明白了这些表单和通用视图后，可以继续阅读 [教程第五部分（zh）](part5.md) 来了解如何测试我们的投票应用。
 
 
-[request-response]: https://docs.djangoproject.com/en/1.11/ref/request-response/
-[for]: https://docs.djangoproject.com/en/1.11/ref/templates/builtins/#std:templatetag-for
-[csrf_token]: https://docs.djangoproject.com/en/1.11/ref/templates/builtins/#std:templatetag-csrf_token
-[POST]: https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpRequest.POST
-[GET]: https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpRequest.GET
+[request-response]: https://docs.djangoproject.com/en/2.0/ref/request-response/
+[for]: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#std:templatetag-for
+[csrf_token]: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#std:templatetag-csrf_token
+[POST]: https://docs.djangoproject.com/en/2.0/ref/request-response/#django.http.HttpRequest.POST
+[GET]: https://docs.djangoproject.com/en/2.0/ref/request-response/#django.http.HttpRequest.GET
 [KeyError]: https://docs.python.org/3/library/exceptions.html#KeyError
-[HttpResponseRedirect]: https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpResponseRedirect
-[HttpResponse]: https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpResponse
-[HttpRequest]: https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpRequest
-[reverse]: https://docs.djangoproject.com/en/1.11/ref/urlresolvers/#django.urls.reverse
-[ListView]: https://docs.djangoproject.com/en/1.11/ref/class-based-views/generic-display/#django.views.generic.list.ListView
-[DetailView]: https://docs.djangoproject.com/en/1.11/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView
-[avoiding-race-conditions-using-f]: https://docs.djangoproject.com/en/1.11/ref/models/expressions/#avoiding-race-conditions-using-f
+[HttpResponseRedirect]: https://docs.djangoproject.com/en/2.0/ref/request-response/#django.http.HttpResponseRedirect
+[HttpResponse]: https://docs.djangoproject.com/en/2.0/ref/request-response/#django.http.HttpResponse
+[HttpRequest]: https://docs.djangoproject.com/en/2.0/ref/request-response/#django.http.HttpRequest
+[reverse]: https://docs.djangoproject.com/en/2.0/ref/urlresolvers/#django.urls.reverse
+[ListView]: https://docs.djangoproject.com/en/2.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView
+[DetailView]: https://docs.djangoproject.com/en/2.0/ref/class-based-views/generic-display/#django.views.generic.detail.DetailView
+[avoiding-race-conditions-using-f]: https://docs.djangoproject.com/en/2.0/ref/models/expressions/#avoiding-race-conditions-using-f

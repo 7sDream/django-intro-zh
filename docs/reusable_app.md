@@ -65,7 +65,7 @@ mysite/
 
 ## 安装一些必备工具
 
-Python 打包的解决方案目前有点混乱，因为有各种不同的工具。在本教程中，我们将使用 [setuptools](https://pypi.python.org/pypi/setuptools) 建立我们的包。这是推荐的打包工具（与**distribute**分支合并后）。可是使用 pip 来安装和卸载它。你现在应该安装这两个软件包。如果需要帮助，你可以参考[如何使用 pip 安装 Django](https://docs.djangoproject.com/en/1.11/topics/install/#installing-official-release)。您可以用相同的方式安装 **setuptools**。
+Python 打包的解决方案目前有点混乱，因为有各种不同的工具。在本教程中，我们将使用 [setuptools](https://pypi.python.org/pypi/setuptools) 建立我们的包。这是推荐的打包工具（与**distribute**分支合并后）。可是使用 pip 来安装和卸载它。你现在应该安装这两个软件包。如果需要帮助，你可以参考[如何使用 pip 安装 Django](https://docs.djangoproject.com/en/2.0/topics/install/#installing-official-release)。您可以用相同的方式安装 **setuptools**。
 
 ## 打包你的应用
 
@@ -77,7 +77,7 @@ Python 的 *打包* 是指将你的应用制作成特定的格式，以便能被
 >
 > 当为你的包选择名称时，记得检查 PyPI 上的内容以避免与现有的包产生冲突。以 **django-** 作为模块名称前缀是很实用的，这将有助于想寻找 Django 应用的人来识别哪些包是用于 Django 的。
 >
-> 应用标签（即，以点分隔的模块路径的最后一部分）*必须* 在 [**INSTALLED_APPS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS) 里是独一无二的。避免和 Django [contrib package](https://docs.djangoproject.com/en/1.11/ref/contrib/) 使用相同的标签，例如 **auth**，**admin**，或 **message**。
+> 应用标签（即，以点分隔的模块路径的最后一部分）*必须* 在 [**INSTALLED_APPS**](https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-INSTALLED_APPS) 里是独一无二的。避免和 Django [contrib package](https://docs.djangoproject.com/en/2.0/ref/contrib/) 使用相同的标签，例如 **auth**，**admin**，或 **message**。
 
 2.移动 **polls** 目录到 **django-polls**目录下
 
@@ -152,10 +152,8 @@ setup(
         'License :: OSI Approved :: BSD License',  # example license
         'Operating System :: OS Independent',
         'Programming Language :: Python',
-        # Replace these appropriately if you are stuck on Python 2.
-        'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],

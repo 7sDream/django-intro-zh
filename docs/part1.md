@@ -17,17 +17,17 @@ $ python -m django --version
 
 如果已安装，你会看到安装的版本号；如果还没安装，你会看到错误提示：“No module named django”。
 
-本教程的目标版本是 Django 1.11 和 Python 3.4 或更高版本。如果 Django 版本不匹配，你可以通过点击页面右下角的切换版本按钮来转到适合你版本的教程，或者你可以选择将 Django 升级到最新版本。如果你还在用 Python 2.7，你将需要对教程中的代码作一些微调，微调内容会被写在代码的注释里。
+本教程的目标版本是 Django 2.0 和 Python 3.4 或更高版本。如果 Django 版本不匹配，你可以通过点击页面右下角的切换版本按钮来转到适合你版本的教程，或者你可以选择将 Django 升级到最新版本。如果你还在用 Python 2.7，你将需要对教程中的代码作一些微调，微调内容会被写在代码的注释里。
 
 你可以查看文档 [快速安装指南（zh）](install.md) 来获得关于移除旧版本，安装新版本的建议。
 
 > **哪里可以获得帮助：**
 >
-> 如果你在阅读或实践本教程中遇到困难，请发消息给 [django-users](https://docs.djangoproject.com/en/1.11/internals/mailing-lists/#django-users-mailing-list) 或加入IRC频道 [django on irc.freenode.net](irc://irc.freenode.net/django) 来与其他 Django 用户进行交流，他们也许能帮到你。
+> 如果你在阅读或实践本教程中遇到困难，请发消息给 [django-users](https://docs.djangoproject.com/en/2.0/internals/mailing-lists/#django-users-mailing-list) 或加入IRC频道 [django on irc.freenode.net](irc://irc.freenode.net/django) 来与其他 Django 用户进行交流，他们也许能帮到你。
 
 ## 创建项目
 
-如果这是你第一次使用 Django ，你还需要进行一些初始化设置。也就是说，你需要通过自动生成代码来建立一个 Django [项目](https://docs.djangoproject.com/en/1.11/glossary/#term-project)（一个 Django 项目实例需要的设置项集合，包括数据库配置， Django 选项和应用程序的具体设置）。
+如果这是你第一次使用 Django ，你还需要进行一些初始化设置。也就是说，你需要通过自动生成代码来建立一个 Django [项目](https://docs.djangoproject.com/en/2.0/glossary/#term-project)（一个 Django 项目实例需要的设置项集合，包括数据库配置， Django 选项和应用程序的具体设置）。
 
 打开命令行，**cd** 切换到一个你想存放代码的目录，然后运行以下命令：
 
@@ -35,7 +35,7 @@ $ python -m django --version
 $ django-admin startproject mysite
 ```
 
-这行代码将会在当前目录下创建一个 **mysite** 目录。如果命令不起作用，请看文档 [Problems running django-admin](https://docs.djangoproject.com/en/1.11/faq/troubleshooting/#troubleshooting-django-admin)。
+这行代码将会在当前目录下创建一个 **mysite** 目录。如果命令不起作用，请看文档 [Problems running django-admin](https://docs.djangoproject.com/en/2.0/faq/troubleshooting/#troubleshooting-django-admin)。
 
 > **注意**
 >
@@ -47,7 +47,7 @@ $ django-admin startproject mysite
 >
 > 你可以把代码放在文档根目录 **以外** 的地方，比如 **/home/mycode**。
 
-让我们看看 [startproject](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-startproject) 这命令创建了什么：
+让我们看看 [startproject](https://docs.djangoproject.com/en/2.0/ref/django-admin/#django-admin-startproject) 这命令创建了什么：
 
 ```text
 mysite/
@@ -62,12 +62,12 @@ mysite/
 这些目录和文件的用处是：
 
 - 最外层的 **mysite/** 根目录只是你项目的容器， Django 不关心它的名字，你可以将它重命名为任何你喜欢的名字。
-- **manage.py**：一个让你可以用各种方式管理该 Django 项目的命令行工具。你可以阅读 [django-admin and manage.py](https://docs.djangoproject.com/en/1.11/ref/django-admin/) 来获取关于 **manage.py** 的更多细节。
+- **manage.py**：一个让你可以用各种方式管理该 Django 项目的命令行工具。你可以阅读 [django-admin and manage.py](https://docs.djangoproject.com/en/2.0/ref/django-admin/) 来获取关于 **manage.py** 的更多细节。
 - 里面一层的 **mysite/** 目录就是你项目的实际 Python 包。它的名字就是当你引用它内部任何东西时需要用到的 Python 包名（比如：**mysite.urls**）。
 - **mysite/\_\_init\_\_.py**：一个用于指明此目录是 Python 包的空白文件。（如果你刚开始学习 Python，请阅读 Python 官方文档中的 [more about packages](https://docs.python.org/3/tutorial/modules.html#tut-packages) 。）
 - **mysite/settings.py**：该 Django 项目的配置文件。如果你想知道这个文件是如何工作的，请看文档 [Django settings][settings]。
-- **mysite/urls.py**：该 Django 项目的 URL 声明，就像是你网站的“目录”。阅读 [URL dispatcher](https://docs.djangoproject.com/en/1.11/topics/http/urls/) 文档来获取更多关于 URL 的内容。
-- **mysite/wsgi.py**：当你部署项目到一个兼容 WSGI 的服务器上时所需要的入口点。[How to deploy with WSGI](https://docs.djangoproject.com/en/1.11/howto/deployment/wsgi/) 文档内有更多关于这个文件的细节。
+- **mysite/urls.py**：该 Django 项目的 URL 声明，就像是你网站的“目录”。阅读 [URL dispatcher](https://docs.djangoproject.com/en/2.0/topics/http/urls/) 文档来获取更多关于 URL 的内容。
+- **mysite/wsgi.py**：当你部署项目到一个兼容 WSGI 的服务器上时所需要的入口点。[How to deploy with WSGI](https://docs.djangoproject.com/en/2.0/howto/deployment/wsgi/) 文档内有更多关于这个文件的细节。
 
 ## 用于开发的服务器
 
@@ -88,8 +88,8 @@ System check identified no issues (0 silenced).
 You have unapplied migrations; your app may not work properly until they are applied.
 Run 'python manage.py migrate' to apply them.
 
-August 02, 2017 - 15:50:53
-Django version 1.11, using settings 'mysite.settings'
+January 31, 2018 - 15:50:53
+Django version 2.0, using settings 'mysite.settings'
 Starting development server at http://127.0.0.1:8000/
 Quit the server with CONTROL-C.
 ```
@@ -161,7 +161,7 @@ polls/
 
 ## 编写你的第一个视图
 
-创建并打开 **polls/views.py**，然后写进 Python 代码： 
+创建并打开 **polls/views.py**，然后写进 Python 代码：
 
 ```python
 # polls/views.py
@@ -173,7 +173,7 @@ def index(request):
 
 这也许是 Django 中最简单的视图了。为了调用这个视图，我们需要在它和一个 URL 之间做映射，这就需要 URLconf。
 
-为了在 polls 目录下创建一个 URLconf，需要先创建 **urls.py** 文件，你的应用目录现在应该是这样的： 
+为了在 polls 目录下创建一个 URLconf，需要先创建 **urls.py** 文件，你的应用目录现在应该是这样的：
 
 ```text
 polls/
@@ -192,12 +192,12 @@ polls/
 
 ```python
 # polls/urls.py
-from django.conf.urls import url
+from django.urls import path
 
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    path('', views.index, name='index'),
 ]
 ```
 
@@ -205,12 +205,12 @@ urlpatterns = [
 
 ```python
 # mysite/urls.py
-from django.conf.urls import include, url
+from django.urls import include, path
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^polls/', include('polls.urls')),
-    url(r'^admin/', admin.site.urls),
+    path('polls/', include('polls.urls')),
+    path('admin/', admin.site.urls),
 ]
 ```
 
@@ -234,35 +234,32 @@ $ python manage.py runserver
 
 在你的浏览器中打开 [http://localhost:8000/polls/](http://localhost:8000/polls/)。你应该能看到文字 “Hello, world. You’re at the polls index.” —— 这是你在 **index** 视图中定义的。
 
-[**url**][url] 函数有四个参数，两个必需参数：**regex** 正则和 **view** 视图；两个选项参数：**kwargs**字典和 **name** 名字。在这点上，值得再看下这些参数到底是干什么的。
+[**path()**][path] 函数有四个参数，两个必需参数：**route** 路由和 **view** 视图；两个选项参数：**kwargs**字典和 **name** 名字。在这点上，值得再看下这些参数到底是干什么的。
 
-### [url][url]参数：regex
+### [path()][path]参数：route
 
-术语 “regex” 是正则表达式 “regular expression” 的缩写，是匹配字符串的一段语法，像这里例子的是 url 匹配模式。Django 从列表的第一个正则表达式开始，按顺序匹配请求的 URL，直到找到与之匹配的。
+**route** 是一个包含了 URL 模式的字符串。在开始处理一个请求时，Django 会在 **urlpatterns** 中从第一条模式起，顺着列表自上而下一条条寻找比较，直到发现相匹配的模式。
 
-注意，这些正则表达式不会去匹配 GET 和 POST 请求的参数值，或者域名。比如 **https://www.example.com/myapp/** 这个请求，URLconf 会找 **myapp/**；**https://www.example.com/myapp/?page=3** 这个请求，URLconf 同样只会找 **mysqpp/**。
+但这些模式并不理会 GET 或 POST 请求所带的参数，或是域名。比如说，在 **https://www.example.com/myapp/** 这个请求中，URLconf 将会寻找 **myapp/**。而在 **https://www.example.com/myapp/?page=3** 这个请求中，URLconf 也只会去寻找 **myapp/**。
 
-如果你需要正则表达式的帮助，可以看 [**Wikipedia’s entry**](https://en.wikipedia.org/wiki/Regular_expression) 和 关于 [**re**](https://docs.python.org/3/library/re.html#module-re) 模块的文档。还有，由 Jeffrey Friedl 写的书 《掌握正则表达式》 也是很棒的。实际上，你并不需要成为正则表达式方面的专家，你真正要会的是如何使用简单捕获模式。因为复杂的正则可能会有不尽人意的查找性能，所以你不太应该全依赖于正则匹配。
 
-最后，一个性能注意点：这些正则表达式在 URLconf 模块加载后的第一时间就被编译了。它们都是非常快的（只要查找的不是特别复杂就像上面举例的）。
-
-### [url][url] 参数：view
+### [path()][path] 参数：view
 
 当 Django 发现一个正则表达式匹配时，Django 就会调用指定的视图函数，[**HttpRequest**][HttpRequest] 对象作为第一个参数，正则表达式捕获的值作为其他参数。如果正则使用简单捕获，值会作为位置参数传递；如果使用命名捕获，值会作为关键字传递。我们稍后会给出一个例子。
 
-### [url][url] 参数：kwargs
+### [path()][path] 参数：kwargs
 
 任意的关键字参数都可以作为字典传递到目标视图。但我们不准备在本教程里使用 Django 的这个特性。
 
-### [url][url] 参数：name
+### [path()][path] 参数：name
 
 命名你的 URL 可以让你在 Django 的别处明白引用的是什么，特别是在模版里。这个强大的特性允许你在项目里对一个文件操作就能对 URL 模式做全局改变。
 
 当你对基本的请求和响应流都明白时，你就可以阅读 [教程第二部分（zh）](part2.md)开始使用数据库了。
 
 
-[settings]: https://docs.djangoproject.com/en/1.11/topics/settings/
-[runserver]: https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-runserver
-[url]: https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.url
-[include]: https://docs.djangoproject.com/en/1.11/ref/urls/#django.conf.urls.include
-[HttpRequest]: https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpRequest
+[settings]: https://docs.djangoproject.com/en/2.0/topics/settings/
+[runserver]: https://docs.djangoproject.com/en/2.0/ref/django-admin/#django-admin-runserver
+[path]: https://docs.djangoproject.com/en/2.0/ref/urls/#django.urls.path
+[include]: https://docs.djangoproject.com/en/2.0/ref/urls/#django.conf.urls.include
+[HttpRequest]: https://docs.djangoproject.com/en/2.0/ref/request-response/#django.http.HttpRequest
