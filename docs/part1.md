@@ -236,7 +236,7 @@ $ python manage.py runserver
 
 [**path()**][path] 函数有四个参数，两个必需参数：**route** 路由和 **view** 视图；两个选项参数：**kwargs**字典和 **name** 名字。在这点上，值得再看下这些参数到底是干什么的。
 
-### [path()][path]参数：route
+### [path()][path] 参数：route
 
 **route** 是一个包含了 URL 模式的字符串。在开始处理一个请求时，Django 会在 **urlpatterns** 中从第一条模式起，顺着列表自上而下一条条寻找比较，直到发现相匹配的模式。
 
