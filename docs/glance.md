@@ -1,14 +1,14 @@
 # 初识 Django
 
-Django 最初被设计用于具有快速开发需求的新闻类站点，目的是要实现简单快捷的网站开发。以下内容简要介绍了如何使用 Django 实现一个数据库驱动的 Web 应用。
+Django 的设计最初应用于具有快速开发需求的新闻类站点，目的是要实现简单快捷的网站开发。以下内容简要介绍了如何使用 Django 实现一个数据库驱动的 Web 应用。
 
-为了让您充分理解 Django 的工作原理，这份文档为您详细描述了相关的技术细节，不过这并不是一份入门教程或者是参考文档（我们当然也为您准备了这些）。如果您想要马上开始一个项目，可以从 [实例教程（zh）](part1.md)开始入手，或者直接开始阅读详细的[参考文档](https://docs.djangoproject.com/en/1.11/topics/)。
+为了让您充分理解 Django 的工作原理，这份文档为您详细描述了相关的技术细节，不过这并不是一份入门教程或者是参考文档（我们当然也为您准备了这些）。如果您想要马上开始一个项目，可以从 [实例教程（zh）](part1.md)开始入手，或者直接开始阅读详细的[参考文档](https://docs.djangoproject.com/en/2.0/topics/)。
 
 ## 设计模型
 
 Django 无需数据库就可以使用，它提供了[对象关系映射器（ORM）](https://en.wikipedia.org/wiki/Object-relational_mapping)。通过此技术，你可以使用 Python 代码来描述数据库结构。
 
-[数据模型语法](https://docs.djangoproject.com/en/1.11/topics/db/models/)提供了很多方法来描述你的数据，这解决了多年来在数据库模式中的难题。以下是一个简明的例子：
+[数据模型语法](https://docs.djangoproject.com/en/2.0/topics/db/models/)提供了很多方法来描述你的数据，这解决了多年来在数据库模式中的难题。以下是一个简明的例子：
 
 ```python
 # mysite/news/models.py
@@ -18,16 +18,16 @@ from django.db import models
 class Reporter(models.Model):
     full_name = models.CharField(max_length=70)
 
-    def __str__(self):              # Python 2 下请使用 __unicode__
+    def __str__(self):
         return self.full_name
 
 class Article(models.Model):
     pub_date = models.DateField()
     headline = models.CharField(max_length=200)
     content = models.TextField()
-    reporter = models.ForeignKey(Reporter)
+    reporter = models.ForeignKey(Reporter, on_delete=models.CASCADE)
 
-    def __str__(self):              # Python 2 下请使用 __unicode__
+    def __str__(self):
         return self.headline
 ```
 
@@ -39,7 +39,7 @@ class Article(models.Model):
 $ python manage.py migrate
 ```
 
-[**migrate**](https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-migrate) 命令会查找所有可用的模型，如果数据库中没有与之对应的表，则会为其自动创建。Django 也提供了其他[更丰富的控制方式](https://docs.djangoproject.com/en/1.11/topics/migrations/)。
+[**migrate**](https://docs.djangoproject.com/en/2.0/ref/django-admin/#django-admin-migrate) 命令会查找所有可用的模型，如果数据库中没有与之对应的表，则会为其自动创建。Django 也提供了其他[更丰富的控制方式](https://docs.djangoproject.com/en/2.0/topics/migrations/)。
 
 ## 享用便捷的 API
 
@@ -117,9 +117,9 @@ DoesNotExist: Reporter matching query does not exist.
 
 ## 动态生成的管理页面：并非徒有其表
 
-当你的模型完成定义，Django 就会自动生成一个专业的生产级[管理页面](https://docs.djangoproject.com/en/1.11/ref/contrib/admin/) - 一个可以让已认证用户进行添加、更改和删除对象的 Web 站点。你只需简单的在 admin 站点上注册你的模型即可。
+当你的模型完成定义，Django 就会自动生成一个专业的生产级[管理页面](https://docs.djangoproject.com/en/2.0/ref/contrib/admin/) - 一个可以让已认证用户进行添加、更改和删除对象的 Web 站点。你只需简单的在 admin 站点上注册你的模型即可。
 
-```	python3
+```	python
 # mysite/news/models.py
 
 from django.db import models
@@ -149,21 +149,21 @@ admin.site.register(models.Article)
 
 简洁优雅的 URL 规划对于一个高质量 Web 应用来说至关重要。Django 推崇优美的 URL 设计，所以不要把诸如 **.php** 和 **.asp** 之类的冗余的后缀放到 URL 里。
 
-为了设计你自己的 URL，你需要创建一个叫做 [URLconf](https://docs.djangoproject.com/en/1.11/topics/http/urls/) 的 Python 模块。一张包含 URL 匹配模式和 Python 回调函数之间的映射表。URLconf 也有利于将 Python 代码与 URL 解耦合（译注：使各个模块分离，独立）。
+为了设计你自己的 URL，你需要创建一个叫做 [URLconf](https://docs.djangoproject.com/en/2.0/topics/http/urls/) 的 Python 模块。一张包含 URL 匹配模式和 Python 回调函数之间的映射表。URLconf 也有利于将 Python 代码与 URL 解耦合（译注：使各个模块分离，独立）。
 
 下面这个 URLconf 适用于前面 **Reporter/Article** 的例子：
 
 ```python
 # mysite/news/urls.py
 
-from django.conf.urls import url
+from django.urls import path
 
 from . import views
 
 urlpatterns = [
-    url(r'^articles/([0-9]{4})/$', views.year_archive),
-    url(r'^articles/([0-9]{4})/([0-9]{2})/$', views.month_archive),
-    url(r'^articles/([0-9]{4})/([0-9]{2})/([0-9]+)/$', views.article_detail),
+    path('articles/<int:year>/', views.year_archive),
+    path('articles/<int:year>/<int:month>/', views.month_archive),
+    path('articles/<int:year>/<int:month>/<int:pk>/', views.article_detail),
 ]
 ```
 
@@ -171,11 +171,11 @@ urlpatterns = [
 
 一旦其中一个正则表达式匹配成功，Django 就会导入并调用指定的视图——那是一个简单的 Python 函数。视图会被传进一个请求（requeset）对象——其中包含了请求元数据——和正则表达式匹配到的那些参数值。
 
-比如，如果用户请求了“/articles/2005/05/39323/”这样的 URL，Django 就会这样调用函数：**news.views.article_detail(request, '2005', '05', '39323')**。
+比如，如果用户请求了“/articles/2005/05/39323/”这样的 URL，Django 就会这样调用函数：**news.views.article_detail(request, year=2005, month=5, pk=39323)**。
 
 ## 编写视图
 
-视图函数的执行结果只可能有两种：返回一个包含请求页面内容的 [**HttpResponse**](https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpResponse) 对象；或者是抛出 [**Http404**](https://docs.djangoproject.com/en/1.11/topics/http/views/#django.http.Http404) 这类异常。至于视图接下来还要做什么则由你决定。
+视图函数的执行结果只可能有两种：返回一个包含请求页面内容的 [**HttpResponse**](https://docs.djangoproject.com/en/2.0/ref/request-response/#django.http.HttpResponse) 对象；或者是抛出 [**Http404**](https://docs.djangoproject.com/en/2.0/topics/http/views/#django.http.Http404) 这类异常。至于视图接下来还要做什么则由你决定。
 
 通常来说，一个视图的工作就是：从参数获取数据，加载模板，然后模板进行带数据的渲染。下面是一个 **year_archive** 的视图例子：
 
@@ -192,15 +192,15 @@ def year_archive(request, year):
     return render(request, 'news/year_archive.html', context)
 ```
 
-这个例子使用了 Django 的[模板系统](https://docs.djangoproject.com/en/1.11/topics/templates/)，它有着很多强大的功能，而且使用起来足够简单，即使不是程序员也可轻松使用。
+这个例子使用了 Django 的[模板系统](https://docs.djangoproject.com/en/2.0/topics/templates/)，它有着很多强大的功能，而且使用起来足够简单，即使不是程序员也可轻松使用。
 
 ## 设计模板
 
 上面的代码加载了 **news/year_archive.html** 这个模板。
 
-Django 允许设置搜索模板路径，这样可以最小化模板之间的冗余。在Django设置中，你可以通过 [**DIRS**](https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TEMPLATES-DIRS) 参数指定目录列表来检索模板。如果模板不在第一个目录中，就继续检查第二个，以此类推。
+Django 允许设置搜索模板路径，这样可以最小化模板之间的冗余。在Django设置中，你可以通过 [**DIRS**](https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-TEMPLATES-DIRS) 参数指定目录列表来检索模板。如果模板不在第一个目录中，就继续检查第二个，以此类推。
 
-比如**news/year_archive.html** 模板找到了，它可能是这样的：
+比如 **news/year_archive.html** 模板找到了，它可能是这样的：
 
 ```html+django
 # mysite/news/templates/news/year_archive.html
@@ -224,11 +224,11 @@ Django 允许设置搜索模板路径，这样可以最小化模板之间的冗�
 
 注意： **{{ article.pub_date|date:"F j, Y" }}** 使用了 Unix 风格的“管道符”（“|”字符）。这是一个模板过滤器，用于过滤变量值。在这里过滤器将一个 Python **datetime** 对象转化为指定的格式（就像 PHP 中的日期函数那样）。
 
-你可以将多个过滤器连在一起使用。你还可以[自定义模板过滤器](https://docs.djangoproject.com/en/1.11/howto/custom-template-tags/#howto-writing-custom-template-filters)。你甚至可以[自定义模板标签](https://docs.djangoproject.com/en/1.11/howto/custom-template-tags/)，相关的 Python 代码会在使用标签时在后台运行。
+你可以将多个过滤器连在一起使用。你还可以[自定义模板过滤器](https://docs.djangoproject.com/en/2.0/howto/custom-template-tags/#howto-writing-custom-template-filters)。你甚至可以[自定义模板标签](https://docs.djangoproject.com/en/2.0/howto/custom-template-tags/)，相关的 Python 代码会在使用标签时在后台运行。
 
 Django 使用了“模板继承”的概念。这就是 **{% extends "base.html" %}** 的作用。它的含义是“先加载名为 base 的模板作为基类，并且用下面的标记块对模板中定义的标记块进行填充”。简而言之，模板继承可以使模板间的冗余内容最小化：每个模板只需包含与其他文档有区别的内容。
 
-下面是 **base.html** 可能的样子，它使用了[静态文件](https://docs.djangoproject.com/en/1.11/howto/static-files/)：
+下面是 **base.html** 可能的样子，它使用了[静态文件](https://docs.djangoproject.com/en/2.0/howto/static-files/)：
 
 ```html+django
 # mysite/templates/base.html
@@ -255,8 +255,8 @@ Django 使用了“模板继承”的概念。这就是 **{% extends "base.html"
 
 以上只是 Django 的功能性概述。Django 还有更多实用的特性：
 
- - [缓存框架](https://docs.djangoproject.com/en/1.11/topics/cache/)可以与 memcached 或其他后端集成。
- - [聚合器框架](https://docs.djangoproject.com/en/1.11/ref/contrib/syndication/)可以通过简单编写一个 Python 类来推送 RSS 和 Atom。
+ - [缓存框架](https://docs.djangoproject.com/en/2.0/topics/cache/)可以与 memcached 或其他后端集成。
+ - [聚合器框架](https://docs.djangoproject.com/en/2.0/ref/contrib/syndication/)可以通过简单编写一个 Python 类来推送 RSS 和 Atom。
  - 更多令人心动的自动化管理功能：概述里面仅仅浅尝辄止。
 
 接下来您可以[下载 Django（zh）](install.md)，阅读 [实例教程（zh）](part1.md)，然后加入 [Django 社区](https://www.djangoproject.com/community/)！感谢您的关注！

@@ -30,7 +30,7 @@ Django 中的视图的概念是「一类具有相同功能和模板的网页的�
 
 为了将 URL 和视图关联起来，Django 使用了 “URLconfs” 来配置。URLconf 将 URL 模式（表现为一个正则表达式）映射到视图。
 
-本教程只会介绍 URLconf 的基础内容，你可以查看 [**django.core.urlresolvers**][module-django.urls] 以获取更多内容。
+本教程只会介绍 URLconf 的基础内容，你可以查看 [**URL dispatcher**][module-django.urls] 以获取更多内容。
 
 ## 编写更多的视图
 
@@ -50,42 +50,41 @@ def vote(request, question_id):
     return HttpResponse("You're voting on question %s." % question_id)
 ```
 
-要把这些新视图添加进 **polls.urls** 模块里，只需添加几个 **url()** 函数调用：
+要把这些新视图添加进 **polls.urls** 模块里，只需添加几个 **path()** 函数调用：
 
 ```python
 # polls/urls.py
 
-from django.conf.urls import url
+from django.urls import path
 
 from . import views
 
 urlpatterns = [
     # ex: /polls/
-    url(r'^$', views.index, name='index'),
+    path('', views.index, name='index'),
     # ex: /polls/5/
-    url(r'^(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
+    path('<int:question_id>/', views.detail, name='detail'),
     # ex: /polls/5/results/
-    url(r'^(?P<question_id>[0-9]+)/results/$', views.results, name='results'),
+    path('<int:question_id>/results/', views.results, name='results'),
     # ex: /polls/5/vote/
-    url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
+    path('<int:question_id>/vote/', views.vote, name='vote'),
 ]
 ```
 
 然后在你的浏览器里转到 “/polls/34/”，Django 将会运行 **detail()** 方法并展示你在 URL 里提供的问题 ID。再试试 “/polls/34/results” 和 “/polls/34/vote/” —— 你将会看到暂时用于占位的结果和投票页。
 
- 当某人请求你网站的某一页面时——比如说，“/polls/34/”，Django 将会载入 **mysite.urls** 模块，因为配置项 [**ROOT_URLCONF**][ROOT_URLCONF] 说要载入它。然后 Django 寻找名为 **urlpatterns** 变量并且按序遍历正则表达式。Django 找到匹配的正则表达式 **'^polls/'** 
-然后 Django 将会去除被匹配的部分（**polls/**）,然后发送剩下的文本 —— **“34/”** —— 给 “polls.urls” 这个 URLconf 做进一步处理。然后找到匹配的正则表达式 **r'^(?P<question_id>[0-9]+)/$'**，随后用以下方式调用 **detail()** 函数：
+当某人请求你网站的某一页面时——比如说，“/polls/34/”，Django 将会载入 **mysite.urls** 模块，因为配置项 [**ROOT_URLCONF**][ROOT_URLCONF] 说要载入它。然后 Django 寻找名为 **urlpatterns** 变量并且按序遍历模式。Django 找到匹配的模式 **'polls/'**。然后 Django 将会去除被匹配的部分（**"polls/"**）,然后发送剩下的文本 —— **“34/”** —— 给 “polls.urls” 这个 URLconf 做进一步处理。然后找到匹配的 **'\<int:question_id\>/'**，随后用以下方式调用 **detail()** 函数：
 
 ```python
 detail(request=<HttpRequest object>, question_id='34')
 ```
 
-**question_id='34'** 这一部分是由 **(?P<question_id>[0-9+])** 产生的。使用括号来包围一部分模式，就可以“捕获”这部分所匹配到的文本，随后作为参数被传递给视图函数；**?P<question_id>** 用于定义匹配部分的名字；**[0-9]+** 是用于匹配一连串数字（也就是所有整数）的正则表达式。
+**question_id='34'** 这一部分是由 **\<int:question_id\>** 产生的。使用括号来包围一部分模式，就可以“捕获”这部分所匹配到的文本，随后作为参数被传递给视图函数；**:question_id>** 用于定义匹配部分的名字；**<int:** 是用于匹配一连串数字（也就是所有整数）的转换器。
 
-因为 URL 模式本质上是正则表达式，所以不会有规定限制你如何使用它们。还有，没必要为每个 URL 加上不必要的东西，例如 **.html**。不过如果你非要加的话，也是可以的：
+没必要为每个 URL 加上不必要的东西，例如 **.html**。不过如果你非要加的话，也是可以的：
 
 ```python
-url(r'^polls/latest\.html$', views.index),
+path('polls/latest.html', views.index),
 ```
 
 但是，别这样做，这太傻了。
@@ -298,7 +297,7 @@ url(r'^(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
 ```python
 ...
 # 增加 specifics
-url(r'^specifics/(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
+path('specifics/<int:question_id>/', views.detail, name='detail'),
 ...
 ```
 
@@ -311,16 +310,16 @@ url(r'^specifics/(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
 ```python
 # polls/urls.py
 
-from django.conf.urls import url
+from django.urls import path
 
 from . import views
 
 app_name = 'polls'
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^(?P<question_id>[0-9]+)/$', views.detail, name='detail'),
-    url(r'^(?P<question_id>[0-9]+)/results/$', views.results, name='results'),
-    url(r'^(?P<question_id>[0-9]+)/vote/$', views.vote, name='vote'),
+    path('', views.index, name='index'),
+    path('<int:question_id>/', views.detail, name='detail'),
+    path('<int:question_id>/results/', views.results, name='results'),
+    path('<int:question_id>/vote/', views.vote, name='vote'),
 ]
 ```
 
@@ -344,20 +343,20 @@ urlpatterns = [
 当你弄懂如何编写视图之后，就可以去看教程的 [教程第四部分（zh）](part4.md)，来学习关于表单处理和视图类的相关内容。
 
 
-[ROOT_URLCONF]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-ROOT_URLCONF
-[TEMPLATES]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TEMPLATES
-[APP_DIRS]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TEMPLATES-APP_DIRS
-[INSTALLED_APPS]:https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS
-[templates]: https://docs.djangoproject.com/en/1.11/topics/templates/
-[module-django.urls]: https://docs.djangoproject.com/en/1.11/ref/urlresolvers/#module-django.urls
-[filter]: https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.filter
-[templatetag-for]: https://docs.djangoproject.com/en/1.11/ref/templates/builtins/#std:templatetag-for
-[render]: https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.render
-[HttpResponse]: https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpResponse
-[HttpRequest]: https://docs.djangoproject.com/en/1.11/ref/request-response/#django.http.HttpRequest
-[Http404]: https://docs.djangoproject.com/en/1.11/topics/http/views/#django.http.Http404
-[ObjectDoesNotExist]: https://docs.djangoproject.com/en/1.11/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist
-[get_object_or_404]: https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.get_object_or_404
-[get_list_or_404]: https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#django.shortcuts.get_list_or_404
-[django.shortcuts]: https://docs.djangoproject.com/en/1.11/topics/http/shortcuts/#module-django.shortcuts
-[get]: https://docs.djangoproject.com/en/1.11/ref/models/querysets/#django.db.models.query.QuerySet.get
+[ROOT_URLCONF]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-ROOT_URLCONF
+[TEMPLATES]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-TEMPLATES
+[APP_DIRS]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-TEMPLATES-APP_DIRS
+[INSTALLED_APPS]:https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-INSTALLED_APPS
+[templates]: https://docs.djangoproject.com/en/2.0/topics/templates/
+[module-django.urls]: https://docs.djangoproject.com/en/2.0/topics/http/urls/
+[filter]: https://docs.djangoproject.com/en/2.0/ref/models/querysets/#django.db.models.query.QuerySet.filter
+[templatetag-for]: https://docs.djangoproject.com/en/2.0/ref/templates/builtins/#std:templatetag-for
+[render]: https://docs.djangoproject.com/en/2.0/topics/http/shortcuts/#django.shortcuts.render
+[HttpResponse]: https://docs.djangoproject.com/en/2.0/ref/request-response/#django.http.HttpResponse
+[HttpRequest]: https://docs.djangoproject.com/en/2.0/ref/request-response/#django.http.HttpRequest
+[Http404]: https://docs.djangoproject.com/en/2.0/topics/http/views/#django.http.Http404
+[ObjectDoesNotExist]: https://docs.djangoproject.com/en/2.0/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist
+[get_object_or_404]: https://docs.djangoproject.com/en/2.0/topics/http/shortcuts/#django.shortcuts.get_object_or_404
+[get_list_or_404]: https://docs.djangoproject.com/en/2.0/topics/http/shortcuts/#django.shortcuts.get_list_or_404
+[django.shortcuts]: https://docs.djangoproject.com/en/2.0/topics/http/shortcuts/#module-django.shortcuts
+[get]: https://docs.djangoproject.com/en/2.0/ref/models/querysets/#django.db.models.query.QuerySet.get

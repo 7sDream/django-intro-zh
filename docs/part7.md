@@ -112,7 +112,7 @@ admin.site.register(Question, QuestionAdmin)
 
 ![Add question page now has choices on it](img/admin11t.png)
 
-现在有3个可以添加相关选项（choices）的单元 —— “3” 是由代码里的 extra 所规定的——并且当你每次进入一个已经创建好的对象的修改界面时，总会多出另外三个单元让你可以添加选项。
+原理是这样的：现在有3个可以添加相关选项（choices）的单元 —— “3” 是由代码里的 extra 所规定的——并且当你每次进入一个已经创建好的对象的修改界面时，总会多出另外三个单元让你可以添加选项。
 
 在三个添加选项单元的最下方有一个“添加一个选项（Choices）”按钮。但你点击它时，上方会增加一个添加选项的单元。如果你想删掉添加的单元，可以点击单元右上角的X。请注意：你无法移除初始的那三个单元。下面这张图片显示新增了一个单元的效果：
 
@@ -289,17 +289,17 @@ Django 管理界面的所有默认模板都能够被覆盖。如果你想覆盖�
 如果你熟悉 Python 的打包机制，并且对如何将投票应用转化为一个 “可重用的应用” 感兴趣，请看 [**高级教程：如何编写可重用的应用**](reusable_app.md)。
 
 
-[fieldsets]: https://docs.djangoproject.com/en/1.11/ref/contrib/admin/#django.contrib.admin.ModelAdmin.fieldsets
-[list_display]: https://docs.djangoproject.com/en/1.11/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display
-[list_filter]: https://docs.djangoproject.com/en/1.11/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_filter
-[DateTimeField]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.DateTimeField
-[list_per_page]: https://docs.djangoproject.com/en/1.11/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_per_page
-[search_fields]: https://docs.djangoproject.com/en/1.11/ref/contrib/admin/#django.contrib.admin.ModelAdmin.search_fields
-[date_hierarchy]: https://docs.djangoproject.com/en/1.11/ref/contrib/admin/#django.contrib.admin.ModelAdmin.date_hierarchy
-[DIRS]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TEMPLATES-DIRS
-[TEMPLATES]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TEMPLATES
-[APP_DIRS]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-TEMPLATES-APP_DIRS
-[template-loading]: https://docs.djangoproject.com/en/1.11/topics/templates/#template-loading
-[INSTALLED_APPS]: https://docs.djangoproject.com/en/1.11/ref/settings/#std:setting-INSTALLED_APPS
-[site_header]: https://docs.djangoproject.com/en/1.11/ref/contrib/admin/#django.contrib.admin.AdminSite.site_header
-[ForeignKey]: https://docs.djangoproject.com/en/1.11/ref/models/fields/#django.db.models.ForeignKey
+[fieldsets]: https://docs.djangoproject.com/en/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.fieldsets
+[list_display]: https://docs.djangoproject.com/en/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_display
+[list_filter]: https://docs.djangoproject.com/en/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_filter
+[DateTimeField]: https://docs.djangoproject.com/en/2.0/ref/models/fields/#django.db.models.DateTimeField
+[list_per_page]: https://docs.djangoproject.com/en/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.list_per_page
+[search_fields]: https://docs.djangoproject.com/en/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.search_fields
+[date_hierarchy]: https://docs.djangoproject.com/en/2.0/ref/contrib/admin/#django.contrib.admin.ModelAdmin.date_hierarchy
+[DIRS]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-TEMPLATES-DIRS
+[TEMPLATES]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-TEMPLATES
+[APP_DIRS]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-TEMPLATES-APP_DIRS
+[template-loading]: https://docs.djangoproject.com/en/2.0/topics/templates/#template-loading
+[INSTALLED_APPS]: https://docs.djangoproject.com/en/2.0/ref/settings/#std:setting-INSTALLED_APPS
+[site_header]: https://docs.djangoproject.com/en/2.0/ref/contrib/admin/#django.contrib.admin.AdminSite.site_header
+[ForeignKey]: https://docs.djangoproject.com/en/2.0/ref/models/fields/#django.db.models.ForeignKey

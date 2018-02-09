@@ -10,7 +10,7 @@
 
 > **参见**
 >
-> 如果你正在为如何提交补丁，寻找参考指南，可以看[提交补丁](https://docs.djangoproject.com/en/1.11/internals/contributing/writing-code/submitting-patches/)文档。
+> 如果你正在为如何提交补丁，寻找参考指南，可以看[提交补丁](https://docs.djangoproject.com/en/2.0/internals/contributing/writing-code/submitting-patches/)文档。
 
 在本教程里，我们期望你至少能基本明白 Django 是如何工作的。这意味着你应该顺利地读完了[实例教程](index.md)。还有，你应该对 Python 本身也有了很好地了解。如果没有，可以在线看看这本有趣的 [Dive Into Python](www.diveintopython3.net)，它面向 Python 新手程序员。
 
@@ -20,7 +20,7 @@
 
 > **哪里可以获得帮助：**
 >
-> 如果你在阅读或实践本教程中遇到困难，请发消息给 [django-users](https://docs.djangoproject.com/en/1.11/internals/mailing-lists/#django-users-mailing-list) 或加入IRC频道 [django on irc.freenode.net](irc://irc.freenode.net/django) 来与其他 Django 用户进行交流，他们也许能帮到你。
+> 如果你在阅读或实践本教程中遇到困难，请发消息给 [django-users](https://docs.djangoproject.com/en/2.0/internals/mailing-lists/#django-users-mailing-list) 或加入IRC频道 [django on irc.freenode.net](irc://irc.freenode.net/django) 来与其他 Django 用户进行交流，他们也许能帮到你。
 
 ## 本教程覆盖了哪些知识点
 
@@ -35,13 +35,13 @@
 - 提交拉去请求（pull request）
 - 哪里可以查看更多信息
 
-一旦你完成了本教程，你就可以去看完[为 Django 做贡献文档](https://docs.djangoproject.com/en/1.11/internals/contributing/)的剩下部分了。那里有很多信息，而且是那些想成为定期贡献者必看的。如果你有问题，你也可能在那得到答案。
+一旦你完成了本教程，你就可以去看完[为 Django 做贡献文档](https://docs.djangoproject.com/en/2.0/internals/contributing/)的剩下部分了。那里有很多信息，而且是那些想成为定期贡献者必看的。如果你有问题，你也可能在那得到答案。
 
-> 需要 **Python 3**！
+> **要求 Python 3！**
 >
-> 本教程假定你用的就是 Python 3。请到[Python 官网下载页](https://www.python.org/downloads/)或者你系统的包管理安装最新版的 Python3。
+> 当前版本的 Django 不支持 Python 2.7。请到[Python 官网下载页](https://www.python.org/downloads/)或者你系统的包管理安装最新版的 Python3。
 
-> **给 Windows 用户**
+> **对于 Windows 用户**
 >
 > 给 Windows 安装 Python 时，请确保把 python.exe 添加进了 Path，这样可以直接在命令行使用。
 
@@ -55,7 +55,7 @@
 
 为了确认是否安装了 Git，你可以在命令行输入 git。如果提示说命令找不到，那你就需要下载安装了，[Git 下载页](https://git-scm.com/download)。
 
-> **给 Windows 用户**
+> **对于 Windows 用户**
 >
 > 给 Windows 安装 Git 时，请确保给 “Git Bash” 打勾了，这样 Git 可以用它自己的 shell 运行。本教程假定你已经安装了它。
 
@@ -87,19 +87,21 @@ $ python3 -m venv ~/.virtualenvs/djangodev
 
 路径就是新的虚拟环境，而它会被保存在你的电脑里。
 
-> **给 Windows 用户**
+> **对于 Windows 用户**
 >
 > 如果你在 Windows 下使用 Git 的 shell，使用内置的 **venv** 模块会无效，由于启动脚本是为系统 shell 创建的（**.bat**）和 PowerShell (**.ps1**)。使用 **virtualenv** 包代替 venv 模块：
+>
 > ```bash
 > $ pip install virtualenv
 > $ virtualenv ~/.virtualenvs/djangodev
 > ```
 
-> **给 Ubuntu 用户**
+> **针对 Ubuntu 用户**
 >
 > 在一些 Ubuntu 版本中，上面的命令可能会失败。
-> 
+>
 > 使用 **virtualenv** 包代替，确认你安装了 pip3：
+>
 > ```bash
 > $ sudo apt-get install python3-pip
 > # 如果下面的命令因为没有权限出错了，那就加上 sudo
@@ -119,9 +121,10 @@ $ source ~/.virtualenvs/djangodev/bin/activate
 $ . ~/.virtualenvs/djangodev/bin/activate
 ```
 
-> **给 Windows 用户**
+> **对于 Windows 用户**
 >
 > 为了在 Windows 上让虚拟环境（virtualenvs）生效，运行下面命令：
+>
 > ```bash
 > $ source ~/virtualenvs/djangodev/Scripts/activate
 > ```
@@ -176,15 +179,15 @@ $ ./runtests.py
 
 当 Django 测试套件运行的时候，你可以看到一段显示着每个正在运行的测试的状态的字符流。**E** 表示在测试期间抛出了一个错误，**F** 表示一个测试的断言（assertions）失败。这两者都可以被认为测试失败了。同时，**x** 和 **s** 分别表示预期失败和跳过测试。“点” 表示通过测试。
 
-跳过测试是由于运行测试时缺少额外的库；可以查看[运行所有测试](https://docs.djangoproject.com/en/1.11/internals/contributing/writing-code/unit-tests/#running-unit-tests-dependencies)所需要的一系列的依赖，确认和你修改的相关的一些测试依赖被安装了（本教程我们什么都不需要安装）。一些测试是特别针对特别的后台数据库的，如果不对那后台进行测试，就会被跳过。SQLite 是默认设置的后台数据库。如果是使用其他的后台数据库，为了运行测试，可以查看[使用其他设置模块](https://docs.djangoproject.com/en/1.11/internals/contributing/writing-code/unit-tests/#running-unit-tests-settings)。
+跳过测试是由于运行测试时缺少额外的库；可以查看[运行所有测试](https://docs.djangoproject.com/en/2.0/internals/contributing/writing-code/unit-tests/#running-unit-tests-dependencies)所需要的一系列的依赖，确认和你修改的相关的一些测试依赖被安装了（本教程我们什么都不需要安装）。一些测试是特别针对特别的后台数据库的，如果不对那后台进行测试，就会被跳过。SQLite 是默认设置的后台数据库。如果是使用其他的后台数据库，为了运行测试，可以查看[使用其他设置模块](https://docs.djangoproject.com/en/2.0/internals/contributing/writing-code/unit-tests/#running-unit-tests-settings)。
 
-一旦测试完毕，你应该会收到一条关于测试套件是通过了还是失败了的信息。由于你还没有对 Django 的代码做修改，所以整个测试套件 **应该是（should）** 通过。如果你得到的是失败或者错误的信息，请确保你之前走的所有步骤都正确。可以查看[运行单元测试](https://docs.djangoproject.com/en/1.11/internals/contributing/writing-code/unit-tests/#running-unit-tests)获得更多信息。如果你正在使用 Python3.5+，将会有些与不被赞成的警告（deprecation warnings）相关的失败，那些你可以忽略掉。这些失败已经被 Django 修复了。
+一旦测试完毕，你应该会收到一条关于测试套件是通过了还是失败了的信息。由于你还没有对 Django 的代码做修改，所以整个测试套件 **应该是（should）** 通过。如果你得到的是失败或者错误的信息，请确保你之前走的所有步骤都正确。可以查看[运行单元测试](https://docs.djangoproject.com/en/2.0/internals/contributing/writing-code/unit-tests/#running-unit-tests)获得更多信息。如果你正在使用 Python3.5+，将会有些与不被赞成的警告（deprecation warnings）相关的失败，那些你可以忽略掉。这些失败已经被 Django 修复了。
 
 注意，最新的 Django 主干（trunk）版本不总是稳定的。当开发版本遇上主干（trunk）版本，你可以检查 [Django 的持续集成构建（Django’s continuous integration builds）](https://djangoci.com)来确认是特别针对你的机器的失败还是已经存在在 Django 官方构建里的。如果你点击去看一个特别的构建，你可以看到 “配置矩阵（Configuration Matrix）” 显示着由于 Python 版本和数据库后台问题出现的失败。
 
 > **注意**
 >
-> 在本教程和我们正在工作的任务（ticket）里，测试使用 SQLite 足够了，但是，[运行其他数据库进行测试](https://docs.djangoproject.com/en/1.11/internals/contributing/writing-code/unit-tests/#running-unit-tests-settings)是可能的（有时是必要的）。
+> 在本教程和我们正在工作的任务（ticket）里，测试使用 SQLite 足够了，但是，[运行其他数据库进行测试](https://docs.djangoproject.com/en/2.0/internals/contributing/writing-code/unit-tests/#running-unit-tests-settings)是可能的（有时是必要的）。
 
 ## 为你的补丁创建一个分支
 
@@ -239,7 +242,7 @@ def test_class_prefix(self):
 > **但这个测试的东西看起来特别困难……**
 >
 > 如果你之前从来没有接触过测试，第一眼看上去它们确实有点难。幸运的是，测试在电脑编程中是个 *非常* 大的主题，有很多出自这里的信息：
-> - [编写和运行测试文档](https://docs.djangoproject.com/en/1.11/topics/testing/overview/) —— 给 Django 编写测试。
+> - [编写和运行测试文档](https://docs.djangoproject.com/en/2.0/topics/testing/overview/) —— 给 Django 编写测试。
 > - [单元测试介绍](www.diveintopython3.net/unit-testing.html) —— 《深入 Python》（一本给 Python 初学开发者的免费的在线书籍）。
 > - 在阅读完这些后，如果你求知若渴，还可以看看 Python 的官方文档 [**unittest**](https://docs.python.org/3/library/unittest.html#module-unittest)。
 
@@ -306,7 +309,7 @@ $ ./runtests.py
 
 只要你没看到任何失败，你就可以继续了。
 
-## 写文档
+## 撰写文档
 
 这是个新功能，所以应该被记录到文档里。在 **django/docs/ref/forms/api.txt** 的第 1068 行（文件结尾）添加：
 
@@ -329,7 +332,7 @@ The prefix can also be specified on the form class::
   instantiating a form. See :ref:`form-prefix` for details.
 ```
 
-有关编写文档的更多信息，包括有关 **versionadded** 的说明，可以查看[文档编写](https://docs.djangoproject.com/en/1.11/internals/contributing/writing-documentation/)。文章还包括了一篇关于怎样在本地建立文档副本的说明，好让你可以预览将被生成的 HTML。
+有关编写文档的更多信息，包括有关 **versionadded** 的说明，可以查看[文档编写](https://docs.djangoproject.com/en/2.0/internals/contributing/writing-documentation/)。文章还包括了一篇关于怎样在本地建立文档副本的说明，好让你可以预览将被生成的 HTML。
 
 ## 预览你的修改
 
@@ -431,7 +434,7 @@ index 690f205..e07fae2 100644
 $ git commit -a
 ```
 
-为了输入提交的信息，会打开一个文本编辑器。根据[提交信息准则](https://docs.djangoproject.com/en/1.11/internals/contributing/committing-code/#committing-guidelines)，写下像这样的信息：
+为了输入提交的信息，会打开一个文本编辑器。根据[提交信息准则](https://docs.djangoproject.com/en/2.0/internals/contributing/committing-code/#committing-guidelines)，写下像这样的信息：
 
 ```text
 Fixed #24788 -- Allowed Forms to specify a prefix at the class level.
@@ -451,7 +454,7 @@ $ git push origin ticket_24788
 
 ## 下一步
 
-恭喜你，你已经学会了如何给 Django 创建拉取请求了！更多进阶技术细节你可以看[用 Git 和 GitHub 工作](https://docs.djangoproject.com/en/1.11/internals/contributing/writing-code/working-with-git/)。
+恭喜你，你已经学会了如何给 Django 创建拉取请求了！更多进阶技术细节你可以看[用 Git 和 GitHub 工作](https://docs.djangoproject.com/en/2.0/internals/contributing/writing-code/working-with-git/)。
 
 现在，你可以通过帮助改进 Django 的代码库来使这些技能得到很好的使用了。
 
@@ -459,16 +462,16 @@ $ git push origin ticket_24788
 
 在你给 Django 写补丁之前，这里有些关于贡献的信息，你应该看一下：
 
-- 你应该确保读了 Django 的文档[认领任务和提交补丁](https://docs.djangoproject.com/en/1.11/internals/contributing/writing-code/submitting-patches/)。它涵盖了 Trac 礼仪，如何申请自己的任务，期望的补丁代码风格以及很多其他的重要细节。
-- 首次贡献者，也应该读下 Django 的[给第一次贡献者文档](https://docs.djangoproject.com/en/1.11/internals/contributing/new-contributors/)。那里有很多好的建议。
-- 读完这些后，如果你仍然渴望得到更多关于贡献的信息，你可以随时浏览 [Django 关于做贡献的文档](https://docs.djangoproject.com/en/1.11/internals/contributing/)的剩下部分。那里包含了非常多的信息，也应该是回答你任何问题的第一来源。
+- 你应该确保读了 Django 的文档[认领任务和提交补丁](https://docs.djangoproject.com/en/2.0/internals/contributing/writing-code/submitting-patches/)。它涵盖了 Trac 礼仪，如何申请自己的任务，期望的补丁代码风格以及很多其他的重要细节。
+- 首次贡献者，也应该读下 Django 的[给第一次贡献者文档](https://docs.djangoproject.com/en/2.0/internals/contributing/new-contributors/)。那里有很多好的建议。
+- 读完这些后，如果你仍然渴望得到更多关于贡献的信息，你可以随时浏览 [Django 关于做贡献的文档](https://docs.djangoproject.com/en/2.0/internals/contributing/)的剩下部分。那里包含了非常多的信息，也应该是回答你任何问题的第一来源。
 
 ### **寻找你真正的第一次任务**
 
 一旦你已经看完了所有的那些信息，你就准备好入门了，然后寻找属于你的任务，去编写补丁吧。特别留意那些写着 “轻松（easy pickings）” 级别的任务。这些任务通常更简单，对于首次贡献者而言是非常棒的。一旦你熟悉了为 Django 做贡献，你就可以继续为更困难更复杂的任务编写补丁了。
 
-如果你只是想在已经完成的任务上开始（没人会怪你），可以看看这个列表[需要补丁的简单任务](https://code.djangoproject.com/query?status=new&status=reopened&has_patch=0&easy=1&col=id&col=summary&col=status&col=owner&col=type&col=milestone&order=priority)和[已有补丁但需要改进的简单任务](https://code.djangoproject.com/query?status=new&status=reopened&needs_better_patch=1&easy=1&col=id&col=summary&col=status&col=owner&col=type&col=milestone&order=priority)。如果你对编写测试很熟，你也可以看看这个列表[需要测试的简单任务](https://code.djangoproject.com/query?status=new&status=reopened&needs_tests=1&easy=1&col=id&col=summary&col=status&col=owner&col=type&col=milestone&order=priority)。要记得遵循 Django 的关于[认领任务和提交补丁](https://docs.djangoproject.com/en/1.11/internals/contributing/writing-code/submitting-patches/)文档中提到的认领任务问题。
+如果你只是想在已经完成的任务上开始（没人会怪你），可以看看这个列表[需要补丁的简单任务](https://code.djangoproject.com/query?status=new&status=reopened&has_patch=0&easy=1&col=id&col=summary&col=status&col=owner&col=type&col=milestone&order=priority)和[已有补丁但需要改进的简单任务](https://code.djangoproject.com/query?status=new&status=reopened&needs_better_patch=1&easy=1&col=id&col=summary&col=status&col=owner&col=type&col=milestone&order=priority)。如果你对编写测试很熟，你也可以看看这个列表[需要测试的简单任务](https://code.djangoproject.com/query?status=new&status=reopened&needs_tests=1&easy=1&col=id&col=summary&col=status&col=owner&col=type&col=milestone&order=priority)。要记得遵循 Django 的关于[认领任务和提交补丁](https://docs.djangoproject.com/en/2.0/internals/contributing/writing-code/submitting-patches/)文档中提到的认领任务问题。
 
 ### **在创建完拉取请求后还要干什么呢？**
 
-在任务有了补丁之后，它需要被第二次审查。在提交了拉取请求后，通过设置标志在任务上，比如 “有补丁了（has patch”）”，“不用测试了（doesn’t need tests）” 等，来更新任务元数据，好让其他人为了审查而找到它。做贡献不意味着总是从头开始写补丁。审查已经存在的补丁也是非常有帮助的一次贡献。查看 [Triaging tickets](https://docs.djangoproject.com/en/1.11/internals/contributing/triaging-tickets/) 获取更多细节。
+在任务有了补丁之后，它需要被第二次审查。在提交了拉取请求后，通过设置标志在任务上，比如 “有补丁了（has patch”）”，“不用测试了（doesn’t need tests）” 等，来更新任务元数据，好让其他人为了审查而找到它。做贡献不意味着总是从头开始写补丁。审查已经存在的补丁也是非常有帮助的一次贡献。查看 [Triaging tickets](https://docs.djangoproject.com/en/2.0/internals/contributing/triaging-tickets/) 获取更多细节。

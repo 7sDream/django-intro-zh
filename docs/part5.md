@@ -146,7 +146,7 @@ Destroying test database for alias 'default'...
 
 发生了什么呢？以下是自动化测试的运行过程：
 
-- **`python manage.py test polls`** 将会寻找 **poll** 应用里的测试代码
+- **python manage.py test polls** 将会寻找 **poll** 应用里的测试代码
 - 它找到了一个 [**django.test.TestCase**][TestCase] 的子类
 - 它创建一个特殊的数据库供测试使用
 - 它在类中寻找测试方法——以 **test** 开头的方法。
@@ -253,10 +253,8 @@ Django 提供了一个供测试使用的 [**Client**][Client] 来模拟用户和
 >>> # 获取 '/' 的响应
 >>> response = client.get('/')
 Not Found: /
->>> # 我们期望返回一个 404；
-如果你看到一个
->>> # “无效 HTTP_HOST_header” 错误 和 一个
-400 响应，那你可能
+>>> # 我们期望返回一个 404；如果你看到一个
+>>> # “无效 HTTP_HOST_header” 错误 和 一个 400 响应，那你可能
 >>> # 忘记了这之前要调用的 setup_test_environment()
 >>> response.status_code
 404
@@ -304,7 +302,9 @@ from django.utils import timezone
 # polls/views.py
 
 def get_queryset(self):
-    """返回最近发布的五个投票（不包括那些被设置为在将来发布的）"""
+    """
+    返回最近发布的五个投票（不包括那些被设置为在将来发布的）
+    """
     return Question.objects.filter(
         pub_date__lte=timezone.now()
     ).order_by('-pub_date')[:5]
@@ -489,13 +489,13 @@ class QuestionDetailViewTests(TestCase):
 当你已经比较熟悉该如何测试 Django 的视图之后，就可以继续于读 [教程第六部分（zh）](part6.md)，来学习关于静态文件管理的相关知识。
 
 
-[topics-testing-code-coverage]: https://docs.djangoproject.com/en/1.11/topics/testing/advanced/#topics-testing-code-coverage
-[shell]: https://docs.djangoproject.com/en/1.11/ref/django-admin/#django-admin-shell
-[TestCase]: https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.TestCase
-[Client]: https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.Client
-[setup_test_environment]: https://docs.djangoproject.com/en/1.11/topics/testing/advanced/#django.test.utils.setup_test_environment
-[assertContains]: https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.SimpleTestCase.assertContains
-[assertQuerysetEqual]: https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.TransactionTestCase.assertQuerysetEqual
-[LiveServerTestCase]: https://docs.djangoproject.com/en/1.11/topics/testing/tools/#django.test.LiveServerTestCase
-[ListView]: https://docs.djangoproject.com/en/1.11/ref/class-based-views/generic-display/#django.views.generic.list.ListView
-[testing]: https://docs.djangoproject.com/en/1.11/topics/testing/
+[topics-testing-code-coverage]: https://docs.djangoproject.com/en/2.0/topics/testing/advanced/#topics-testing-code-coverage
+[shell]: https://docs.djangoproject.com/en/2.0/ref/django-admin/#django-admin-shell
+[TestCase]: https://docs.djangoproject.com/en/2.0/topics/testing/tools/#django.test.TestCase
+[Client]: https://docs.djangoproject.com/en/2.0/topics/testing/tools/#django.test.Client
+[setup_test_environment]: https://docs.djangoproject.com/en/2.0/topics/testing/advanced/#django.test.utils.setup_test_environment
+[assertContains]: https://docs.djangoproject.com/en/2.0/topics/testing/tools/#django.test.SimpleTestCase.assertContains
+[assertQuerysetEqual]: https://docs.djangoproject.com/en/2.0/topics/testing/tools/#django.test.TransactionTestCase.assertQuerysetEqual
+[LiveServerTestCase]: https://docs.djangoproject.com/en/2.0/topics/testing/tools/#django.test.LiveServerTestCase
+[ListView]: https://docs.djangoproject.com/en/2.0/ref/class-based-views/generic-display/#django.views.generic.list.ListView
+[testing]: https://docs.djangoproject.com/en/2.0/topics/testing/
