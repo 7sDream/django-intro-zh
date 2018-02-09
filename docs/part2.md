@@ -276,15 +276,12 @@ datetime.datetime(2012, 2, 26, 13, 0, 0, 775217, tzinfo=<UTC>)
 ```python
 # polls/models.py
 from django.db import models
-from django.utils.encoding import python_2_unicode_compatible、
 
-@python_2_unicode_compatible  # 如果你想支持 Python 2
 class Question(models.Model):
     # ...
     def __str__(self):
         return self.question_text
 
-@python_2_unicode_compatible  # 如果你想支持 Python 2
 class Choice(models.Model):
     # ...
     def __str__(self):
